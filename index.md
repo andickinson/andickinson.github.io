@@ -3,3 +3,13 @@ Andrew is an experienced technical consultant and developer with over 13 years o
 [LinkedIn](https://www.linkedin.com/in/andrew-dickinson-8a78a623/)
 
 ## Posts
+
+<ul>
+    {% for post in site.posts %}
+    <li>
+        <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
+        <p>{{ post.date | date_to_long_string }}</p>
+        <p>{{ post.excerpt }}</p>
+    </li>
+    {% endfor %}
+</ul>

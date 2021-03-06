@@ -2,3 +2,17 @@ theme: jekyll-theme-slate
 title: Andrew Dickinson
 description: Technical Consultant || Team Leader || Cyber Security Specialist
 url: http://andickinson.github.io
+defaults:
+  -
+    scope:
+      type: posts
+      path: _posts
+    values:
+      is_post: true
+      permalink: /blog/:categories/:title/
+  -
+    scope:
+      type: pages
+      path: _pages
+    values:
+      is_post: false
