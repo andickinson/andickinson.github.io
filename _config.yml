@@ -19,6 +19,8 @@ defaults:
       share: false
       show_date: true
       related: false
+atom_feed:
+  hide: true
 author:
   avatar: "/assets/images/avatar.jpg"
   bio: "Technical Consultant, Team Leader, Cyber Security Specialist"
