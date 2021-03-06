@@ -1,13 +1,8 @@
 ---
-title:  "Try Hack Me: Enumerating SMB"
+title:  "TryHackMe: Enumerating SMB"
 date:   2021-03-06 18:20:00 +1100
 excerpt: Conucting a port scan and enumerating SMB.
-
 ---
-
-# {{ page.title }}
-
-{{ page.date | date_to_long_string }}
 
 This is a write up for the **Enumerating SMB** task of the [**Network Services**](https://tryhackme.com/room/networkservices) room on [TryHackMe](https://tryhackme.com). Some tasks have been omitted as they do not require an answer.
 
@@ -19,7 +14,9 @@ TryHackMe suggests conducting a scan with the -A and -p- tags where:
  * **-A**: Enables OS Detection, Version Detection, Script Scanning and Traceroute all in one
  * **-p-**: Enables scanning across all ports, not just the top 1000
 
-`nmap -A -p- <ip>`
+```
+nmap -A -p- <ip>
+```
 
 Scanning every port can be a very time consuming process, so in this case lets add a couple more flags:
  * **-T4**: Set speed of the scan to 4 (range from T0 to T5). Increasing this number may increase the possibility of being detected by the client
@@ -29,7 +26,9 @@ Scanning every port can be a very time consuming process, so in this case lets a
 
 This gives us the following command:
 
-`nmap -A -p- -T4 -v <ip>`
+```
+nmap -A -p- -T4 -v <ip>
+```
 
 As the scan is running we notice that 3 open ports are returned early on.
 
@@ -54,7 +53,9 @@ This also correlates with what we found in our scan (image above).
 
 Run the requested command:
 
-`enum4linux -A <ip>`
+```
+enum4linux -A <ip>
+```
 
 The workgroup name is listed under the **Enumerating Workgroup/Domain** section.
 
@@ -76,7 +77,7 @@ The name of the machine is listed under the **OS Information** section.
 
 ### What operating system version is running?
 
-The os version is also defined under the same section.
+The OS version is also defined under the same section.
 
 > Answer: **6.1**
 

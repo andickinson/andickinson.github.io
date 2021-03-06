@@ -1,20 +1,34 @@
-theme: jekyll-theme-slate
-title: Andrew Dickinson
-description: Technical Consultant || Team Leader || Cyber Security Specialist
+plugins:
+  - jekyll-include-cache
+remote_theme: "mmistakes/minimal-mistakes@4.22.0"
+title: andickinson.github.io
+description: Technical Consultant, Team Leader, Cyber Security Specialist
 url: http://andickinson.github.io
-github:
-  repository_url: https://github.com/andickinson
 defaults:
   -
     scope:
       type: posts
       path: _posts
     values:
+      author_profile: true
       is_post: true
       permalink: /blog/:categories/:title/
-  -
-    scope:
-      type: pages
-      path: _pages
-    values:
-      is_post: false
+      layout: single
+      read_time: true
+      comments: false
+      share: false
+      show_date: true
+      related: false
+author:
+  avatar: "/assets/images/avatar.jpg"
+  bio: "Technical Consultant, Team Leader, Cyber Security Specialist"
+  links:
+    - label: "LinkedIn"
+      icon: "fab fa-fw fa-linkedin"
+      url: "https://www.linkedin.com/in/a-dickinson"
+    - label: "GitHub"
+      icon: "fab fa-fw fa-github"
+      url: "https://github.com/andickinson"
+  location: "Melbourne, Australia"
+  name: "Andrew Dickinson"
+search: true
