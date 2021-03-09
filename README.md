@@ -1,7 +1,13 @@
 # Usage #
 
+Serve locally
 ```
 bundle exec jekyll serve
+```
+
+Rebuild jekyll
+```
+bundle exec jekyll build
 ```
 
 # Plugins #
