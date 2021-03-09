@@ -22,7 +22,7 @@ defaults:
 atom_feed:
   hide: true
 author:
-  avatar: "/assets/images/profile.jpg"
+  avatar: "/assets/images/avatar.jpg"
   bio: "Technical Consultant, Team Leader, Cyber Security Specialist"
   links:
     - label: "LinkedIn"
