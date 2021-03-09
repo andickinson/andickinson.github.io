@@ -1,6 +1,8 @@
 # Usage #
 
+```
 bundle exec jekyll serve
+```
 
 # Plugins #
 
