@@ -3,7 +3,7 @@ plugins:
 remote_theme: "mmistakes/minimal-mistakes@4.22.0"
 title: andickinson.github.io
 description: Technical Consultant, Team Leader, Cyber Security Specialist
-url: http://andickinson.github.io
+url: https://andickinson.github.io
 defaults:
   -
     scope:
