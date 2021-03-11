@@ -31,6 +31,9 @@ author:
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
       url: "https://github.com/andickinson"
+    - label: "TryHackMe"
+      icon: "fas fa-fw fa-laptop-code"
+      url: "https://tryhackme.com/p/foolish"
   location: "Melbourne, Australia"
   name: "Andrew Dickinson"
 search: true

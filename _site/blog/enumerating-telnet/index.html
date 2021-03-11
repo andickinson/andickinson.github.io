@@ -9,8 +9,8 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>TryHackMe: Enumerating SMB - andickinson.github.io</title>
-<meta name="description" content="Conucting a port scan and enumerating SMB.">
+<!-- begin _includes/seo.html --><title>TryHackMe: Enumerating Telnet - andickinson.github.io</title>
+<meta name="description" content="Conucting a port scan with nmap and interpreting the results.">
 
 
   <meta name="author" content="Andrew Dickinson">
@@ -22,26 +22,26 @@
 <meta property="og:type" content="article">
 <meta property="og:locale" content="en_US">
 <meta property="og:site_name" content="andickinson.github.io">
-<meta property="og:title" content="TryHackMe: Enumerating SMB">
-<meta property="og:url" content="https://andickinson.github.io/blog/enumerating-smb/">
+<meta property="og:title" content="TryHackMe: Enumerating Telnet">
+<meta property="og:url" content="https://andickinson.github.io/blog/enumerating-telnet/">
 
 
-  <meta property="og:description" content="Conucting a port scan and enumerating SMB.">
-
-
-
-
-
-
-
-  <meta property="article:published_time" content="2021-03-06T18:20:00+11:00">
+  <meta property="og:description" content="Conucting a port scan with nmap and interpreting the results.">
 
 
 
 
 
 
-<link rel="canonical" href="https://andickinson.github.io/blog/enumerating-smb/">
+
+  <meta property="article:published_time" content="2021-03-11T22:40:00+11:00">
+
+
+
+
+
+
+<link rel="canonical" href="https://andickinson.github.io/blog/enumerating-telnet/">
 
 
 
@@ -270,15 +270,15 @@
 
 
   <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
-    <meta itemprop="headline" content="TryHackMe: Enumerating SMB">
-    <meta itemprop="description" content="Conucting a port scan and enumerating SMB.">
-    <meta itemprop="datePublished" content="2021-03-06T18:20:00+11:00">
+    <meta itemprop="headline" content="TryHackMe: Enumerating Telnet">
+    <meta itemprop="description" content="Conucting a port scan with nmap and interpreting the results.">
+    <meta itemprop="datePublished" content="2021-03-11T22:40:00+11:00">
     
 
     <div class="page__inner-wrap">
       
         <header>
-          <h1 id="page-title" class="page__title" itemprop="headline">TryHackMe: Enumerating SMB
+          <h1 id="page-title" class="page__title" itemprop="headline">TryHackMe: Enumerating Telnet
 </h1>
           
 
@@ -287,7 +287,7 @@
       
       <span class="page__meta-date">
         <i class="far fa-calendar-alt" aria-hidden="true"></i>
-        <time datetime="2021-03-06T18:20:00+11:00">March 6, 2021</time>
+        <time datetime="2021-03-11T22:40:00+11:00">March 11, 2021</time>
       </span>
     
 
@@ -312,114 +312,79 @@
 
       <section class="page__content" itemprop="text">
         
-        <p>This is a write up for the <strong>Enumerating SMB</strong> task of the <a href="https://tryhackme.com/room/networkservices"><strong>Network Services</strong></a> room on <a href="https://tryhackme.com">TryHackMe</a>. Some tasks have been omitted as they do not require an answer.</p>
+        <p>This is a write up for the <strong>Enumerating Telnet</strong> task of the <a href="https://tryhackme.com/room/networkservices"><strong>Network Services</strong></a> room on <a href="https://tryhackme.com">TryHackMe</a>. Some tasks have been omitted as they do not require an answer.</p>
 
 <hr />
 
-<h3 id="conduct-an-nmap-scan-of-your-choosing-how-many-ports-are-open">Conduct an nmap scan of your choosing, How many ports are open?</h3>
+<h3 id="how-many-ports-are-open-on-the-target-machine">How many ports are open on the target machine?</h3>
 
-<p>TryHackMe suggests conducting a scan with the -A and -p- tags where:</p>
-<ul>
-  <li><strong>-A</strong>: Enables OS Detection, Version Detection, Script Scanning and Traceroute all in one</li>
-  <li><strong>-p-</strong>: Enables scanning across all ports, not just the top 1000</li>
-</ul>
+<p>Run an nmap scan on the target machine as instructed.</p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nmap -A -p- &lt;ip&gt;
 </code></pre></div></div>
 
-<p>Scanning every port can be a very time consuming process, so in this case lets add a couple more flags:</p>
-<ul>
-  <li><strong>-T4</strong>: Set speed of the scan to 4 (range from T0 to T5). Increasing this number may increase the possibility of being detected by the client</li>
-  <li><strong>-v</strong>: Basic verbosity. This will display the ports as they are found</li>
-</ul>
+<p><img src="/assets/images/2021-03-11-enumerating-telnet/01-nmap.jpg" /></p>
 
-<p>More information on <strong>nmap</strong> flags can be found <a href="https://nmap.org/book/port-scanning-options.html">here</a>.</p>
+<p>The result of the nmap scan shows that one port is open.</p>
 
-<p>This gives us the following command:</p>
+<blockquote>
+  <p>Answer: <strong>1</strong></p>
+</blockquote>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nmap -A -p- -T4 -v &lt;ip&gt;
+<h3 id="what-port-is-this">What port is this?</h3>
+
+<p>As per the above image, we can see that port 8012 is open.</p>
+
+<blockquote>
+  <p>Answer: <strong>8012</strong></p>
+</blockquote>
+
+<h3 id="this-port-is-unassigned-but-still-lists-the-protocol-its-using-what-protocol-is-this">This port is unassigned, but still lists the protocol it’s using, what protocol is this?</h3>
+
+<p>As per the above image, we can see that the open port is running over tcp.</p>
+
+<blockquote>
+  <p>Answer: <strong>tcp</strong></p>
+</blockquote>
+
+<h3 id="now-re-run-the-nmap-scan-without-the--p--tag-how-many-ports-show-up-as-open">Now re-run the nmap scan, without the -p- tag, how many ports show up as open?</h3>
+
+<p>Run the following nmap command as instructed, this will only scan 1000 common ports.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nmap -A &lt;ip&gt;
 </code></pre></div></div>
 
-<p>As the scan is running we notice that 3 open ports are returned early on.</p>
+<p><img src="/assets/images/2021-03-11-enumerating-telnet/02-nmap-2.jpg" /></p>
 
-<p><img src="/assets/images/2021-03-06-enumerating-smb/01-nmap-scan.jpg" /></p>
-
-<p>This provides us with the correct result:</p>
+<p>As port 8012 is not a commonly used port, it is not scanned and therefore no results are returned.</p>
 
 <blockquote>
-  <p>Answer: <strong>3</strong></p>
+  <p>Answer: <strong>0</strong></p>
 </blockquote>
 
-<hr />
+<h3 id="based-on-the-title-returned-to-us-what-do-we-think-this-port-could-be-used-for">Based on the title returned to us, what do we think this port could be used for?</h3>
 
-<h3 id="what-ports-is-smb-running-on">What ports is SMB running on?</h3>
+<p>Referring back to the scan results, we can infer that this port could be used for a backdoor.</p>
 
-<p>Referring to the <a href="https://www.samba.org/~tpot/articles/firewall.html">Samba documentation</a> we know that the default ports for SMB are <strong>139</strong> and <strong>445</strong>.
-This also correlates with what we found in our scan (image above).</p>
+<p><img src="/assets/images/2021-03-11-enumerating-telnet/03-backdoor.jpg" /></p>
 
 <blockquote>
-  <p>Answer: <strong><em>139/445</em></strong></p>
+  <p>Answer: <strong>A backdoor</strong></p>
 </blockquote>
 
-<hr />
+<h3 id="who-could-it-belong-to-gathering-possible-usernames-is-an-important-step-in-enumeration">Who could it belong to? Gathering possible usernames is an important step in enumeration.</h3>
 
-<h3 id="lets-get-started-with-enum4linux-conduct-a-full-basic-enumeration-for-starters-what-is-the-workgroup-name">Let’s get started with Enum4Linux, conduct a full basic enumeration. For starters, what is the workgroup name?</h3>
-
-<p>Run the requested command:</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>enum4linux -A &lt;ip&gt;
-</code></pre></div></div>
-
-<p>The workgroup name is listed under the <strong>Enumerating Workgroup/Domain</strong> section.</p>
-
-<p><img src="/assets/images/2021-03-06-enumerating-smb/02-enum4linux-workgroup.jpg" /></p>
+<p>Inferring from the previous image, we can assume that ‘Skidy’ is likely a username.</p>
 
 <blockquote>
-  <p>Answer: <strong>WORKGROUP</strong></p>
+  <p>Answer: <strong>Skidy</strong></p>
 </blockquote>
-
-<hr />
-
-<h3 id="what-comes-up-as-the-name-of-the-machine">What comes up as the name of the machine?</h3>
-
-<p>The name of the machine is listed under the <strong>OS Information</strong> section.</p>
-
-<p><img src="/assets/images/2021-03-06-enumerating-smb/03-enum4linux-name.jpg" /></p>
-
-<blockquote>
-  <p>Answer: <strong>POLOSMB</strong></p>
-</blockquote>
-
-<hr />
-
-<h3 id="what-operating-system-version-is-running">What operating system version is running?</h3>
-
-<p>The OS version is also defined under the same section.</p>
-
-<blockquote>
-  <p>Answer: <strong>6.1</strong></p>
-</blockquote>
-
-<hr />
-
-<h3 id="what-share-sticks-out-as-something-we-might-want-to-investigate">What share sticks out as something we might want to investigate?</h3>
-
-<p>Under the <strong>Share Enumeration</strong> section we note that the profiles section would be worth investigating further.</p>
-
-<p><img src="/assets/images/2021-03-06-enumerating-smb/04-enum4linux-profiles.jpg" /></p>
-
-<blockquote>
-  <p>Answer: <strong>profiles</strong></p>
-</blockquote>
-
-<hr />
 
 <h3 id="recap">Recap</h3>
 
 <p>In this task we learnt how to:</p>
 <ul>
-  <li>Conduct a port scan with <strong>nmap</strong></li>
-  <li>Enumerate SMB with <strong>enum4linux</strong></li>
+  <li>Conduct a port scan with <strong>nmap</strong> and interpreted the results</li>
 </ul>
 
         
@@ -431,7 +396,7 @@ This also correlates with what we found in our scan (image above).</p>
 
 
         
-  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2021-03-06T18:20:00+11:00">March 6, 2021</time></p>
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2021-03-11T22:40:00+11:00">March 11, 2021</time></p>
 
 
       </footer>
@@ -441,11 +406,11 @@ This also correlates with what we found in our scan (image above).</p>
       
   <nav class="pagination">
     
-      <a href="#" class="pagination--pager disabled">Previous</a>
-    
-    
       <a href="/blog/exploiting-smb/" class="pagination--pager" title="TryHackMe: Exploiting SMB
-">Next</a>
+">Previous</a>
+    
+    
+      <a href="#" class="pagination--pager disabled">Next</a>
     
   </nav>
 
