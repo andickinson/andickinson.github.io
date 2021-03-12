@@ -22,4 +22,16 @@ var store = [{
         "tags": [],
         "url": "/blog/exploiting-telnet/",
         "teaser": null
+      },{
+        "title": "TryHackMe: Enumerating FTP",
+        "excerpt":"This is a write up for the Enumerating FTP task of the Network Services room on TryHackMe. Some tasks have been omitted as they do not require an answer. How many ports are open on the target machine? Run the following nmap command: nmap -A -p- -v &lt;ip&gt; In my...","categories": [],
+        "tags": [],
+        "url": "/blog/enumerating-ftp/",
+        "teaser": null
+      },{
+        "title": "TryHackMe: Exploiting FTP",
+        "excerpt":"This is a write up for the Exploiting FTP task of the Network Services room on TryHackMe. Some tasks have been omitted as they do not require an answer. What is the password for the user “mike”? Run the Hydra command as instructed. Replace the username with ‘mike’ and the...","categories": [],
+        "tags": [],
+        "url": "/blog/exploiting-ftp/",
+        "teaser": null
       }]

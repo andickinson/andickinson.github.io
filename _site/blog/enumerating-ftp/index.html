@@ -9,25 +9,24 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>andickinson.github.io</title>
-<meta name="description" content="Technical Consultant, Team Leader, Cyber Security Specialist">
+<!-- begin _includes/seo.html --><title>TryHackMe: Enumerating FTP - andickinson.github.io</title>
+<meta name="description" content="Using nmap to enumerate FTP.">
 
 
   <meta name="author" content="Andrew Dickinson">
   
+  <meta property="article:author" content="Andrew Dickinson">
+  
 
 
-<meta property="og:type" content="website">
+<meta property="og:type" content="article">
 <meta property="og:locale" content="en_US">
 <meta property="og:site_name" content="andickinson.github.io">
-<meta property="og:title" content="andickinson.github.io">
-<meta property="og:url" content="http://localhost:4000/">
+<meta property="og:title" content="TryHackMe: Enumerating FTP">
+<meta property="og:url" content="http://localhost:4000/blog/enumerating-ftp/">
 
 
-  <meta property="og:description" content="Technical Consultant, Team Leader, Cyber Security Specialist">
-
-
-
+  <meta property="og:description" content="Using nmap to enumerate FTP.">
 
 
 
@@ -35,9 +34,14 @@
 
 
 
+  <meta property="article:published_time" content="2021-03-12T23:30:00+11:00">
 
 
-<link rel="canonical" href="http://localhost:4000/">
+
+
+
+
+<link rel="canonical" href="http://localhost:4000/blog/enumerating-ftp/">
 
 
 
@@ -98,7 +102,7 @@
 
   </head>
 
-  <body class="layout--home">
+  <body class="layout--single">
     <nav class="skip-links">
   <h2 class="screen-reader-text">Skip links</h2>
   <ul>
@@ -265,80 +269,18 @@
 
 
 
-  <div class="archive">
-    
-      <h1 id="page-title" class="page__title"></h1>
-    
-    <p>Andrew is an experienced technical consultant and developer with over 13 years of experience. Throughout his career, Andrew has worked across disciplines which include Consulting, Web Development, Cyber Security, IT Support, Project Management, and Game Design.</p>
-
-
-<h3 class="archive__subtitle">Recent Posts</h3>
-
-
-
-
-<div class="entries-list">
-  
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="TryHackMe: Enumerating FTP">
+    <meta itemprop="description" content="Using nmap to enumerate FTP.">
+    <meta itemprop="datePublished" content="2021-03-12T23:30:00+11:00">
     
 
-
-
-<div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
+    <div class="page__inner-wrap">
       
-        <a href="/blog/exploiting-ftp/" rel="permalink">TryHackMe: Exploiting FTP
-</a>
-      
-    </h2>
-    
-
-  <p class="page__meta">
-    
-      
-      <span class="page__meta-date">
-        <i class="far fa-calendar-alt" aria-hidden="true"></i>
-        <time datetime="2021-03-12T23:45:00+11:00">March 12, 2021</time>
-      </span>
-    
-
-    <span class="page__meta-sep"></span>
-
-    
-      
-      
-
-      <span class="page__meta-readtime">
-        <i class="far fa-clock" aria-hidden="true"></i>
-        
-          less than 1 minute read
-        
-      </span>
-    
-  </p>
-
-
-    <p class="archive__item-excerpt" itemprop="description">Using Hydra to crack a user’s password on an FTP server.
-</p>
-  </article>
-</div>
-
-  
-    
-
-
-
-<div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/blog/enumerating-ftp/" rel="permalink">TryHackMe: Enumerating FTP
-</a>
-      
-    </h2>
-    
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">TryHackMe: Enumerating FTP
+</h1>
+          
 
   <p class="page__meta">
     
@@ -365,203 +307,119 @@
   </p>
 
 
-    <p class="archive__item-excerpt" itemprop="description">Using nmap to enumerate FTP.
-</p>
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>This is a write up for the <strong>Enumerating FTP</strong> task of the <a href="https://tryhackme.com/room/networkservices"><strong>Network Services</strong></a> room on <a href="https://tryhackme.com">TryHackMe</a>. Some tasks have been omitted as they do not require an answer.</p>
+
+<hr />
+
+<h3 id="how-many-ports-are-open-on-the-target-machine">How many ports are open on the target machine?</h3>
+
+<p>Run the following nmap command:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nmap -A -p- -v &lt;ip&gt;
+</code></pre></div></div>
+
+<p><img src="/assets/images/2021-03-13-enumerating-ftp/01-nmap.jpg" /></p>
+
+<p>In my tests the nmap scan only returns 1 open port, however the correct answer appears to be 2 in the TryHackMe lab.</p>
+
+<blockquote>
+  <p>Answer: <strong>1 or 2</strong></p>
+</blockquote>
+
+<h3 id="what-port-is-ftp-running-on">What port is ftp running on?</h3>
+
+<blockquote>
+  <p>Answer: <strong>21</strong></p>
+</blockquote>
+
+<h3 id="what-variant-of-ftp-is-running-on-it">What variant of FTP is running on it?</h3>
+
+<blockquote>
+  <p>Answer: <strong>vsftpd</strong></p>
+</blockquote>
+
+<h3 id="what-is-the-name-of-the-file-in-the-anonymous-ftp-directory">What is the name of the file in the anonymous FTP directory?</h3>
+
+<p>Attempt to connect to the FTP server by entering the following command and entering a username of ‘anonymous’.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ftp &lt;ip&gt;
+</code></pre></div></div>
+
+<p>List out the files on the server with <code class="language-plaintext highlighter-rouge">ls</code></p>
+
+<p><img src="/assets/images/2021-03-13-enumerating-ftp/02-ftp-ls.jpg" /></p>
+
+<blockquote>
+  <p>Answer: <strong>PUBLIC_NOTICE.txt</strong></p>
+</blockquote>
+
+<h3 id="what-do-we-think-a-possible-username-could-be">What do we think a possible username could be?</h3>
+
+<p>Download the PUBLIC_NOTICE.txt file.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>get PUBLIC_NOTICE.txt
+</code></pre></div></div>
+
+<p><img src="/assets/images/2021-03-13-enumerating-ftp/03-ftp-get.jpg" /></p>
+
+<p>Exit the FTP session and print out the contents of PUBLIC_NOTICE.txt.</p>
+
+<p><img src="/assets/images/2021-03-13-enumerating-ftp/04-name.jpg" /></p>
+
+<blockquote>
+  <p>Answer: <strong>mike</strong></p>
+</blockquote>
+
+<h3 id="recap">Recap</h3>
+
+<p>In this task we learnt how to:</p>
+<ul>
+  <li>Read nmap results</li>
+  <li>Connect to an anonymous session on an FTP server</li>
+</ul>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2021-03-12T23:30:00+11:00">March 12, 2021</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/blog/exploiting-telnet/" class="pagination--pager" title="TryHackMe: Exploiting Telnet
+">Previous</a>
+    
+    
+      <a href="/blog/exploiting-ftp/" class="pagination--pager" title="TryHackMe: Exploiting FTP
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
   </article>
-</div>
 
   
-    
-
-
-
-<div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/blog/exploiting-telnet/" rel="permalink">TryHackMe: Exploiting Telnet
-</a>
-      
-    </h2>
-    
-
-  <p class="page__meta">
-    
-      
-      <span class="page__meta-date">
-        <i class="far fa-calendar-alt" aria-hidden="true"></i>
-        <time datetime="2021-03-12T22:30:00+11:00">March 12, 2021</time>
-      </span>
-    
-
-    <span class="page__meta-sep"></span>
-
-    
-      
-      
-
-      <span class="page__meta-readtime">
-        <i class="far fa-clock" aria-hidden="true"></i>
-        
-          1 minute read
-        
-      </span>
-    
-  </p>
-
-
-    <p class="archive__item-excerpt" itemprop="description">Connecting to Telnet, listening with Tcpdump and Netcat, executing a reverse shell via Msfvenom.
-</p>
-  </article>
-</div>
-
-  
-    
-
-
-
-<div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/blog/enumerating-telnet/" rel="permalink">TryHackMe: Enumerating Telnet
-</a>
-      
-    </h2>
-    
-
-  <p class="page__meta">
-    
-      
-      <span class="page__meta-date">
-        <i class="far fa-calendar-alt" aria-hidden="true"></i>
-        <time datetime="2021-03-11T22:40:00+11:00">March 11, 2021</time>
-      </span>
-    
-
-    <span class="page__meta-sep"></span>
-
-    
-      
-      
-
-      <span class="page__meta-readtime">
-        <i class="far fa-clock" aria-hidden="true"></i>
-        
-          1 minute read
-        
-      </span>
-    
-  </p>
-
-
-    <p class="archive__item-excerpt" itemprop="description">Conucting a port scan with nmap and interpreting the results.
-</p>
-  </article>
-</div>
-
-  
-    
-
-
-
-<div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/blog/exploiting-smb/" rel="permalink">TryHackMe: Exploiting SMB
-</a>
-      
-    </h2>
-    
-
-  <p class="page__meta">
-    
-      
-      <span class="page__meta-date">
-        <i class="far fa-calendar-alt" aria-hidden="true"></i>
-        <time datetime="2021-03-09T23:00:00+11:00">March 9, 2021</time>
-      </span>
-    
-
-    <span class="page__meta-sep"></span>
-
-    
-      
-      
-
-      <span class="page__meta-readtime">
-        <i class="far fa-clock" aria-hidden="true"></i>
-        
-          2 minute read
-        
-      </span>
-    
-  </p>
-
-
-    <p class="archive__item-excerpt" itemprop="description">Exploiting SMB.
-</p>
-  </article>
-</div>
-
-  
-    
-
-
-
-<div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/blog/enumerating-smb/" rel="permalink">TryHackMe: Enumerating SMB
-</a>
-      
-    </h2>
-    
-
-  <p class="page__meta">
-    
-      
-      <span class="page__meta-date">
-        <i class="far fa-calendar-alt" aria-hidden="true"></i>
-        <time datetime="2021-03-06T18:20:00+11:00">March 6, 2021</time>
-      </span>
-    
-
-    <span class="page__meta-sep"></span>
-
-    
-      
-      
-
-      <span class="page__meta-readtime">
-        <i class="far fa-clock" aria-hidden="true"></i>
-        
-          1 minute read
-        
-      </span>
-    
-  </p>
-
-
-    <p class="archive__item-excerpt" itemprop="description">Conucting a port scan and enumerating SMB.
-</p>
-  </article>
-</div>
-
   
 </div>
 
-
-
-
-  </div>
-</div>
     </div>
 
     
