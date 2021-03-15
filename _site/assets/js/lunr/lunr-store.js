@@ -40,4 +40,10 @@ var store = [{
         "tags": [],
         "url": "/blog/enumerating-nfs/",
         "teaser": null
+      },{
+        "title": "TryHackMe: Exploiting NFS",
+        "excerpt":"This is a write up for the Exploiting NFS task of the Network Services 2 room on TryHackMe. Some tasks have been omitted as they do not require an answer. First, change directory to the mount point on your machine, where the NFS share should still be mounted, and then...","categories": [],
+        "tags": [],
+        "url": "/blog/exploiting-nfs/",
+        "teaser": null
       }]
