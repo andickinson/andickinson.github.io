@@ -52,4 +52,10 @@ var store = [{
         "tags": [],
         "url": "/blog/enumerating-and-exploiting-smtp/",
         "teaser": null
+      },{
+        "title": "TryHackMe: Enumerating and Exploiting MySQL",
+        "excerpt":"This is a write up for the Enumerating and Exploiting MySQL tasks of the Network Services 2 room on TryHackMe. Some tasks have been omitted as they do not require an answer. As always, let’s start out with a port scan, so we know what port the service we’re trying...","categories": [],
+        "tags": [],
+        "url": "/blog/enumerating-and-exploiting-mysql/",
+        "teaser": null
       }]
