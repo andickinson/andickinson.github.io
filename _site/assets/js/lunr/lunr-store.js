@@ -58,4 +58,10 @@ var store = [{
         "tags": [],
         "url": "/blog/enumerating-and-exploiting-mysql/",
         "teaser": null
+      },{
+        "title": "TryHackMe: Volatility",
+        "excerpt":"This is a write up for the Volatility room on TryHackMe. Some tasks have been omitted as they do not require an answer. First, let’s figure out what profile we need to use. Profiles determine how Volatility treats our memory image since every version of Windows is a little bit...","categories": [],
+        "tags": [],
+        "url": "/blog/volatility/",
+        "teaser": null
       }]

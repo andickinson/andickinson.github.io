@@ -1,0 +1,507 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>TryHackMe: Volatility - andickinson.github.io</title>
+<meta name="description" content="Conducting memory forensics with Volatility.">
+
+
+  <meta name="author" content="Andrew Dickinson">
+  
+  <meta property="article:author" content="Andrew Dickinson">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="andickinson.github.io">
+<meta property="og:title" content="TryHackMe: Volatility">
+<meta property="og:url" content="http://localhost:4000/blog/volatility/">
+
+
+  <meta property="og:description" content="Conducting memory forensics with Volatility.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2021-03-20T21:00:00+11:00">
+
+
+
+
+
+
+<link rel="canonical" href="http://localhost:4000/blog/volatility/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": null,
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          andickinson.github.io
+          
+        </a>
+        <ul class="visible-links"></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="/assets/images/avatar.jpg" alt="Andrew Dickinson" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Andrew Dickinson</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>Technical Consultant, Team Leader, Cyber Security Specialist</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Melbourne, Australia</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="https://www.linkedin.com/in/a-dickinson" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span class="label">LinkedIn</span></a></li>
+          
+        
+          
+            <li><a href="https://github.com/andickinson" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+            <li><a href="https://tryhackme.com/p/foolish" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-laptop-code" aria-hidden="true"></i><span class="label">TryHackMe</span></a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="TryHackMe: Volatility">
+    <meta itemprop="description" content="Conducting memory forensics with Volatility.">
+    <meta itemprop="datePublished" content="2021-03-20T21:00:00+11:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">TryHackMe: Volatility
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2021-03-20T21:00:00+11:00">March 20, 2021</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          3 minute read
+        
+      </span>
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>This is a write up for the <a href="https://tryhackme.com/room/bpvolatility"><strong>Volatility</strong></a> room on <a href="https://tryhackme.com">TryHackMe</a>. Some tasks have been omitted as they do not require an answer.</p>
+
+<hr />
+
+<h3 id="first-lets-figure-out-what-profile-we-need-to-use-profiles-determine-how-volatility-treats-our-memory-image-since-every-version-of-windows-is-a-little-bit-different-lets-see-our-options-now-with-the-command-volatility--f-memory_fileraw-imageinfo">First, let’s figure out what profile we need to use. Profiles determine how Volatility treats our memory image since every version of Windows is a little bit different. Let’s see our options now with the command <code class="language-plaintext highlighter-rouge">volatility -f MEMORY_FILE.raw imageinfo</code></h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>volatility -f cridex.vmem imageinfo
+</code></pre></div></div>
+
+<p><img src="/assets/images/2021-03-20-volatility/01-volatility.jpg" /></p>
+
+<h3 id="running-the-imageinfo-command-in-volatility-will-provide-us-with-a-number-of-profiles-we-can-test-with-however-only-one-will-be-correct-we-can-test-these-profiles-using-the-pslist-command-validating-our-profile-selection-by-the-sheer-number-of-returned-results-do-this-now-with-the-command-volatility--f-memory_fileraw---profileprofile-pslist-what-profile-is-correct-for-this-memory-image">Running the imageinfo command in Volatility will provide us with a number of profiles we can test with, however, only one will be correct. We can test these profiles using the pslist command, validating our profile selection by the sheer number of returned results. Do this now with the command <code class="language-plaintext highlighter-rouge">volatility -f MEMORY_FILE.raw --profile=PROFILE pslist</code>. What profile is correct for this memory image?</h3>
+
+<p>In the output above, volatility has suggested a profile to try: <strong>WinXPSP2x86</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>volatility -f cridex.vmem --profile=WinXPSP2x86 pslist
+</code></pre></div></div>
+
+<p><img src="/assets/images/2021-03-20-volatility/02-profile.jpg" /></p>
+
+<blockquote>
+  <p>Answer: <strong>WinXPSP2x86</strong></p>
+</blockquote>
+
+<h3 id="take-a-look-through-the-processes-within-our-image-what-is-the-process-id-for-the-smssexe-process-if-results-are-scrolling-off-screen-try-piping-your-output-into-less">Take a look through the processes within our image. What is the process ID for the smss.exe process? If results are scrolling off-screen, try piping your output into less</h3>
+
+<p><img src="/assets/images/2021-03-20-volatility/03-smss.jpg" /></p>
+
+<blockquote>
+  <p>Answer: <strong>368</strong></p>
+</blockquote>
+
+<h3 id="in-addition-to-viewing-active-processes-we-can-also-view-active-network-connections-at-the-time-of-image-creation-lets-do-this-now-with-the-command-volatility--f-memory_fileraw---profileprofile-netscan-unfortunately-something-not-great-is-going-to-happen-here-due-to-the-sheer-age-of-the-target-operating-system-as-the-command-netscan-doesnt-support-it">In addition to viewing active processes, we can also view active network connections at the time of image creation! Let’s do this now with the command <code class="language-plaintext highlighter-rouge">volatility -f MEMORY_FILE.raw --profile=PROFILE netscan</code>. Unfortunately, something not great is going to happen here due to the sheer age of the target operating system as the command netscan doesn’t support it.</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>volatility -f cridex.vmem --profile=WinXPSP2x86 netscan
+</code></pre></div></div>
+
+<p><img src="/assets/images/2021-03-20-volatility/04-netscan.jpg" /></p>
+
+<h3 id="its-fairly-common-for-malware-to-attempt-to-hide-itself-and-the-process-associated-with-it-that-being-said-we-can-view-intentionally-hidden-processes-via-the-command-psxview-what-process-has-only-one-false-listed">It’s fairly common for malware to attempt to hide itself and the process associated with it. That being said, we can view intentionally hidden processes via the command <code class="language-plaintext highlighter-rouge">psxview</code>. What process has only one ‘False’ listed?</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>volatility -f cridex.vmem --profile=WinXPSP2x86 psxview
+</code></pre></div></div>
+
+<p><img src="/assets/images/2021-03-20-volatility/05-psxview.jpg" /></p>
+
+<blockquote>
+  <p>Answer: <strong>csrss.exe</strong></p>
+</blockquote>
+
+<h3 id="in-addition-to-viewing-hidden-processes-via-psxview-we-can-also-check-this-with-a-greater-focus-via-the-command-ldrmodules-three-columns-will-appear-here-in-the-middle-inload-ininit-inmem-if-any-of-these-are-false-that-module-has-likely-been-injected-which-is-a-really-bad-thing-on-a-normal-system-the-grep-statement-above-should-return-no-output-which-process-has-all-three-columns-listed-as-false-other-than-system">In addition to viewing hidden processes via psxview, we can also check this with a greater focus via the command ‘ldrmodules’. Three columns will appear here in the middle, InLoad, InInit, InMem. If any of these are false, that module has likely been injected which is a really bad thing. On a normal system the grep statement above should return no output. Which process has all three columns listed as ‘False’ (other than System)?</h3>
+
+<p>This output is going to be very large, so lets output it to a text file.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>volatility -f cridex.vmem --profile=WinXPSP2x86 ldrmodules &gt; output.txt
+</code></pre></div></div>
+
+<p><img src="/assets/images/2021-03-20-volatility/06-ldrmodules.jpg" /></p>
+
+<blockquote>
+  <p>Answer: <strong>csrss.exe</strong></p>
+</blockquote>
+
+<h3 id="processes-arent-the-only-area-were-concerned-with-when-were-examining-a-machine-using-the-apihooks-command-we-can-view-unexpected-patches-in-the-standard-system-dlls-if-we-see-an-instance-where-hooking-module--thats-really-bad-this-command-will-take-a-while-to-run-however-it-will-show-you-all-of-the-extraneous-code-introduced-by-the-malware">Processes aren’t the only area we’re concerned with when we’re examining a machine. Using the ‘apihooks’ command we can view unexpected patches in the standard system DLLs. If we see an instance where Hooking module: <unknown> that's really bad. This command will take a while to run, however, it will show you all of the extraneous code introduced by the malware.</unknown></h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>volatility -f cridex.vmem --profile=WinXPSP2x86 apihooks
+</code></pre></div></div>
+
+<p><img src="/assets/images/2021-03-20-volatility/07-apihooks.jpg" /></p>
+
+<h3 id="injected-code-can-be-a-huge-issue-and-is-highly-indicative-of-very-very-bad-things-we-can-check-for-this-with-the-command-malfind-using-the-full-command-volatility--f-memory_fileraw---profileprofile-malfind--d-destination-directory-we-can-not-only-find-this-code-but-also-dump-it-to-our-specified-directory-lets-do-this-now-well-use-this-dump-later-for-more-analysis-how-many-files-does-this-generate">Injected code can be a huge issue and is highly indicative of very very bad things. We can check for this with the command <code class="language-plaintext highlighter-rouge">malfind</code>. Using the full command <code class="language-plaintext highlighter-rouge">volatility -f MEMORY_FILE.raw --profile=PROFILE malfind -D &lt;Destination Directory&gt;</code> we can not only find this code, but also dump it to our specified directory. Let’s do this now! We’ll use this dump later for more analysis. How many files does this generate?</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>volatility -f cridex.vmem --profile=WinXPSP2x86 malfind -D /tmp
+</code></pre></div></div>
+
+<p><img src="/assets/images/2021-03-20-volatility/08-malfind.jpg" /></p>
+
+<blockquote>
+  <p>Answer: <strong>12</strong></p>
+</blockquote>
+
+<h3 id="last-but-certainly-not-least-we-can-view-all-of-the-dlls-loaded-into-memory-dlls-are-shared-system-libraries-utilized-in-system-processes-these-are-commonly-subjected-to-hijacking-and-other-side-loading-attacks-making-them-a-key-target-for-forensics-lets-list-all-of-the-dlls-in-memory-now-with-the-command-dlllist">Last but certainly not least we can view all of the DLLs loaded into memory. DLLs are shared system libraries utilized in system processes. These are commonly subjected to hijacking and other side-loading attacks, making them a key target for forensics. Let’s list all of the DLLs in memory now with the command <code class="language-plaintext highlighter-rouge">dlllist</code></h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>volatility -f cridex.vmem --profile=WinXPSP2x86 dlllist
+</code></pre></div></div>
+
+<h3 id="now-that-weve-seen-all-of-the-dlls-running-in-memory-lets-go-a-step-further-and-pull-them-out-do-this-now-with-the-command-volatility--f-memory_fileraw---profileprofile---pidpid-dlldump--d-destination-directory-where-the-pid-is-the-process-id-of-the-infected-process-we-identified-earlier-questions-five-and-six-how-many-dlls-does-this-end-up-pulling">Now that we’ve seen all of the DLLs running in memory, let’s go a step further and pull them out! Do this now with the command <code class="language-plaintext highlighter-rouge">volatility -f MEMORY_FILE.raw --profile=PROFILE --pid=PID dlldump -D &lt;Destination Directory&gt;</code> where the PID is the process ID of the infected process we identified earlier (questions five and six). How many DLLs does this end up pulling?</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>volatility -f cridex.vmem --profile=PROWinXPSP2x86FILE --pid=584 dlldump -D /tmp
+</code></pre></div></div>
+
+<p><img src="/assets/images/2021-03-20-volatility/09-dlldump.jpg" /></p>
+
+<blockquote>
+  <p>Answer: <strong>12</strong></p>
+</blockquote>
+
+<h3 id="recap">Recap</h3>
+
+<p>In this task we learnt how to:</p>
+<ul>
+  <li>Use <strong>Volatility</strong> to conduct memory forensics and identfy the Cridex malware</li>
+</ul>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2021-03-20T21:00:00+11:00">March 20, 2021</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/blog/enumerating-and-exploiting-mysql/" class="pagination--pager" title="TryHackMe: Enumerating and Exploiting MySQL
+">Previous</a>
+    
+    
+      <a href="#" class="pagination--pager disabled">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2021 andickinson.github.io. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+
+  </body>
+</html>
