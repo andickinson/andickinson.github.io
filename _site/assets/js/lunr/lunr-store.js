@@ -64,4 +64,10 @@ var store = [{
         "tags": [],
         "url": "/blog/volatility/",
         "teaser": null
+      },{
+        "title": "TryHackMe: Investigating Windows",
+        "excerpt":"This is a write up for the Investigating Windows room on TryHackMe. Some tasks have been omitted as they do not require an answer. Whats the version and year of the windows machine? Press Windows+R to open the Run prompt then type regedit then enter. Navigate to: HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\ProductName Answer:...","categories": [],
+        "tags": [],
+        "url": "/blog/investigating-windows/",
+        "teaser": null
       }]

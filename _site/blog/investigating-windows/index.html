@@ -1,0 +1,623 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>TryHackMe: Investigating Windows - andickinson.github.io</title>
+<meta name="description" content="Investigating a hacked Windows machine to find clues to what the hacker might have done.">
+
+
+  <meta name="author" content="Andrew Dickinson">
+  
+  <meta property="article:author" content="Andrew Dickinson">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="andickinson.github.io">
+<meta property="og:title" content="TryHackMe: Investigating Windows">
+<meta property="og:url" content="http://localhost:4000/blog/investigating-windows/">
+
+
+  <meta property="og:description" content="Investigating a hacked Windows machine to find clues to what the hacker might have done.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2021-03-21T00:15:00+11:00">
+
+
+
+
+
+
+<link rel="canonical" href="http://localhost:4000/blog/investigating-windows/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": null,
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          andickinson.github.io
+          
+        </a>
+        <ul class="visible-links"></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="/assets/images/avatar.jpg" alt="Andrew Dickinson" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Andrew Dickinson</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>Technical Consultant, Team Leader, Cyber Security Specialist</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Melbourne, Australia</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="https://www.linkedin.com/in/a-dickinson" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span class="label">LinkedIn</span></a></li>
+          
+        
+          
+            <li><a href="https://github.com/andickinson" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+            <li><a href="https://tryhackme.com/p/foolish" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-laptop-code" aria-hidden="true"></i><span class="label">TryHackMe</span></a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="TryHackMe: Investigating Windows">
+    <meta itemprop="description" content="Investigating a hacked Windows machine to find clues to what the hacker might have done.">
+    <meta itemprop="datePublished" content="2021-03-21T00:15:00+11:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">TryHackMe: Investigating Windows
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2021-03-21T00:15:00+11:00">March 21, 2021</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          2 minute read
+        
+      </span>
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>This is a write up for the <a href="https://tryhackme.com/room/investigatingwindows"><strong>Investigating Windows</strong></a> room on <a href="https://tryhackme.com">TryHackMe</a>. Some tasks have been omitted as they do not require an answer.</p>
+
+<hr />
+
+<h3 id="whats-the-version-and-year-of-the-windows-machine">Whats the version and year of the windows machine?</h3>
+
+<p>Press Windows+R to open the Run prompt then type <strong>regedit</strong> then enter.</p>
+
+<p>Navigate to:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\ProductName
+</code></pre></div></div>
+
+<p><img src="/assets/images/2021-03-21-investigating-windows/01-os.jpg" /></p>
+
+<blockquote>
+  <p>Answer: <strong>Windows Server 2016</strong></p>
+</blockquote>
+
+<h3 id="which-user-logged-in-last">Which user logged in last?</h3>
+
+<p>Navigate to:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentication\LogonUI\LastLoggedOnUser
+</code></pre></div></div>
+
+<p><img src="/assets/images/2021-03-21-investigating-windows/02-user.jpg" /></p>
+
+<blockquote>
+  <p>Answer: <strong>Administrator</strong></p>
+</blockquote>
+
+<h3 id="when-did-john-log-onto-the-system-last">When did John log onto the system last?</h3>
+
+<p>Open cmd.exe and enter the following command.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>net user John
+</code></pre></div></div>
+
+<p><img src="/assets/images/2021-03-21-investigating-windows/03-john.jpg" /></p>
+
+<blockquote>
+  <p>Answer: <strong>03/02/2019 5:48:32 PM</strong></p>
+</blockquote>
+
+<h3 id="what-ip-does-the-system-connect-to-when-it-first-starts">What IP does the system connect to when it first starts?</h3>
+
+<p>Open <strong>regedit</strong> again and navigate to:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run\UpdateSvc
+</code></pre></div></div>
+
+<p><img src="/assets/images/2021-03-21-investigating-windows/04-updatesvc.jpg" /></p>
+
+<blockquote>
+  <p>Answer: <strong>10.34.2.3</strong></p>
+</blockquote>
+
+<h3 id="what-two-accounts-had-administrative-privileges-other-than-the-administrator-user">What two accounts had administrative privileges (other than the Administrator user)?</h3>
+
+<p>Open <strong>Run</strong> and enter:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>lusrmgr.msc
+</code></pre></div></div>
+
+<p>Open Groups -&gt; Administrators</p>
+
+<p><img src="/assets/images/2021-03-21-investigating-windows/05-users.jpg" /></p>
+
+<p>It is very interesting that the <strong>Guest</strong> user is part of the <strong>Administrators</strong> group.</p>
+
+<blockquote>
+  <p>Answer: <strong>Jenny, Guest</strong></p>
+</blockquote>
+
+<h3 id="whats-the-name-of-the-scheduled-task-that-is-malicous">Whats the name of the scheduled task that is malicous.</h3>
+
+<p>Open the Task Scheduler.</p>
+
+<p><img src="/assets/images/2021-03-21-investigating-windows/06-apt.jpg" /></p>
+
+<p>The following tasks appears to be doing something suspicious:</p>
+
+<ul>
+  <li>Clean file system
+    <ul>
+      <li>Attempts to open <strong>C:\TMP\nc.ps1 -l 1348</strong></li>
+      <li>This appears to be an <a href="https://github.com/NextronSystems/APTSimulator/blob/master/toolset/nc.ps1">APT simulator</a></li>
+    </ul>
+  </li>
+  <li>GameOver
+    <ul>
+      <li>Attempts to save LogonPasswords to a text file every 5 minutes</li>
+    </ul>
+  </li>
+</ul>
+
+<p>However, TryHackMe wants us to answer ‘Clean file system’.</p>
+
+<blockquote>
+  <p>Answer: <strong>Clean file system</strong></p>
+</blockquote>
+
+<h3 id="what-file-was-the-task-trying-to-run-daily">What file was the task trying to run daily?</h3>
+
+<blockquote>
+  <p>Answer: <strong>nc.ps1</strong></p>
+</blockquote>
+
+<h3 id="what-port-did-this-file-listen-locally-for">What port did this file listen locally for?</h3>
+
+<blockquote>
+  <p>Answer: <strong>1348</strong></p>
+</blockquote>
+
+<h3 id="when-did-jenny-last-logon">When did Jenny last logon?</h3>
+
+<p>Open <strong>cmd.exe</strong> and type:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>net user Jenny
+</code></pre></div></div>
+
+<p><img src="/assets/images/2021-03-21-investigating-windows/07-jenny.jpg" /></p>
+
+<blockquote>
+  <p>Answer: <strong>Never</strong></p>
+</blockquote>
+
+<h3 id="at-what-date-did-the-compromise-take-place">At what date did the compromise take place?</h3>
+
+<p>The ‘Clean file system’ task was created no 03/02/2019, we can assume that is the date of the compromise.</p>
+
+<blockquote>
+  <p>Answer: <strong>03/02/2019</strong></p>
+</blockquote>
+
+<h3 id="at-what-time-did-windows-first-assign-special-privileges-to-a-new-logon">At what time did Windows first assign special privileges to a new logon?</h3>
+
+<p>Open <strong>Event Viewer</strong> and look for the correct entry.</p>
+
+<p><img src="/assets/images/2021-03-21-investigating-windows/08-priv.jpg" /></p>
+
+<blockquote>
+  <p>Answer: <strong>03/02/2019 04:04:49 PM</strong></p>
+</blockquote>
+
+<h3 id="what-tool-was-used-to-get-windows-passwords">What tool was used to get Windows passwords?</h3>
+
+<p>We know from earlier questions that the scheduled tasks are executing applications in <strong>C:\TMP</strong>.</p>
+
+<p>Open Windows Explorer and navigate to:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>C:\TMP\mim-out.txt
+</code></pre></div></div>
+
+<p><img src="/assets/images/2021-03-21-investigating-windows/09-mim.jpg" /></p>
+
+<blockquote>
+  <p>Answer: <strong>Mimikatz</strong></p>
+</blockquote>
+
+<h3 id="what-was-the-attackers-external-control-and-command-servers-ip">What was the attackers external control and command servers IP?</h3>
+
+<p>There is probably an entry in the <strong>hosts</strong> file.</p>
+
+<p>Open the following in notepad:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>C:\Windows\System32\drivers\etc\hosts.txt
+</code></pre></div></div>
+
+<p><img src="/assets/images/2021-03-21-investigating-windows/10-hosts.jpg" /></p>
+
+<blockquote>
+  <p>Answer: <strong>76.32.97.132</strong></p>
+</blockquote>
+
+<h3 id="what-was-the-extension-name-of-the-shell-uploaded-via-the-servers-website">What was the extension name of the shell uploaded via the servers website?</h3>
+
+<p>Something related to a webserver is probably stored in <strong>C:\inetpub\wwwroot</strong>.</p>
+
+<p><img src="/assets/images/2021-03-21-investigating-windows/11-jsp.jpg" /></p>
+
+<blockquote>
+  <p>Answer: <strong>.jsp</strong></p>
+</blockquote>
+
+<h3 id="what-was-the-last-port-the-attacker-opened">What was the last port the attacker opened?</h3>
+
+<p>Open <strong>Windows Firewall</strong> and then click on <strong>Inbound Rules</strong>.</p>
+
+<p>The most recent entry shows which port was opened.</p>
+
+<p><img src="/assets/images/2021-03-21-investigating-windows/12-firewall.jpg" /></p>
+
+<blockquote>
+  <p>Answer: <strong>1337</strong></p>
+</blockquote>
+
+<h3 id="check-for-dns-poisoning-what-site-was-targeted">Check for DNS poisoning, what site was targeted?</h3>
+
+<p>Back to the hosts file again.</p>
+
+<p><img src="/assets/images/2021-03-21-investigating-windows/13-google.jpg" /></p>
+
+<blockquote>
+  <p>Answer: <strong>google.com</strong></p>
+</blockquote>
+
+<h3 id="recap">Recap</h3>
+
+<p>In this task we learnt how to:</p>
+<ul>
+  <li>Utilise <strong>forensic techniques</strong> on a compromised Windows Server 2016 system</li>
+  <li>Navigate the <strong>registry</strong> to find relevant information</li>
+  <li>Use the <strong>net</strong> command to find user information</li>
+  <li>Use <strong>lusrmgr.msc</strong> to find user group assignments</li>
+  <li>Use the <strong>Task Scheduler</strong> to identify malicious tasks</li>
+  <li>Use <strong>Event Viewer</strong> to identify suspicious events</li>
+  <li>Investigate the <strong>hosts</strong> file to find DNS poisoning attempts</li>
+  <li>Review the <strong>Windows Firewall</strong> to find errant rules</li>
+</ul>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2021-03-21T00:15:00+11:00">March 21, 2021</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/blog/volatility/" class="pagination--pager" title="TryHackMe: Volatility
+">Previous</a>
+    
+    
+      <a href="#" class="pagination--pager disabled">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2021 andickinson.github.io. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+
+  </body>
+</html>
