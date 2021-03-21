@@ -70,4 +70,10 @@ var store = [{
         "tags": [],
         "url": "/blog/investigating-windows/",
         "teaser": null
+      },{
+        "title": "TryHackMe: Wireshark 101",
+        "excerpt":"This is a write up for the Wireshark 101 room on TryHackMe. Some tasks have been omitted as they do not require an answer. ARP Traffic What is the Opcode for Packet 6? Answer: request (1) What is the source MAC Address of Packet 19? Answer: 80:fb:06:f0:45:d7 What 4 packets...","categories": [],
+        "tags": [],
+        "url": "/blog/wireshark/",
+        "teaser": null
       }]

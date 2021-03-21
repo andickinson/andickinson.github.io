@@ -1,0 +1,601 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>TryHackMe: Wireshark 101 - andickinson.github.io</title>
+<meta name="description" content="Using Wireshark to analyze various protocols and PCAPs.">
+
+
+  <meta name="author" content="Andrew Dickinson">
+  
+  <meta property="article:author" content="Andrew Dickinson">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="andickinson.github.io">
+<meta property="og:title" content="TryHackMe: Wireshark 101">
+<meta property="og:url" content="http://localhost:4000/blog/wireshark/">
+
+
+  <meta property="og:description" content="Using Wireshark to analyze various protocols and PCAPs.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2021-03-21T22:30:00+11:00">
+
+
+
+
+
+
+<link rel="canonical" href="http://localhost:4000/blog/wireshark/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": null,
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          andickinson.github.io
+          
+        </a>
+        <ul class="visible-links"></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="/assets/images/avatar.jpg" alt="Andrew Dickinson" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Andrew Dickinson</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>Technical Consultant, Team Leader, Cyber Security Specialist</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Melbourne, Australia</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="https://www.linkedin.com/in/a-dickinson" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span class="label">LinkedIn</span></a></li>
+          
+        
+          
+            <li><a href="https://github.com/andickinson" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+            <li><a href="https://tryhackme.com/p/foolish" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-laptop-code" aria-hidden="true"></i><span class="label">TryHackMe</span></a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="TryHackMe: Wireshark 101">
+    <meta itemprop="description" content="Using Wireshark to analyze various protocols and PCAPs.">
+    <meta itemprop="datePublished" content="2021-03-21T22:30:00+11:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">TryHackMe: Wireshark 101
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2021-03-21T22:30:00+11:00">March 21, 2021</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          1 minute read
+        
+      </span>
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>This is a write up for the <a href="https://tryhackme.com/room/wireshark"><strong>Wireshark 101</strong></a> room on <a href="https://tryhackme.com">TryHackMe</a>. Some tasks have been omitted as they do not require an answer.</p>
+
+<hr />
+
+<h2 id="arp-traffic">ARP Traffic</h2>
+
+<h3 id="what-is-the-opcode-for-packet-6">What is the Opcode for Packet 6?</h3>
+
+<p><img src="/assets/images/2021-03-21-wireshark/01-opcode.jpg" /></p>
+
+<blockquote>
+  <p>Answer: <strong>request (1)</strong></p>
+</blockquote>
+
+<h3 id="what-is-the-source-mac-address-of-packet-19">What is the source MAC Address of Packet 19?</h3>
+
+<p><img src="/assets/images/2021-03-21-wireshark/02-mac.jpg" /></p>
+
+<blockquote>
+  <p>Answer: <strong>80:fb:06:f0:45:d7</strong></p>
+</blockquote>
+
+<h3 id="what-4-packets-are-reply-packets">What 4 packets are Reply packets?</h3>
+
+<p>Use the following filter to return only ARP Reply packets.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>arp.opcode == 2
+</code></pre></div></div>
+
+<p><img src="/assets/images/2021-03-21-wireshark/03-arp.jpg" /></p>
+
+<blockquote>
+  <p>Answer: <strong>76,400,459,520</strong></p>
+</blockquote>
+
+<h3 id="what-ip-address-is-at-80fb06f045d7">What IP Address is at 80:fb:06:f0:45:d7?</h3>
+
+<p>This information is available in the <strong>info</strong> column.</p>
+
+<p><img src="/assets/images/2021-03-21-wireshark/04-ip.jpg" /></p>
+
+<blockquote>
+  <p>Answer: <strong>10.251.23.1</strong></p>
+</blockquote>
+
+<hr />
+
+<h2 id="icmp-traffic">ICMP Traffic</h2>
+
+<h3 id="what-is-the-type-for-packet-4">What is the type for packet 4?</h3>
+
+<p><img src="/assets/images/2021-03-21-wireshark/05-type4.jpg" /></p>
+
+<blockquote>
+  <p>Answer: <strong>8</strong></p>
+</blockquote>
+
+<h3 id="what-is-the-type-for-packet-5">What is the type for packet 5?</h3>
+
+<p><img src="/assets/images/2021-03-21-wireshark/06-type5.jpg" /></p>
+
+<blockquote>
+  <p>Answer: <strong>0</strong></p>
+</blockquote>
+
+<h3 id="what-is-the-timestamp-for-packet-12-only-including-month-day-and-year">What is the timestamp for packet 12, only including month day and year?</h3>
+
+<p><img src="/assets/images/2021-03-21-wireshark/07-date.jpg" /></p>
+
+<p>May 31, 2013 does not appear to work. As instructed, we try the day before and the answer is accepted.</p>
+
+<blockquote>
+  <p>Answer: <strong>May 30, 2013</strong></p>
+</blockquote>
+
+<h3 id="what-is-the-full-data-string-for-packet-18">What is the full data string for packet 18?</h3>
+
+<p><img src="/assets/images/2021-03-21-wireshark/08-data.jpg" /></p>
+
+<blockquote>
+  <p>Answer: <strong>08090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f3031323334353637</strong></p>
+</blockquote>
+
+<hr />
+
+<h2 id="dns-traffic">DNS Traffic</h2>
+
+<h3 id="what-is-being-queried-in-packet-1">What is being queried in packet 1?</h3>
+
+<p><img src="/assets/images/2021-03-21-wireshark/09-query.jpg" /></p>
+
+<blockquote>
+  <p>Answer: <strong>8.8.8.8.in-addr.arpa</strong></p>
+</blockquote>
+
+<h3 id="what-site-is-being-queried-in-packet-26">What site is being queried in packet 26?</h3>
+
+<p><img src="/assets/images/2021-03-21-wireshark/10-site.jpg" /></p>
+
+<blockquote>
+  <p>Answer: <strong>www.wireshark.org</strong></p>
+</blockquote>
+
+<h3 id="what-is-the-transaction-id-for-packet-26">What is the Transaction ID for packet 26?</h3>
+
+<p><img src="/assets/images/2021-03-21-wireshark/11-transaction.jpg" /></p>
+
+<blockquote>
+  <p>Answer: <strong>0x2c58</strong></p>
+</blockquote>
+
+<hr />
+
+<h2 id="http-traffic">HTTP Traffic</h2>
+
+<h3 id="what-percent-of-packets-originate-from-domain-name-system">What percent of packets originate from Domain Name System?</h3>
+
+<p><img src="/assets/images/2021-03-21-wireshark/12-dnspackets.jpg" /></p>
+
+<blockquote>
+  <p>Answer: <strong>4.7</strong></p>
+</blockquote>
+
+<h3 id="what-endpoint-ends-in-237">What endpoint ends in .237?</h3>
+
+<p><img src="/assets/images/2021-03-21-wireshark/13-ip.jpg" /></p>
+
+<blockquote>
+  <p>Answer: <strong>145.254.160.237</strong></p>
+</blockquote>
+
+<h3 id="what-is-the-user-agent-listed-in-packet-4">What is the user-agent listed in packet 4?</h3>
+
+<p><img src="/assets/images/2021-03-21-wireshark/14-ua.jpg" /></p>
+
+<blockquote>
+  <p>Answer: <strong>Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.6) Gecko/20040113</strong></p>
+</blockquote>
+
+<h3 id="looking-at-the-data-stream-what-is-the-full-request-uri-from-packet-18">Looking at the data stream what is the full request URI from packet 18?</h3>
+
+<p><img src="/assets/images/2021-03-21-wireshark/15-uri.jpg" /></p>
+
+<blockquote>
+  <p>Answer: <strong>http://pagead2.googlesyndication.com/pagead/ads?client=ca-pub-2309191948673629&amp;random=1084443430285&amp;lmt=1082467020&amp;format=468x60_as&amp;output=html&amp;url=http%3A%2F%2Fwww.ethereal.com%2Fdownload.html&amp;color_bg=FFFFFF&amp;color_text=333333&amp;color_link=000000&amp;color_url=666633&amp;color_border=666633</strong></p>
+</blockquote>
+
+<h3 id="what-domain-name-was-requested-from-packet-38">What domain name was requested from packet 38?</h3>
+
+<p><img src="/assets/images/2021-03-21-wireshark/16-domain.jpg" /></p>
+
+<blockquote>
+  <p>Answer: <strong>www.ethereal.com</strong></p>
+</blockquote>
+
+<h3 id="looking-at-the-data-stream-what-is-the-full-request-uri-from-packet-38">Looking at the data stream what is the full request URI from packet 38?</h3>
+
+<p><img src="/assets/images/2021-03-21-wireshark/17-uri.jpg" /></p>
+
+<blockquote>
+  <p>Answer: <strong>http://www.ethereal.com/download.html</strong></p>
+</blockquote>
+
+<hr />
+
+<h2 id="https-traffic">HTTPS Traffic</h2>
+
+<h3 id="looking-at-the-data-stream-what-is-the-full-request-uri-for-packet-31">Looking at the data stream what is the full request URI for packet 31?</h3>
+
+<p><img src="/assets/images/2021-03-21-wireshark/18-uri.jpg" /></p>
+
+<blockquote>
+  <p>Answer: <strong>https://localhost/icons/apache_pb.png</strong></p>
+</blockquote>
+
+<h3 id="looking-at-the-data-stream-what-is-the-full-request-uri-for-packet-50">Looking at the data stream what is the full request URI for packet 50?</h3>
+
+<p><img src="/assets/images/2021-03-21-wireshark/19-uri.jpg" /></p>
+
+<blockquote>
+  <p>Answer: <strong>https://localhost/icons/back.gif</strong></p>
+</blockquote>
+
+<h3 id="what-is-the-user-agent-listed-in-packet-50">What is the User-Agent listed in packet 50?</h3>
+
+<p><img src="/assets/images/2021-03-21-wireshark/20-ua.jpg" /></p>
+
+<blockquote>
+  <p>Answer: <strong>Mozilla/5.0 (X11; U; Linux i686; fr; rv:1.8.0.2) Gecko/20060308 Firefox/1.5.0.2</strong></p>
+</blockquote>
+
+<h3 id="recap">Recap</h3>
+
+<p>In this task we learnt how to:</p>
+<ul>
+  <li>Use Wireshark to analyse ARP, ICMP, TCP, DNS, HTTP and HTTPS traffic</li>
+</ul>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2021-03-21T22:30:00+11:00">March 21, 2021</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/blog/investigating-windows/" class="pagination--pager" title="TryHackMe: Investigating Windows
+">Previous</a>
+    
+    
+      <a href="#" class="pagination--pager disabled">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2021 andickinson.github.io. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+
+  </body>
+</html>
