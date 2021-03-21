@@ -1,6 +1,6 @@
 ---
 title:  "TryHackMe: Wireshark 101"
-date:   2021-03-21 22:30:00 +1100
+date:   2021-03-21 12:30:00 +1100
 excerpt: Using Wireshark to analyze various protocols and PCAPs. 
 ---
 
