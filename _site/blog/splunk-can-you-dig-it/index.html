@@ -1,0 +1,600 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>TryHackMe: Splunk - Can you dig it? - andickinson.github.io</title>
+<meta name="description" content="Learning the basic commands for Splunk.">
+
+
+  <meta name="author" content="Andrew Dickinson">
+  
+  <meta property="article:author" content="Andrew Dickinson">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="andickinson.github.io">
+<meta property="og:title" content="TryHackMe: Splunk - Can you dig it?">
+<meta property="og:url" content="http://localhost:4000/blog/splunk-can-you-dig-it/">
+
+
+  <meta property="og:description" content="Learning the basic commands for Splunk.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2021-03-22T21:30:00+11:00">
+
+
+
+
+
+
+<link rel="canonical" href="http://localhost:4000/blog/splunk-can-you-dig-it/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": null,
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          andickinson.github.io
+          
+        </a>
+        <ul class="visible-links"></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="/assets/images/avatar.jpg" alt="Andrew Dickinson" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Andrew Dickinson</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>Technical Consultant, Team Leader, Cyber Security Specialist</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Melbourne, Australia</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="https://www.linkedin.com/in/a-dickinson" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span class="label">LinkedIn</span></a></li>
+          
+        
+          
+            <li><a href="https://github.com/andickinson" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+            <li><a href="https://tryhackme.com/p/foolish" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-laptop-code" aria-hidden="true"></i><span class="label">TryHackMe</span></a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="TryHackMe: Splunk - Can you dig it?">
+    <meta itemprop="description" content="Learning the basic commands for Splunk.">
+    <meta itemprop="datePublished" content="2021-03-22T21:30:00+11:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">TryHackMe: Splunk - Can you dig it?
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2021-03-22T21:30:00+11:00">March 22, 2021</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          3 minute read
+        
+      </span>
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>This is a write up for the <strong>Can you dig it?</strong> task of the <a href="https://tryhackme.com/room/bpsplunk"><strong>Splunk</strong></a> room on <a href="https://tryhackme.com">TryHackMe</a>. Some tasks have been omitted as they do not require an answer.</p>
+
+<hr />
+
+<h3 id="splunk-queries-always-begin-with-this-command-implicitly-unless-otherwise-specified-what-command-is-this-when-performing-additional-queries-to-refine-received-data-this-command-must-be-added-at-the-start-this-is-a-prime-example-of-a-slight-trick-question">Splunk queries always begin with this command implicitly unless otherwise specified. What command is this? When performing additional queries to refine received data this command must be added at the start. This is a prime example of a slight trick question.</h3>
+
+<blockquote>
+  <p>Answer: <strong>search</strong></p>
+</blockquote>
+
+<h3 id="when-searching-for-values-its-fairly-typical-within-security-to-look-for-uncommon-events-what-command-can-we-include-within-our-search-to-find-these">When searching for values, it’s fairly typical within security to look for uncommon events. What command can we include within our search to find these?</h3>
+
+<blockquote>
+  <p>Answer: <strong>rare</strong></p>
+</blockquote>
+
+<h3 id="what-about-the-inverse-what-if-we-want-the-most-common-security-event">What about the inverse? What if we want the most common security event?</h3>
+
+<blockquote>
+  <p>Answer: <strong>top</strong></p>
+</blockquote>
+
+<h3 id="when-we-import-data-into-splunk-what-is-it-stored-under">When we import data into splunk, what is it stored under?</h3>
+
+<blockquote>
+  <p>Answer: <strong>index</strong></p>
+</blockquote>
+
+<h3 id="we-can-create-views-that-allow-us-to-consistently-pull-up-the-same-search-over-and-over-again-what-are-these-called">We can create ‘views’ that allow us to consistently pull up the same search over and over again; what are these called?</h3>
+
+<blockquote>
+  <p>Answer: <strong>dashboards</strong></p>
+</blockquote>
+
+<h3 id="importing-data-doesnt-always-go-as-planned-and-we-can-sometimes-end-up-with-multiple-copies-of-the-same-data-what-command-do-we-include-in-our-search-to-remove-these-copies">Importing data doesn’t always go as planned and we can sometimes end up with multiple copies of the same data, what command do we include in our search to remove these copies?</h3>
+
+<blockquote>
+  <p>Answer: <strong>dedup</strong></p>
+</blockquote>
+
+<h3 id="splunk-can-be-used-for-more-than-just-a-siem-and-its-commonly-used-in-marketing-to-track-things-such-as-how-long-a-shopping-trip-on-a-website-lasts-from-start-to-finish-what-command-can-we-include-in-our-search-to-track-how-long-these-event-pairs-take">Splunk can be used for more than just a SIEM and it’s commonly used in marketing to track things such as how long a shopping trip on a website lasts from start to finish. What command can we include in our search to track how long these event pairs take?</h3>
+
+<blockquote>
+  <p>Answer: <strong>transaction</strong></p>
+</blockquote>
+
+<h3 id="in-a-manner-similar-to-linux-we-can-pipe-search-results-into-further-commands-what-character-do-we-use-for-this">In a manner similar to Linux, we can ‘pipe’ search results into further commands, what character do we use for this?</h3>
+
+<blockquote>
+  <p>Answer: <strong>|</strong></p>
+</blockquote>
+
+<h3 id="in-performing-data-analytics-with-splunk-ironically-what-the-tool-is-at-its-core-its-useful-to-track-occurrences-of-events-over-time-what-command-do-we-include-to-plot-this">In performing data analytics with Splunk (ironically what the tool is at it’s core) it’s useful to track occurrences of events over time, what command do we include to plot this?</h3>
+
+<blockquote>
+  <p>Answer: <strong>timechart</strong></p>
+</blockquote>
+
+<h3 id="what-about-if-we-want-to-gather-general-statistical-information-about-a-search">What about if we want to gather general statistical information about a search?</h3>
+
+<blockquote>
+  <p>Answer: <strong>stats</strong></p>
+</blockquote>
+
+<h3 id="data-imported-into-splunk-is-categorized-into-columns-called-what">Data imported into Splunk is categorized into columns called what?</h3>
+
+<blockquote>
+  <p>Answer: <strong>fields</strong></p>
+</blockquote>
+
+<h3 id="when-we-import-data-into-splunk-we-can-view-its-point-of-origination-what-is-this-called-im-looking-for-the-machine-aspect-of-this-here">When we import data into Splunk we can view it’s point of origination, what is this called? I’m looking for the machine aspect of this here.</h3>
+
+<blockquote>
+  <p>Answer: <strong>host</strong></p>
+</blockquote>
+
+<h3 id="when-we-import-data-into-splunk-we-can-view-its-point-of-origination-from-within-a-system-what-is-this-called">When we import data into Splunk we can view its point of origination from within a system, what is this called?</h3>
+
+<blockquote>
+  <p>Answer: <strong>source</strong></p>
+</blockquote>
+
+<h3 id="we-can-classify-these-points-of-origination-and-group-them-all-together-viewing-them-as-their-specific-type-what-is-this-called-use-the-syntax-found-within-the-search-query-rather-than-the-proper-name-for-this">We can classify these points of origination and group them all together, viewing them as their specific type. What is this called? Use the syntax found within the search query rather than the proper name for this.</h3>
+
+<blockquote>
+  <p>Answer: <strong>sourcetype</strong></p>
+</blockquote>
+
+<h3 id="when-performing-functions-on-data-we-are-searching-through-we-use-a-specific-command-prior-to-the-evaluation-itself-what-is-this-command">When performing functions on data we are searching through we use a specific command prior to the evaluation itself, what is this command?</h3>
+
+<blockquote>
+  <p>Answer: <strong>eval</strong></p>
+</blockquote>
+
+<h3 id="love-it-or-hate-it-regular-expression-is-a-massive-component-to-splunk-what-command-do-we-use-to-specific-regex-within-a-search">Love it or hate it regular expression is a massive component to Splunk, what command do we use to specific regex within a search?</h3>
+
+<blockquote>
+  <p>Answer: <strong>rex</strong></p>
+</blockquote>
+
+<h3 id="its-fairly-common-to-create-subsets-and-specific-views-for-less-technical-splunk-users-what-are-these-called">It’s fairly common to create subsets and specific views for less technical Splunk users, what are these called?</h3>
+
+<blockquote>
+  <p>Answer: <strong>pivot table</strong></p>
+</blockquote>
+
+<h3 id="what-is-the-proper-name-of-the-time-date-field-in-splunk">What is the proper name of the time date field in Splunk</h3>
+
+<blockquote>
+  <p>Answer: <strong>_time</strong></p>
+</blockquote>
+
+<h3 id="how-do-i-specifically-include-only-the-first-few-values-found-within-my-search">How do I specifically include only the first few values found within my search?</h3>
+
+<blockquote>
+  <p>Answer: <strong>head</strong></p>
+</blockquote>
+
+<h3 id="more-useful-than-you-would-otherwise-imagine-how-do-i-flip-the-order-that-results-are-returned-in">More useful than you would otherwise imagine, how do I flip the order that results are returned in?</h3>
+
+<blockquote>
+  <p>Answer: <strong>reverse</strong></p>
+</blockquote>
+
+<h3 id="when-viewing-search-results-its-often-useful-to-rename-fields-using-user-provided-tables-of-values-what-command-do-we-include-within-a-search-to-do-this">When viewing search results, it’s often useful to rename fields using user-provided tables of values. What command do we include within a search to do this?</h3>
+
+<blockquote>
+  <p>Answer: <strong>lookup</strong></p>
+</blockquote>
+
+<h3 id="we-can-collect-events-into-specific-time-frames-to-be-used-in-further-processing-what-command-do-we-include-within-a-search-to-do-just-that">We can collect events into specific time frames to be used in further processing. What command do we include within a search to do just that?</h3>
+
+<blockquote>
+  <p>Answer: <strong>bucket</strong></p>
+</blockquote>
+
+<h3 id="we-can-also-define-data-into-specific-sections-of-time-to-be-used-within-chart-commands-what-command-do-we-use-to-set-these-lengths-of-time-this-is-different-from-the-previous-question-as-we-are-no-longer-collecting-for-further-processing">We can also define data into specific sections of time to be used within chart commands, what command do we use to set these lengths of time? This is different from the previous question as we are no longer collecting for further processing.</h3>
+
+<blockquote>
+  <p>Answer: <strong>span</strong></p>
+</blockquote>
+
+<h3 id="when-producing-statistics-regarding-a-search-its-common-to-number-the-occurrences-of-an-event-what-command-do-we-include-to-do-this">When producing statistics regarding a search it’s common to number the occurrences of an event, what command do we include to do this?</h3>
+
+<blockquote>
+  <p>Answer: <strong>count</strong></p>
+</blockquote>
+
+<h3 id="last-but-not-least-what-is-the-website-where-you-can-find-the-splunk-apps-at">Last but not least, what is the website where you can find the Splunk apps at?</h3>
+
+<blockquote>
+  <p>Answer: <strong>splunkbase.splunk.com</strong></p>
+</blockquote>
+
+<h3 id="we-can-also-add-new-features-into-splunk-what-are-these-called">We can also add new features into Splunk, what are these called?</h3>
+
+<blockquote>
+  <p>Answer: <strong>apps</strong></p>
+</blockquote>
+
+<h3 id="what-does-soc-stand-for">What does SOC stand for?</h3>
+
+<blockquote>
+  <p>Answer: <strong>security operations center</strong></p>
+</blockquote>
+
+<h3 id="what-does-siem-stand-for">What does SIEM stand for?</h3>
+
+<blockquote>
+  <p>Answer: <strong>Security Information and Event Management</strong></p>
+</blockquote>
+
+<h3 id="how-about-bots">How about BOTS?</h3>
+
+<blockquote>
+  <p>Answer: <strong>Boss of the SOC</strong></p>
+</blockquote>
+
+<h3 id="and-cim">And CIM?</h3>
+
+<blockquote>
+  <p>Answer: <strong>Common Information Model</strong></p>
+</blockquote>
+
+<h3 id="what-is-the-website-where-you-can-find-the-splunk-forums-at">what is the website where you can find the Splunk forums at?</h3>
+
+<blockquote>
+  <p>Answer: <strong>answers.splunk.com</strong></p>
+</blockquote>
+
+<h3 id="recap">Recap</h3>
+
+<p>In this task we learnt how to:</p>
+<ul>
+  <li>Execute basic commands for Splunk searches</li>
+</ul>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2021-03-22T21:30:00+11:00">March 22, 2021</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/blog/wireshark/" class="pagination--pager" title="TryHackMe: Wireshark 101
+">Previous</a>
+    
+    
+      <a href="#" class="pagination--pager disabled">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2021 andickinson.github.io. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+
+  </body>
+</html>

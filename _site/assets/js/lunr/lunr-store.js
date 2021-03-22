@@ -76,4 +76,10 @@ var store = [{
         "tags": [],
         "url": "/blog/wireshark/",
         "teaser": null
+      },{
+        "title": "TryHackMe: Splunk - Can you dig it?",
+        "excerpt":"This is a write up for the Can you dig it? task of the Splunk room on TryHackMe. Some tasks have been omitted as they do not require an answer. Splunk queries always begin with this command implicitly unless otherwise specified. What command is this? When performing additional queries to...","categories": [],
+        "tags": [],
+        "url": "/blog/splunk-can-you-dig-it/",
+        "teaser": null
       }]
