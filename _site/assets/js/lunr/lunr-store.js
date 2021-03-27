@@ -82,4 +82,10 @@ var store = [{
         "tags": [],
         "url": "/blog/splunk-can-you-dig-it/",
         "teaser": null
+      },{
+        "title": "TryHackMe: Splunk - Boss of the SOC v1",
+        "excerpt":"This is a write up for the Advanced Persistent Threat and Ransomware tasks of the Splunk room on TryHackMe. Some tasks have been omitted as they do not require an answer. Advanced Persistent Threat What IP is scanning our web server? Navigate to http://10.10.29.30:8000 and then click on Investigating with...","categories": [],
+        "tags": [],
+        "url": "/blog/splunk-boss-of-the-soc-v1/",
+        "teaser": null
       }]

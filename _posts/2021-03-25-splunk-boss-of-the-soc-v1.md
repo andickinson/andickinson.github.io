@@ -1,5 +1,5 @@
 ---
-title:  "TryHackMe: Splunk - Boss of the SOC v1?"
+title:  "TryHackMe: Splunk - Boss of the SOC v1"
 date:   2021-03-25 20:30:00 +1100
 excerpt: BOTS is a hands-on, self-paced, blue-team exercise that uses Splunk to defeat threats. 
 ---
@@ -126,35 +126,101 @@ index=botsv1 imreallynotbatman.com sourcetype="stream:http" src_ip="23.22.63.114
 
 ### One of the passwords in the brute force attack is James Brodsky's favorite Coldplay song. Which six character song is it?
 
-> Answer: ****
+This is an interesting query as we need to separate the passwords from the form_data.
+
+```
+index=botsv1 imreallynotbatman.com sourcetype="stream:http" src_ip="23.22.63.114" dest_ip="192.168.250.70" http_method="POST" username passwd 
+| table form_data
+| rex field=form_data "passwd=(?<passwd>\w+)" 
+| table passwd 
+| regex passwd= \w{6}
+```
+
+There is still 343 possibilities, sorting alphabetically reveals the answer.
+
+<img src="{{ site.baseurl }}/assets/images/2021-03-25-splunk-boss-of-the-soc-v1/12-yellow.png">
+
+> Answer: **yellow**
 
 ### What was the correct password for admin access to the content management system running imreallynotbatman.com?
 
-> Answer: ****
+```
+index=botsv1 imreallynotbatman.com sourcetype="stream:http" dest_ip="192.168.250.70" http_method="POST" username passwd 
+| rex field=form_data "passwd=(?<passwd>\w+)" 
+| stats count by passwd
+| where count>1
+```
+
+<img src="{{ site.baseurl }}/assets/images/2021-03-25-splunk-boss-of-the-soc-v1/13-batman.png">
+
+> Answer: **batman**
 
 ### What was the average password length used in the password brute forcing attempt rounded to closest whole integer?
 
-> Answer: ****
+```
+index=botsv1 imreallynotbatman.com sourcetype="stream:http" dest_ip="192.168.250.70" http_method="POST" username passwd 
+| rex field=form_data "passwd=(?<passwd>\w+)" 
+| eval length=len(passwd) 
+| stats avg(length)
+```
+
+<img src="{{ site.baseurl }}/assets/images/2021-03-25-splunk-boss-of-the-soc-v1/14-average.png">
+
+> Answer: **6**
 
 ### How many seconds elapsed between the time the brute force password scan identified the correct password and the compromised login rounded to 2 decimal places?
 
-> Answer: ****
+```
+index=botsv1 imreallynotbatman.com sourcetype="stream:http" dest_ip="192.168.250.70" http_method="POST" username passwd  | rex field=form_data "passwd=(?<passwd>\w+)"  | search passwd=batman 
+| transaction passwd 
+| eval dur=round(duration, 2)
+| table dur
+```
+
+<img src="{{ site.baseurl }}/assets/images/2021-03-25-splunk-boss-of-the-soc-v1/15-diff.png">
+
+> Answer: **92.17**
 
 ### How many unique passwords were attempted in the brute force attempt?
 
-> Answer: ****
+```
+index=botsv1 imreallynotbatman.com sourcetype="stream:http" dest_ip="192.168.250.70" http_method="POST" username passwd 
+| rex field=form_data "passwd=(?<passwd>\w+)" 
+| stats count by passwd
+```
+
+<img src="{{ site.baseurl }}/assets/images/2021-03-25-splunk-boss-of-the-soc-v1/16-count.png">
+
+> Answer: **412**
 
 ### What is the name of the executable uploaded by P01s0n1vy?
 
-> Answer: ****
+```
+index=botsv1 imreallynotbatman.com sourcetype="stream:http" dest_ip="192.168.250.70" form-data
+```
+
+<img src="{{ site.baseurl }}/assets/images/2021-03-25-splunk-boss-of-the-soc-v1/17-exe.png">
+
+> Answer: **3791.exe**
 
 ### What is the MD5 hash of the executable uploaded?
 
-> Answer: ****
+```
+index=botsv1 3791.exe md5 sourcetype="XmlWinEventLog:Microsoft-Windows-Sysmon/Operational" CommandLine="3791.exe" 
+| rex field="_raw" "MD5=(?<hash>\w+)" 
+| table hash 
+| stats count by hash
+```
+
+<img src="{{ site.baseurl }}/assets/images/2021-03-25-splunk-boss-of-the-soc-v1/18-hash.png">
+
+> Answer: **AAE3F5A29935E6ABCC2C2754D12A9AF0**
 
 ### What is the name of the file that defaced the imreallynotbatman.com website?
 
-> Answer: ****
+
+
+> Answer: **poisonivy-is-coming-for-you-batman.jpeg**
 
 ### This attack used dynamic DNS to resolve to the malicious IP. What fully qualified domain name (FQDN) is associated with this attack?
 
