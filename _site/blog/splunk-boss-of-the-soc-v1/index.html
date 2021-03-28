@@ -300,7 +300,7 @@
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          4 minute read
+          7 minute read
         
       </span>
     
@@ -439,86 +439,185 @@
 
 <h3 id="one-of-the-passwords-in-the-brute-force-attack-is-james-brodskys-favorite-coldplay-song-which-six-character-song-is-it">One of the passwords in the brute force attack is James Brodsky’s favorite Coldplay song. Which six character song is it?</h3>
 
+<p>This is an interesting query as we need to separate the passwords from the form_data.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>index=botsv1 imreallynotbatman.com sourcetype="stream:http" src_ip="23.22.63.114" dest_ip="192.168.250.70" http_method="POST" username passwd 
+| table form_data
+| rex field=form_data "passwd=(?&lt;passwd&gt;\w+)" 
+| table passwd 
+| regex passwd= \w{6}
+</code></pre></div></div>
+
+<p>There is still 343 possibilities, sorting alphabetically reveals the answer.</p>
+
+<p><img src="/assets/images/2021-03-25-splunk-boss-of-the-soc-v1/12-yellow.png" /></p>
+
 <blockquote>
-  <p>Answer: <em>**</em></p>
+  <p>Answer: <strong>yellow</strong></p>
 </blockquote>
 
 <h3 id="what-was-the-correct-password-for-admin-access-to-the-content-management-system-running-imreallynotbatmancom">What was the correct password for admin access to the content management system running imreallynotbatman.com?</h3>
 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>index=botsv1 imreallynotbatman.com sourcetype="stream:http" dest_ip="192.168.250.70" http_method="POST" username passwd 
+| rex field=form_data "passwd=(?&lt;passwd&gt;\w+)" 
+| stats count by passwd
+| where count&gt;1
+</code></pre></div></div>
+
+<p><img src="/assets/images/2021-03-25-splunk-boss-of-the-soc-v1/13-batman.png" /></p>
+
 <blockquote>
-  <p>Answer: <em>**</em></p>
+  <p>Answer: <strong>batman</strong></p>
 </blockquote>
 
 <h3 id="what-was-the-average-password-length-used-in-the-password-brute-forcing-attempt-rounded-to-closest-whole-integer">What was the average password length used in the password brute forcing attempt rounded to closest whole integer?</h3>
 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>index=botsv1 imreallynotbatman.com sourcetype="stream:http" dest_ip="192.168.250.70" http_method="POST" username passwd 
+| rex field=form_data "passwd=(?&lt;passwd&gt;\w+)" 
+| eval length=len(passwd) 
+| stats avg(length)
+</code></pre></div></div>
+
+<p><img src="/assets/images/2021-03-25-splunk-boss-of-the-soc-v1/14-average.png" /></p>
+
 <blockquote>
-  <p>Answer: <em>**</em></p>
+  <p>Answer: <strong>6</strong></p>
 </blockquote>
 
 <h3 id="how-many-seconds-elapsed-between-the-time-the-brute-force-password-scan-identified-the-correct-password-and-the-compromised-login-rounded-to-2-decimal-places">How many seconds elapsed between the time the brute force password scan identified the correct password and the compromised login rounded to 2 decimal places?</h3>
 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>index=botsv1 imreallynotbatman.com sourcetype="stream:http" dest_ip="192.168.250.70" http_method="POST" username passwd  | rex field=form_data "passwd=(?&lt;passwd&gt;\w+)"  | search passwd=batman 
+| transaction passwd 
+| eval dur=round(duration, 2)
+| table dur
+</code></pre></div></div>
+
+<p><img src="/assets/images/2021-03-25-splunk-boss-of-the-soc-v1/15-diff.png" /></p>
+
 <blockquote>
-  <p>Answer: <em>**</em></p>
+  <p>Answer: <strong>92.17</strong></p>
 </blockquote>
 
 <h3 id="how-many-unique-passwords-were-attempted-in-the-brute-force-attempt">How many unique passwords were attempted in the brute force attempt?</h3>
 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>index=botsv1 imreallynotbatman.com sourcetype="stream:http" dest_ip="192.168.250.70" http_method="POST" username passwd 
+| rex field=form_data "passwd=(?&lt;passwd&gt;\w+)" 
+| stats count by passwd
+</code></pre></div></div>
+
+<p><img src="/assets/images/2021-03-25-splunk-boss-of-the-soc-v1/16-count.png" /></p>
+
 <blockquote>
-  <p>Answer: <em>**</em></p>
+  <p>Answer: <strong>412</strong></p>
 </blockquote>
 
 <h3 id="what-is-the-name-of-the-executable-uploaded-by-p01s0n1vy">What is the name of the executable uploaded by P01s0n1vy?</h3>
 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>index=botsv1 imreallynotbatman.com sourcetype="stream:http" dest_ip="192.168.250.70" form-data
+</code></pre></div></div>
+
+<p><img src="/assets/images/2021-03-25-splunk-boss-of-the-soc-v1/17-exe.png" /></p>
+
 <blockquote>
-  <p>Answer: <em>**</em></p>
+  <p>Answer: <strong>3791.exe</strong></p>
 </blockquote>
 
 <h3 id="what-is-the-md5-hash-of-the-executable-uploaded">What is the MD5 hash of the executable uploaded?</h3>
 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>index=botsv1 3791.exe md5 sourcetype="XmlWinEventLog:Microsoft-Windows-Sysmon/Operational" CommandLine="3791.exe" 
+| rex field="_raw" "MD5=(?&lt;hash&gt;\w+)" 
+| table hash 
+| stats count by hash
+</code></pre></div></div>
+
+<p><img src="/assets/images/2021-03-25-splunk-boss-of-the-soc-v1/18-hash.png" /></p>
+
 <blockquote>
-  <p>Answer: <em>**</em></p>
+  <p>Answer: <strong>AAE3F5A29935E6ABCC2C2754D12A9AF0</strong></p>
 </blockquote>
 
 <h3 id="what-is-the-name-of-the-file-that-defaced-the-imreallynotbatmancom-website">What is the name of the file that defaced the imreallynotbatman.com website?</h3>
 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>index=botsv1 sourcetype="suricata" src_ip="192.168.250.70" dest_ip="23.22.63.114" 
+|  stats count by http.http_method, http.hostname, http.url 
+|  sort -count
+</code></pre></div></div>
+
 <blockquote>
-  <p>Answer: <em>**</em></p>
+  <p>Answer: <strong>poisonivy-is-coming-for-you-batman.jpeg</strong></p>
 </blockquote>
 
 <h3 id="this-attack-used-dynamic-dns-to-resolve-to-the-malicious-ip-what-fully-qualified-domain-name-fqdn-is-associated-with-this-attack">This attack used dynamic DNS to resolve to the malicious IP. What fully qualified domain name (FQDN) is associated with this attack?</h3>
 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>index=botsv1 sourcetype=fgt_utm "poisonivy-is-coming-for-you-batman.jpeg" 
+| rex field="_raw" "hostname=(?&lt;hostname&gt;\w+)" 
+| table hostname
+</code></pre></div></div>
+
+<p><img src="/assets/images/2021-03-25-splunk-boss-of-the-soc-v1/19-hostname.png" /></p>
+
 <blockquote>
-  <p>Answer: <em>**</em></p>
+  <p>Answer: <strong>prankglassinebracket.jumpingcrab.com</strong></p>
 </blockquote>
 
 <h3 id="what-ip-address-has-p01s0n1vy-tied-to-domains-that-are-pre-staged-to-attack-wayne-enterprises">What IP address has P01s0n1vy tied to domains that are pre-staged to attack Wayne Enterprises?</h3>
 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>index=botsv1 sourcetype=fgt_utm "poisonivy-is-coming-for-you-batman.jpeg" 
+| table dstip
+</code></pre></div></div>
+
+<p><img src="/assets/images/2021-03-25-splunk-boss-of-the-soc-v1/20-dstip.png" /></p>
+
 <blockquote>
-  <p>Answer: <em>**</em></p>
+  <p>Answer: <strong>23.22.63.114</strong></p>
 </blockquote>
 
 <h3 id="based-on-the-data-gathered-from-this-attack-and-common-open-source-intelligence-sources-for-domain-names-what-is-the-email-address-that-is-most-likely-associated-with-p01s0n1vy-apt-group">Based on the data gathered from this attack and common open source intelligence sources for domain names, what is the email address that is most likely associated with P01s0n1vy APT group?</h3>
 
+<p>Doing a google search for <strong>23.22.63.114</strong> provdes the following page: https://www.threatcrowd.org/ip.php?ip=23.22.63.114.</p>
+
+<p>On this page a diagram is provided which reveals a potential email address.</p>
+
+<p><img src="/assets/images/2021-03-25-splunk-boss-of-the-soc-v1/21-email.png" /></p>
+
 <blockquote>
-  <p>Answer: <em>**</em></p>
+  <p>Answer: <strong>lilian.rose@po1s0n1vy.com</strong></p>
 </blockquote>
 
 <h3 id="gcpd-reported-that-common-ttps-tactics-techniques-procedures-for-the-p01s0n1vy-apt-group-if-initial-compromise-fails-is-to-send-a-spear-phishing-email-with-custom-malware-attached-to-their-intended-target-this-malware-is-usually-connected-to-p01s0n1vys-initial-attack-infrastructure-using-research-techniques-provide-the-sha256-hash-of-this-malware">GCPD reported that common TTPs (Tactics, Techniques, Procedures) for the P01s0n1vy APT group if initial compromise fails is to send a spear phishing email with custom malware attached to their intended target. This malware is usually connected to P01s0n1vy’s initial attack infrastructure. Using research techniques, provide the SHA256 hash of this malware.</h3>
 
+<p>Searching for <strong>23.22.63.114 malware hash</strong> provides a link to https://www.threatminer.org/host.php?q=23.22.63.114#gsc.tab=0&amp;gsc.q=23.22.63.114&amp;gsc.page=1.</p>
+
+<p>This reveals a hash for a number of trojans.</p>
+
+<p><img src="/assets/images/2021-03-25-splunk-boss-of-the-soc-v1/22-malware.png" /></p>
+
+<p>Following the link on the MD5 provides a SHA256 hash related to this malware - https://www.threatminer.org/sample.php?q=c99131e0169171935c5ac32615ed6261#gsc.tab=0&amp;gsc.q=c99131e0169171935c5ac32615ed6261&amp;gsc.page=1</p>
+
+<p><img src="/assets/images/2021-03-25-splunk-boss-of-the-soc-v1/23-sha256.png" /></p>
+
 <blockquote>
-  <p>Answer: <em>**</em></p>
+  <p>Answer: <strong>9709473ab351387aab9e816eff3910b9f28a7a70202e250ed46dba8f820f34a8</strong></p>
 </blockquote>
 
 <h3 id="what-special-hex-code-is-associated-with-the-customized-malware-discussed-in-the-previous-question">What special hex code is associated with the customized malware discussed in the previous question?</h3>
 
+<p>Following the VirusTotal link on the previous page reveals the HEX code - https://www.virustotal.com/gui/file/9709473ab351387aab9e816eff3910b9f28a7a70202e250ed46dba8f820f34a8/community</p>
+
+<p><img src="/assets/images/2021-03-25-splunk-boss-of-the-soc-v1/24-hex.png" /></p>
+
 <blockquote>
-  <p>Answer: <em>**</em></p>
+  <p>Answer: <strong>53 74 65 76 65 20 42 72 61 6e 74 27 73 20 42 65 61 72 64 20 69 73 20 61 20 70 6f 77 65 72 66 75 6c 20 74 68 69 6e 67 2e 20 46 69 6e 64 20 74 68 69 73 20 6d 65 73 73 61 67 65 20 61 6e 64 20 61 73 6b 20 68 69 6d 20 74 6f 20 62 75 79 20 79 6f 75 20 61 20 62 65 65 72 21 21 21</strong></p>
 </blockquote>
 
 <h3 id="what-does-this-hex-code-decode-to">What does this hex code decode to?</h3>
 
+<p>Putting the HEX code into an online converter (https://cryptii.com/pipes/hex-decoder) reveals the following message.</p>
+
+<p><img src="/assets/images/2021-03-25-splunk-boss-of-the-soc-v1/25-message.png" /></p>
+
 <blockquote>
-  <p>Answer: <em>**</em></p>
+  <p>Answer: <strong>Steve Brant’s Beard is a powerful thing. Find this message and ask him to buy you a beer!!!</strong></p>
 </blockquote>
 
 <hr />
@@ -527,82 +626,163 @@
 
 <h3 id="what-was-the-most-likely-ip-address-of-we8105desk-on-24aug2016">What was the most likely IP address of we8105desk on 24AUG2016?</h3>
 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>index=botsv1 host=we8105desk| top limit=20 src_ip
+</code></pre></div></div>
+
+<p><img src="/assets/images/2021-03-25-splunk-boss-of-the-soc-v1/26-ip.png" /></p>
+
 <blockquote>
-  <p>Answer: <em>**</em></p>
+  <p>Answer: <strong>192.168.250.100</strong></p>
 </blockquote>
 
 <h3 id="what-is-the-name-of-the-usb-key-inserted-by-bob-smith">What is the name of the USB key inserted by Bob Smith?</h3>
 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>index=botsv1 host=we8105desk sourcetype=WinRegistry friendlyname 
+| top limit=1 data
+</code></pre></div></div>
+
+<p><img src="/assets/images/2021-03-25-splunk-boss-of-the-soc-v1/27-name.png" /></p>
+
 <blockquote>
-  <p>Answer: <em>**</em></p>
+  <p>Answer: <strong>MIRANDA_PRI</strong></p>
 </blockquote>
 
 <h3 id="after-the-usb-insertion-a-file-execution-occurs-that-is-the-initial-cerber-infection-this-file-execution-creates-two-additional-processes-what-is-the-name-of-the-file">After the USB insertion, a file execution occurs that is the initial Cerber infection. This file execution creates two additional processes. What is the name of the file?</h3>
 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>index=botsv1 host=we8105desk sourcetype="XmlWinEventLog:Microsoft-Windows-Sysmon/Operational" "d:\\" 
+| reverse
+</code></pre></div></div>
+
+<p><img src="/assets/images/2021-03-25-splunk-boss-of-the-soc-v1/28-file.png" /></p>
+
 <blockquote>
-  <p>Answer: <em>**</em></p>
+  <p>Answer: <strong>miranda_tate_unveiled.dotm</strong></p>
 </blockquote>
 
 <h3 id="during-the-initial-cerber-infection-a-vb-script-is-run-the-entire-script-from-this-execution-pre-pended-by-the-name-of-the-launching-exe-can-be-found-in-a-field-in-splunk-what-is-the-length-in-characters-of-this-field">During the initial Cerber infection a VB script is run. The entire script from this execution, pre-pended by the name of the launching .exe, can be found in a field in Splunk. What is the length in characters of this field?</h3>
 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>index=botsv1 sourcetype="XmlWinEventLog:Microsoft-Windows-Sysmon/Operational" *.exe CommandLine=* EventCode=1
+| eval length=len(CommandLine) 
+| table CommandLine length 
+| sort - 1 length
+</code></pre></div></div>
+
+<p><img src="/assets/images/2021-03-25-splunk-boss-of-the-soc-v1/29-length.png" /></p>
+
 <blockquote>
-  <p>Answer: <em>**</em></p>
+  <p>Answer: <strong>4490</strong></p>
 </blockquote>
 
 <h3 id="bob-smiths-workstation-we8105desk-was-connected-to-a-file-server-during-the-ransomware-outbreak-what-is-the-ip-address-of-the-file-server">Bob Smith’s workstation (we8105desk) was connected to a file server during the ransomware outbreak. What is the IP address of the file server?</h3>
 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>index=botsv1 host="we8105desk" sourcetype="XmlWinEventLog:Microsoft-Windows-Sysmon/Operational" src="we8105desk.waynecorpinc.local" 
+| stats count by dest_ip
+</code></pre></div></div>
+
+<p><img src="/assets/images/2021-03-25-splunk-boss-of-the-soc-v1/30-ip.png" /></p>
+
 <blockquote>
-  <p>Answer: <em>**</em></p>
+  <p>Answer: <strong>192.168.250.20</strong></p>
 </blockquote>
 
 <h3 id="what-was-the-first-suspicious-domain-visited-by-we8105desk-on-24aug2016">What was the first suspicious domain visited by we8105desk on 24AUG2016?</h3>
 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>index=botsv1 src="192.168.250.100" sourcetype="stream:dns" record_type=A NOT (query{}=*.microsoft.com OR query{}=*.bing.com OR query{}=wpad* OR query{}=isatap OR query{}=*.waynecorpinc.local OR query{}=*.windows.com OR query{}=*.msftncsi.com)
+| table _time query{} src dest
+| reverse
+</code></pre></div></div>
+
+<p><img src="/assets/images/2021-03-25-splunk-boss-of-the-soc-v1/31-url.png" /></p>
+
 <blockquote>
-  <p>Answer: <em>**</em></p>
+  <p>Answer: <strong>solidaritedeproximite.org</strong></p>
 </blockquote>
 
 <h3 id="the-malware-downloads-a-file-that-contains-the-cerber-ransomware-cryptor-code-what-is-the-name-of-that-file">The malware downloads a file that contains the Cerber ransomware cryptor code. What is the name of that file?</h3>
 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>index=botsv1 src="192.168.250.100" sourcetype="suricata" url=*
+| stats count values(url) by dest
+</code></pre></div></div>
+
+<p><img src="/assets/images/2021-03-25-splunk-boss-of-the-soc-v1/32-mhtr.png" /></p>
+
+<p>The first result is <strong>mhtr.jpg</strong>, doing a google search of this file reveals it is related to a ransomware  attack.</p>
+
 <blockquote>
-  <p>Answer: <em>**</em></p>
+  <p>Answer: <strong>mhtr.jpg</strong></p>
 </blockquote>
 
 <h3 id="what-is-the-parent-process-id-of-121214tmp">What is the parent process ID of 121214.tmp?</h3>
 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>index=botsv1 sourcetype="XmlWinEventLog:Microsoft-Windows-Sysmon/Operational" 121214.tmp 
+| table _time CommandLine ProcessId ParentProcessId ParentCommandLine 
+| reverse
+</code></pre></div></div>
+
+<p><img src="/assets/images/2021-03-25-splunk-boss-of-the-soc-v1/33-pid.png" /></p>
+
 <blockquote>
-  <p>Answer: <em>**</em></p>
+  <p>Answer: <strong>3968</strong></p>
 </blockquote>
 
 <h3 id="amongst-the-suricata-signatures-that-detected-the-cerber-malware-which-signature-id-alerted-the-fewest-number-of-times">Amongst the Suricata signatures that detected the Cerber malware, which signature ID alerted the fewest number of times?</h3>
 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>index=botsv1 sourcetype=suricata alert.signature=*cerber* 
+| stats count by alert.signature_id
+</code></pre></div></div>
+
+<p><img src="/assets/images/2021-03-25-splunk-boss-of-the-soc-v1/34-sid.png" /></p>
+
 <blockquote>
-  <p>Answer: <em>**</em></p>
+  <p>Answer: <strong>2816763</strong></p>
 </blockquote>
 
 <h3 id="the-cerber-ransomware-encrypts-files-located-in-bob-smiths-windows-profile-how-many-txt-files-does-it-encrypt">The Cerber ransomware encrypts files located in Bob Smith’s Windows profile. How many .txt files does it encrypt?</h3>
 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>index=botsv1 sourcetype="XmlWinEventLog:Microsoft-Windows-Sysmon/Operational" host=we8105desk *.txt EventCode=2 TargetFilename="C:\\Users\\bob.smith.WAYNECORPINC\\*.txt" 
+| stats dc(TargetFilename)
+</code></pre></div></div>
+
+<p><img src="/assets/images/2021-03-25-splunk-boss-of-the-soc-v1/35-count.png" /></p>
+
 <blockquote>
-  <p>Answer: <em>**</em></p>
+  <p>Answer: <strong>406</strong></p>
 </blockquote>
 
 <h3 id="how-many-distinct-pdfs-did-the-ransomware-encrypt-on-the-remote-file-server">How many distinct PDFs did the ransomware encrypt on the remote file server?</h3>
 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>index=botsv1 sourcetype="*win*" pdf dest="we9041srv.waynecorpinc.local" Source_Address="192.168.250.100" 
+| stats dc(Relative_Target_Name)
+</code></pre></div></div>
+
+<p><img src="/assets/images/2021-03-25-splunk-boss-of-the-soc-v1/36-pdf.png" /></p>
+
 <blockquote>
-  <p>Answer: <em>**</em></p>
+  <p>Answer: <strong>257</strong></p>
 </blockquote>
 
 <h3 id="what-fully-qualified-domain-name-fqdn-does-the-cerber-ransomware-attempt-to-direct-the-user-to-at-the-end-of-its-encryption-phase">What fully qualified domain name (FQDN) does the Cerber ransomware attempt to direct the user to at the end of its encryption phase?</h3>
 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>index=botsv1 sourcetype="stream:DNS" src=192.168.250.100 record_type=A NOT (query{}=*.microsoft.com OR query{}=wpad OR query{}=isatap OR query{}=*.waynecorpinc.local OR query{}=*.bing.com OR query{}=*.windows.com OR query{}=*.msftncsi.com OR query{}=*.live.com) 
+| table _time query{} src dest
+</code></pre></div></div>
+
+<p><img src="/assets/images/2021-03-25-splunk-boss-of-the-soc-v1/37-fqdn.png" /></p>
+
 <blockquote>
-  <p>Answer: <em>**</em></p>
+  <p>Answer: <strong>cerberhhyed5frqa.xmfir0.win</strong></p>
 </blockquote>
 
 <h3 id="recap">Recap</h3>
 
 <p>In this task we learnt how to:</p>
 <ul>
-  <li></li>
+  <li>Conduct search queries to find information in Splunk</li>
+  <li>Find identifiers of APT activity</li>
+  <li>Find identifiers of Ransomware activity</li>
+  <li>Conduct OSINT to find malware information</li>
 </ul>
+
 
         
       </section>
