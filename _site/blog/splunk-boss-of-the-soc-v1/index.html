@@ -1,0 +1,875 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>TryHackMe: Splunk - Boss of the SOC v1 - andickinson.github.io</title>
+<meta name="description" content="BOTS is a hands-on, self-paced, blue-team exercise that uses Splunk to defeat threats.">
+
+
+  <meta name="author" content="Andrew Dickinson">
+  
+  <meta property="article:author" content="Andrew Dickinson">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="andickinson.github.io">
+<meta property="og:title" content="TryHackMe: Splunk - Boss of the SOC v1">
+<meta property="og:url" content="http://localhost:4000/blog/splunk-boss-of-the-soc-v1/">
+
+
+  <meta property="og:description" content="BOTS is a hands-on, self-paced, blue-team exercise that uses Splunk to defeat threats.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2021-03-25T20:30:00+11:00">
+
+
+
+
+
+
+<link rel="canonical" href="http://localhost:4000/blog/splunk-boss-of-the-soc-v1/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": null,
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          andickinson.github.io
+          
+        </a>
+        <ul class="visible-links"></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="/assets/images/avatar.jpg" alt="Andrew Dickinson" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Andrew Dickinson</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>Technical Consultant, Team Leader, Cyber Security Specialist</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Melbourne, Australia</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="https://www.linkedin.com/in/a-dickinson" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span class="label">LinkedIn</span></a></li>
+          
+        
+          
+            <li><a href="https://github.com/andickinson" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+            <li><a href="https://tryhackme.com/p/foolish" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-laptop-code" aria-hidden="true"></i><span class="label">TryHackMe</span></a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="TryHackMe: Splunk - Boss of the SOC v1">
+    <meta itemprop="description" content="BOTS is a hands-on, self-paced, blue-team exercise that uses Splunk to defeat threats.">
+    <meta itemprop="datePublished" content="2021-03-25T20:30:00+11:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">TryHackMe: Splunk - Boss of the SOC v1
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2021-03-25T20:30:00+11:00">March 25, 2021</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          7 minute read
+        
+      </span>
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>This is a write up for the <strong>Advanced Persistent Threat</strong> and <strong>Ransomware</strong> tasks of the <a href="https://tryhackme.com/room/bpsplunk"><strong>Splunk</strong></a> room on <a href="https://tryhackme.com">TryHackMe</a>. Some tasks have been omitted as they do not require an answer.</p>
+
+<hr />
+
+<h2 id="advanced-persistent-threat">Advanced Persistent Threat</h2>
+
+<h3 id="what-ip-is-scanning-our-web-server">What IP is scanning our web server?</h3>
+
+<p>Navigate to http://10.10.29.30:8000 and then click on <strong>Investigating with Splunk Workshop</strong>.</p>
+
+<p>We know:</p>
+<ul>
+  <li>We have a compromised website: imreallynotbatman.com</li>
+  <li>An index called: botsv1</li>
+</ul>
+
+<p>Lets start with a basic search:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>index=botsv1 imreallynotbatman.com
+</code></pre></div></div>
+
+<p>This provides ~80,0000 results.</p>
+
+<p><img src="/assets/images/2021-03-25-splunk-boss-of-the-soc-v1/01-basic-query.jpg" /></p>
+
+<p>Something that is scanning our webserver is likely to be via HTTP, so lets set sourcetype to <strong>stream:http</strong>.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>index=botsv1 imreallynotbatman.com sourcetype="stream:http"
+</code></pre></div></div>
+
+<p><img src="/assets/images/2021-03-25-splunk-boss-of-the-soc-v1/02-source.jpg" /></p>
+
+<p>Lets see how many different ip addresses we are dealing with.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>index=botsv1 imreallynotbatman.com sourcetype="stream:http" | stats count by src_ip
+</code></pre></div></div>
+
+<p><img src="/assets/images/2021-03-25-splunk-boss-of-the-soc-v1/03-ip.jpg" /></p>
+
+<p>We can assume that due to the volume of traffic, this source ip is scanning our server.</p>
+
+<blockquote>
+  <p>Answer: <strong>40.80.148.42</strong></p>
+</blockquote>
+
+<h3 id="what-web-scanner-scanned-the-server">What web scanner scanned the server?</h3>
+
+<p>Looking at some of the traffic from 40.80.148.42, we can see it is running Acunetix - a vulnerability scanner.</p>
+
+<p><img src="/assets/images/2021-03-25-splunk-boss-of-the-soc-v1/04-acunetix.jpg" /></p>
+
+<blockquote>
+  <p>Answer: <strong>Acunetix</strong></p>
+</blockquote>
+
+<h3 id="what-is-the-ip-address-of-our-web-server">What is the IP address of our web server?</h3>
+
+<p>The requests from 40.80.148.42 are targetting 192.168.250.70</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>index=botsv1 imreallynotbatman.com sourcetype="stream:http" src_ip="40.80.148.42" | stats count by dest_ip
+</code></pre></div></div>
+
+<p><img src="/assets/images/2021-03-25-splunk-boss-of-the-soc-v1/05-dest.jpg" /></p>
+
+<blockquote>
+  <p>Answer: <strong>192.168.250.70</strong></p>
+</blockquote>
+
+<h3 id="what-content-management-system-is-imreallynotbatmancom-using">What content management system is imreallynotbatman.com using?</h3>
+
+<p>Looking at the dest_headers we can see that Joomla is likely to be the CMS in use.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>index=botsv1 imreallynotbatman.com sourcetype="stream:http" src_ip="40.80.148.42" dest_ip="192.168.250.70" | top limit=20 dest_headers
+</code></pre></div></div>
+
+<p><img src="/assets/images/2021-03-25-splunk-boss-of-the-soc-v1/06-joomla.jpg" /></p>
+
+<blockquote>
+  <p>Answer: <strong>Joomla</strong></p>
+</blockquote>
+
+<h3 id="what-address-is-performing-the-brute-forcing-attack-against-our-website">What address is performing the brute-forcing attack against our website?</h3>
+
+<p>A brute force attack is against some form of authentication. This will likely require GET/POST requests.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>index=botsv1 imreallynotbatman.com sourcetype="stream:http" dest_ip="192.168.250.70" | stats count by http_method
+</code></pre></div></div>
+
+<p><img src="/assets/images/2021-03-25-splunk-boss-of-the-soc-v1/07-http.jpg" /></p>
+
+<p>Looking at the http_content for a request shows that the password field is called <strong>passwd</strong>.</p>
+
+<p><img src="/assets/images/2021-03-25-splunk-boss-of-the-soc-v1/08-passwd.jpg" /></p>
+
+<p>Refining our search further shows how many requests are coming from each ip.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>index=botsv1 imreallynotbatman.com sourcetype="stream:http" dest_ip="192.168.250.70" http_method="POST" username passwd | stats count by src_ip
+</code></pre></div></div>
+
+<p><img src="/assets/images/2021-03-25-splunk-boss-of-the-soc-v1/09-ip.jpg" /></p>
+
+<p>Listing <strong>form_data</strong> shows a brute force attempt on the <strong>admin</strong> user.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>index=botsv1 imreallynotbatman.com sourcetype="stream:http" src_ip="23.22.63.114" dest_ip="192.168.250.70" http_method="POST" username passwd | top limit=20 form_data
+</code></pre></div></div>
+
+<p><img src="/assets/images/2021-03-25-splunk-boss-of-the-soc-v1/10-brute.jpg" /></p>
+
+<blockquote>
+  <p>Answer: <strong>23.22.63.114</strong></p>
+</blockquote>
+
+<h3 id="what-was-the-first-password-attempted-in-the-attack">What was the first password attempted in the attack?</h3>
+
+<p>The earliest entry will be at the <strong>tail</strong>.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>index=botsv1 imreallynotbatman.com sourcetype="stream:http" src_ip="23.22.63.114" dest_ip="192.168.250.70" http_method="POST" username passwd | tail 1
+</code></pre></div></div>
+
+<p><img src="/assets/images/2021-03-25-splunk-boss-of-the-soc-v1/11-pass.jpg" /></p>
+
+<blockquote>
+  <p>Answer: <strong>12345678</strong></p>
+</blockquote>
+
+<h3 id="one-of-the-passwords-in-the-brute-force-attack-is-james-brodskys-favorite-coldplay-song-which-six-character-song-is-it">One of the passwords in the brute force attack is James Brodsky’s favorite Coldplay song. Which six character song is it?</h3>
+
+<p>This is an interesting query as we need to separate the passwords from the form_data.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>index=botsv1 imreallynotbatman.com sourcetype="stream:http" src_ip="23.22.63.114" dest_ip="192.168.250.70" http_method="POST" username passwd 
+| table form_data
+| rex field=form_data "passwd=(?&lt;passwd&gt;\w+)" 
+| table passwd 
+| regex passwd= \w{6}
+</code></pre></div></div>
+
+<p>There is still 343 possibilities, sorting alphabetically reveals the answer.</p>
+
+<p><img src="/assets/images/2021-03-25-splunk-boss-of-the-soc-v1/12-yellow.png" /></p>
+
+<blockquote>
+  <p>Answer: <strong>yellow</strong></p>
+</blockquote>
+
+<h3 id="what-was-the-correct-password-for-admin-access-to-the-content-management-system-running-imreallynotbatmancom">What was the correct password for admin access to the content management system running imreallynotbatman.com?</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>index=botsv1 imreallynotbatman.com sourcetype="stream:http" dest_ip="192.168.250.70" http_method="POST" username passwd 
+| rex field=form_data "passwd=(?&lt;passwd&gt;\w+)" 
+| stats count by passwd
+| where count&gt;1
+</code></pre></div></div>
+
+<p><img src="/assets/images/2021-03-25-splunk-boss-of-the-soc-v1/13-batman.png" /></p>
+
+<blockquote>
+  <p>Answer: <strong>batman</strong></p>
+</blockquote>
+
+<h3 id="what-was-the-average-password-length-used-in-the-password-brute-forcing-attempt-rounded-to-closest-whole-integer">What was the average password length used in the password brute forcing attempt rounded to closest whole integer?</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>index=botsv1 imreallynotbatman.com sourcetype="stream:http" dest_ip="192.168.250.70" http_method="POST" username passwd 
+| rex field=form_data "passwd=(?&lt;passwd&gt;\w+)" 
+| eval length=len(passwd) 
+| stats avg(length)
+</code></pre></div></div>
+
+<p><img src="/assets/images/2021-03-25-splunk-boss-of-the-soc-v1/14-average.png" /></p>
+
+<blockquote>
+  <p>Answer: <strong>6</strong></p>
+</blockquote>
+
+<h3 id="how-many-seconds-elapsed-between-the-time-the-brute-force-password-scan-identified-the-correct-password-and-the-compromised-login-rounded-to-2-decimal-places">How many seconds elapsed between the time the brute force password scan identified the correct password and the compromised login rounded to 2 decimal places?</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>index=botsv1 imreallynotbatman.com sourcetype="stream:http" dest_ip="192.168.250.70" http_method="POST" username passwd  | rex field=form_data "passwd=(?&lt;passwd&gt;\w+)"  | search passwd=batman 
+| transaction passwd 
+| eval dur=round(duration, 2)
+| table dur
+</code></pre></div></div>
+
+<p><img src="/assets/images/2021-03-25-splunk-boss-of-the-soc-v1/15-diff.png" /></p>
+
+<blockquote>
+  <p>Answer: <strong>92.17</strong></p>
+</blockquote>
+
+<h3 id="how-many-unique-passwords-were-attempted-in-the-brute-force-attempt">How many unique passwords were attempted in the brute force attempt?</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>index=botsv1 imreallynotbatman.com sourcetype="stream:http" dest_ip="192.168.250.70" http_method="POST" username passwd 
+| rex field=form_data "passwd=(?&lt;passwd&gt;\w+)" 
+| stats count by passwd
+</code></pre></div></div>
+
+<p><img src="/assets/images/2021-03-25-splunk-boss-of-the-soc-v1/16-count.png" /></p>
+
+<blockquote>
+  <p>Answer: <strong>412</strong></p>
+</blockquote>
+
+<h3 id="what-is-the-name-of-the-executable-uploaded-by-p01s0n1vy">What is the name of the executable uploaded by P01s0n1vy?</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>index=botsv1 imreallynotbatman.com sourcetype="stream:http" dest_ip="192.168.250.70" form-data
+</code></pre></div></div>
+
+<p><img src="/assets/images/2021-03-25-splunk-boss-of-the-soc-v1/17-exe.png" /></p>
+
+<blockquote>
+  <p>Answer: <strong>3791.exe</strong></p>
+</blockquote>
+
+<h3 id="what-is-the-md5-hash-of-the-executable-uploaded">What is the MD5 hash of the executable uploaded?</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>index=botsv1 3791.exe md5 sourcetype="XmlWinEventLog:Microsoft-Windows-Sysmon/Operational" CommandLine="3791.exe" 
+| rex field="_raw" "MD5=(?&lt;hash&gt;\w+)" 
+| table hash 
+| stats count by hash
+</code></pre></div></div>
+
+<p><img src="/assets/images/2021-03-25-splunk-boss-of-the-soc-v1/18-hash.png" /></p>
+
+<blockquote>
+  <p>Answer: <strong>AAE3F5A29935E6ABCC2C2754D12A9AF0</strong></p>
+</blockquote>
+
+<h3 id="what-is-the-name-of-the-file-that-defaced-the-imreallynotbatmancom-website">What is the name of the file that defaced the imreallynotbatman.com website?</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>index=botsv1 sourcetype="suricata" src_ip="192.168.250.70" dest_ip="23.22.63.114" 
+|  stats count by http.http_method, http.hostname, http.url 
+|  sort -count
+</code></pre></div></div>
+
+<blockquote>
+  <p>Answer: <strong>poisonivy-is-coming-for-you-batman.jpeg</strong></p>
+</blockquote>
+
+<h3 id="this-attack-used-dynamic-dns-to-resolve-to-the-malicious-ip-what-fully-qualified-domain-name-fqdn-is-associated-with-this-attack">This attack used dynamic DNS to resolve to the malicious IP. What fully qualified domain name (FQDN) is associated with this attack?</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>index=botsv1 sourcetype=fgt_utm "poisonivy-is-coming-for-you-batman.jpeg" 
+| rex field="_raw" "hostname=(?&lt;hostname&gt;\w+)" 
+| table hostname
+</code></pre></div></div>
+
+<p><img src="/assets/images/2021-03-25-splunk-boss-of-the-soc-v1/19-hostname.png" /></p>
+
+<blockquote>
+  <p>Answer: <strong>prankglassinebracket.jumpingcrab.com</strong></p>
+</blockquote>
+
+<h3 id="what-ip-address-has-p01s0n1vy-tied-to-domains-that-are-pre-staged-to-attack-wayne-enterprises">What IP address has P01s0n1vy tied to domains that are pre-staged to attack Wayne Enterprises?</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>index=botsv1 sourcetype=fgt_utm "poisonivy-is-coming-for-you-batman.jpeg" 
+| table dstip
+</code></pre></div></div>
+
+<p><img src="/assets/images/2021-03-25-splunk-boss-of-the-soc-v1/20-dstip.png" /></p>
+
+<blockquote>
+  <p>Answer: <strong>23.22.63.114</strong></p>
+</blockquote>
+
+<h3 id="based-on-the-data-gathered-from-this-attack-and-common-open-source-intelligence-sources-for-domain-names-what-is-the-email-address-that-is-most-likely-associated-with-p01s0n1vy-apt-group">Based on the data gathered from this attack and common open source intelligence sources for domain names, what is the email address that is most likely associated with P01s0n1vy APT group?</h3>
+
+<p>Doing a google search for <strong>23.22.63.114</strong> provdes the following page: https://www.threatcrowd.org/ip.php?ip=23.22.63.114.</p>
+
+<p>On this page a diagram is provided which reveals a potential email address.</p>
+
+<p><img src="/assets/images/2021-03-25-splunk-boss-of-the-soc-v1/21-email.png" /></p>
+
+<blockquote>
+  <p>Answer: <strong>lilian.rose@po1s0n1vy.com</strong></p>
+</blockquote>
+
+<h3 id="gcpd-reported-that-common-ttps-tactics-techniques-procedures-for-the-p01s0n1vy-apt-group-if-initial-compromise-fails-is-to-send-a-spear-phishing-email-with-custom-malware-attached-to-their-intended-target-this-malware-is-usually-connected-to-p01s0n1vys-initial-attack-infrastructure-using-research-techniques-provide-the-sha256-hash-of-this-malware">GCPD reported that common TTPs (Tactics, Techniques, Procedures) for the P01s0n1vy APT group if initial compromise fails is to send a spear phishing email with custom malware attached to their intended target. This malware is usually connected to P01s0n1vy’s initial attack infrastructure. Using research techniques, provide the SHA256 hash of this malware.</h3>
+
+<p>Searching for <strong>23.22.63.114 malware hash</strong> provides a link to https://www.threatminer.org/host.php?q=23.22.63.114#gsc.tab=0&amp;gsc.q=23.22.63.114&amp;gsc.page=1.</p>
+
+<p>This reveals a hash for a number of trojans.</p>
+
+<p><img src="/assets/images/2021-03-25-splunk-boss-of-the-soc-v1/22-malware.png" /></p>
+
+<p>Following the link on the MD5 provides a SHA256 hash related to this malware - https://www.threatminer.org/sample.php?q=c99131e0169171935c5ac32615ed6261#gsc.tab=0&amp;gsc.q=c99131e0169171935c5ac32615ed6261&amp;gsc.page=1</p>
+
+<p><img src="/assets/images/2021-03-25-splunk-boss-of-the-soc-v1/23-sha256.png" /></p>
+
+<blockquote>
+  <p>Answer: <strong>9709473ab351387aab9e816eff3910b9f28a7a70202e250ed46dba8f820f34a8</strong></p>
+</blockquote>
+
+<h3 id="what-special-hex-code-is-associated-with-the-customized-malware-discussed-in-the-previous-question">What special hex code is associated with the customized malware discussed in the previous question?</h3>
+
+<p>Following the VirusTotal link on the previous page reveals the HEX code - https://www.virustotal.com/gui/file/9709473ab351387aab9e816eff3910b9f28a7a70202e250ed46dba8f820f34a8/community</p>
+
+<p><img src="/assets/images/2021-03-25-splunk-boss-of-the-soc-v1/24-hex.png" /></p>
+
+<blockquote>
+  <p>Answer: <strong>53 74 65 76 65 20 42 72 61 6e 74 27 73 20 42 65 61 72 64 20 69 73 20 61 20 70 6f 77 65 72 66 75 6c 20 74 68 69 6e 67 2e 20 46 69 6e 64 20 74 68 69 73 20 6d 65 73 73 61 67 65 20 61 6e 64 20 61 73 6b 20 68 69 6d 20 74 6f 20 62 75 79 20 79 6f 75 20 61 20 62 65 65 72 21 21 21</strong></p>
+</blockquote>
+
+<h3 id="what-does-this-hex-code-decode-to">What does this hex code decode to?</h3>
+
+<p>Putting the HEX code into an online converter (https://cryptii.com/pipes/hex-decoder) reveals the following message.</p>
+
+<p><img src="/assets/images/2021-03-25-splunk-boss-of-the-soc-v1/25-message.png" /></p>
+
+<blockquote>
+  <p>Answer: <strong>Steve Brant’s Beard is a powerful thing. Find this message and ask him to buy you a beer!!!</strong></p>
+</blockquote>
+
+<hr />
+
+<h2 id="ransomware">Ransomware</h2>
+
+<h3 id="what-was-the-most-likely-ip-address-of-we8105desk-on-24aug2016">What was the most likely IP address of we8105desk on 24AUG2016?</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>index=botsv1 host=we8105desk| top limit=20 src_ip
+</code></pre></div></div>
+
+<p><img src="/assets/images/2021-03-25-splunk-boss-of-the-soc-v1/26-ip.png" /></p>
+
+<blockquote>
+  <p>Answer: <strong>192.168.250.100</strong></p>
+</blockquote>
+
+<h3 id="what-is-the-name-of-the-usb-key-inserted-by-bob-smith">What is the name of the USB key inserted by Bob Smith?</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>index=botsv1 host=we8105desk sourcetype=WinRegistry friendlyname 
+| top limit=1 data
+</code></pre></div></div>
+
+<p><img src="/assets/images/2021-03-25-splunk-boss-of-the-soc-v1/27-name.png" /></p>
+
+<blockquote>
+  <p>Answer: <strong>MIRANDA_PRI</strong></p>
+</blockquote>
+
+<h3 id="after-the-usb-insertion-a-file-execution-occurs-that-is-the-initial-cerber-infection-this-file-execution-creates-two-additional-processes-what-is-the-name-of-the-file">After the USB insertion, a file execution occurs that is the initial Cerber infection. This file execution creates two additional processes. What is the name of the file?</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>index=botsv1 host=we8105desk sourcetype="XmlWinEventLog:Microsoft-Windows-Sysmon/Operational" "d:\\" 
+| reverse
+</code></pre></div></div>
+
+<p><img src="/assets/images/2021-03-25-splunk-boss-of-the-soc-v1/28-file.png" /></p>
+
+<blockquote>
+  <p>Answer: <strong>miranda_tate_unveiled.dotm</strong></p>
+</blockquote>
+
+<h3 id="during-the-initial-cerber-infection-a-vb-script-is-run-the-entire-script-from-this-execution-pre-pended-by-the-name-of-the-launching-exe-can-be-found-in-a-field-in-splunk-what-is-the-length-in-characters-of-this-field">During the initial Cerber infection a VB script is run. The entire script from this execution, pre-pended by the name of the launching .exe, can be found in a field in Splunk. What is the length in characters of this field?</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>index=botsv1 sourcetype="XmlWinEventLog:Microsoft-Windows-Sysmon/Operational" *.exe CommandLine=* EventCode=1
+| eval length=len(CommandLine) 
+| table CommandLine length 
+| sort - 1 length
+</code></pre></div></div>
+
+<p><img src="/assets/images/2021-03-25-splunk-boss-of-the-soc-v1/29-length.png" /></p>
+
+<blockquote>
+  <p>Answer: <strong>4490</strong></p>
+</blockquote>
+
+<h3 id="bob-smiths-workstation-we8105desk-was-connected-to-a-file-server-during-the-ransomware-outbreak-what-is-the-ip-address-of-the-file-server">Bob Smith’s workstation (we8105desk) was connected to a file server during the ransomware outbreak. What is the IP address of the file server?</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>index=botsv1 host="we8105desk" sourcetype="XmlWinEventLog:Microsoft-Windows-Sysmon/Operational" src="we8105desk.waynecorpinc.local" 
+| stats count by dest_ip
+</code></pre></div></div>
+
+<p><img src="/assets/images/2021-03-25-splunk-boss-of-the-soc-v1/30-ip.png" /></p>
+
+<blockquote>
+  <p>Answer: <strong>192.168.250.20</strong></p>
+</blockquote>
+
+<h3 id="what-was-the-first-suspicious-domain-visited-by-we8105desk-on-24aug2016">What was the first suspicious domain visited by we8105desk on 24AUG2016?</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>index=botsv1 src="192.168.250.100" sourcetype="stream:dns" record_type=A NOT (query{}=*.microsoft.com OR query{}=*.bing.com OR query{}=wpad* OR query{}=isatap OR query{}=*.waynecorpinc.local OR query{}=*.windows.com OR query{}=*.msftncsi.com)
+| table _time query{} src dest
+| reverse
+</code></pre></div></div>
+
+<p><img src="/assets/images/2021-03-25-splunk-boss-of-the-soc-v1/31-url.png" /></p>
+
+<blockquote>
+  <p>Answer: <strong>solidaritedeproximite.org</strong></p>
+</blockquote>
+
+<h3 id="the-malware-downloads-a-file-that-contains-the-cerber-ransomware-cryptor-code-what-is-the-name-of-that-file">The malware downloads a file that contains the Cerber ransomware cryptor code. What is the name of that file?</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>index=botsv1 src="192.168.250.100" sourcetype="suricata" url=*
+| stats count values(url) by dest
+</code></pre></div></div>
+
+<p><img src="/assets/images/2021-03-25-splunk-boss-of-the-soc-v1/32-mhtr.png" /></p>
+
+<p>The first result is <strong>mhtr.jpg</strong>, doing a google search of this file reveals it is related to a ransomware  attack.</p>
+
+<blockquote>
+  <p>Answer: <strong>mhtr.jpg</strong></p>
+</blockquote>
+
+<h3 id="what-is-the-parent-process-id-of-121214tmp">What is the parent process ID of 121214.tmp?</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>index=botsv1 sourcetype="XmlWinEventLog:Microsoft-Windows-Sysmon/Operational" 121214.tmp 
+| table _time CommandLine ProcessId ParentProcessId ParentCommandLine 
+| reverse
+</code></pre></div></div>
+
+<p><img src="/assets/images/2021-03-25-splunk-boss-of-the-soc-v1/33-pid.png" /></p>
+
+<blockquote>
+  <p>Answer: <strong>3968</strong></p>
+</blockquote>
+
+<h3 id="amongst-the-suricata-signatures-that-detected-the-cerber-malware-which-signature-id-alerted-the-fewest-number-of-times">Amongst the Suricata signatures that detected the Cerber malware, which signature ID alerted the fewest number of times?</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>index=botsv1 sourcetype=suricata alert.signature=*cerber* 
+| stats count by alert.signature_id
+</code></pre></div></div>
+
+<p><img src="/assets/images/2021-03-25-splunk-boss-of-the-soc-v1/34-sid.png" /></p>
+
+<blockquote>
+  <p>Answer: <strong>2816763</strong></p>
+</blockquote>
+
+<h3 id="the-cerber-ransomware-encrypts-files-located-in-bob-smiths-windows-profile-how-many-txt-files-does-it-encrypt">The Cerber ransomware encrypts files located in Bob Smith’s Windows profile. How many .txt files does it encrypt?</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>index=botsv1 sourcetype="XmlWinEventLog:Microsoft-Windows-Sysmon/Operational" host=we8105desk *.txt EventCode=2 TargetFilename="C:\\Users\\bob.smith.WAYNECORPINC\\*.txt" 
+| stats dc(TargetFilename)
+</code></pre></div></div>
+
+<p><img src="/assets/images/2021-03-25-splunk-boss-of-the-soc-v1/35-count.png" /></p>
+
+<blockquote>
+  <p>Answer: <strong>406</strong></p>
+</blockquote>
+
+<h3 id="how-many-distinct-pdfs-did-the-ransomware-encrypt-on-the-remote-file-server">How many distinct PDFs did the ransomware encrypt on the remote file server?</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>index=botsv1 sourcetype="*win*" pdf dest="we9041srv.waynecorpinc.local" Source_Address="192.168.250.100" 
+| stats dc(Relative_Target_Name)
+</code></pre></div></div>
+
+<p><img src="/assets/images/2021-03-25-splunk-boss-of-the-soc-v1/36-pdf.png" /></p>
+
+<blockquote>
+  <p>Answer: <strong>257</strong></p>
+</blockquote>
+
+<h3 id="what-fully-qualified-domain-name-fqdn-does-the-cerber-ransomware-attempt-to-direct-the-user-to-at-the-end-of-its-encryption-phase">What fully qualified domain name (FQDN) does the Cerber ransomware attempt to direct the user to at the end of its encryption phase?</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>index=botsv1 sourcetype="stream:DNS" src=192.168.250.100 record_type=A NOT (query{}=*.microsoft.com OR query{}=wpad OR query{}=isatap OR query{}=*.waynecorpinc.local OR query{}=*.bing.com OR query{}=*.windows.com OR query{}=*.msftncsi.com OR query{}=*.live.com) 
+| table _time query{} src dest
+</code></pre></div></div>
+
+<p><img src="/assets/images/2021-03-25-splunk-boss-of-the-soc-v1/37-fqdn.png" /></p>
+
+<blockquote>
+  <p>Answer: <strong>cerberhhyed5frqa.xmfir0.win</strong></p>
+</blockquote>
+
+<h3 id="recap">Recap</h3>
+
+<p>In this task we learnt how to:</p>
+<ul>
+  <li>Conduct search queries to find information in Splunk</li>
+  <li>Find identifiers of APT activity</li>
+  <li>Find identifiers of Ransomware activity</li>
+  <li>Conduct OSINT to find malware information</li>
+</ul>
+
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2021-03-25T20:30:00+11:00">March 25, 2021</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/blog/splunk-can-you-dig-it/" class="pagination--pager" title="TryHackMe: Splunk - Can you dig it?
+">Previous</a>
+    
+    
+      <a href="#" class="pagination--pager disabled">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2021 andickinson.github.io. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+
+  </body>
+</html>
