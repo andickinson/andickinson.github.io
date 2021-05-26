@@ -88,4 +88,10 @@ var store = [{
         "tags": [],
         "url": "/blog/splunk-boss-of-the-soc-v1/",
         "teaser": null
+      },{
+        "title": "TryHackMe: Nessus",
+        "excerpt":"This is a write up for the Scanning! and Scanning a Web Applicaiton! tasks of the Nessus room on TryHackMe. Some tasks have been omitted as they do not require an answer. Scanning! Create a new ‘Basic Network Scan’ targeting the deployed VM. What option can we set under ‘BASIC’...","categories": [],
+        "tags": [],
+        "url": "/blog/nessus/",
+        "teaser": null
       }]
