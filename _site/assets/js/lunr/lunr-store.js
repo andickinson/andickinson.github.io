@@ -94,4 +94,10 @@ var store = [{
         "tags": [],
         "url": "/blog/nessus/",
         "teaser": null
+      },{
+        "title": "TryHackMe: Active Directory Basics",
+        "excerpt":"This is a write up for the Hands-On Lab task of the Active Directory Basics room on TryHackMe. Some tasks have been omitted as they do not require an answer. What is the name of the Windows 10 operating system? Get-NetComputer -fulldata | select operatingsystem Answer: Windows 10 Enterprise Evaluation...","categories": [],
+        "tags": [],
+        "url": "/blog/active-directory-basics/",
+        "teaser": null
       }]
