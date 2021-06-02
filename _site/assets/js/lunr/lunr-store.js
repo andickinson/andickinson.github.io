@@ -100,4 +100,10 @@ var store = [{
         "tags": [],
         "url": "/blog/active-directory-basics/",
         "teaser": null
+      },{
+        "title": "TryHackMe: Intro to ISAC",
+        "excerpt":"This is a write up for the Investigation Scenarios task of the Intro to ISAC room on TryHackMe. Some tasks have been omitted as they do not require an answer. What is the name of the file from Scenario 1? Answer: 29D6161522C7F7F21B35401907C702BDDB05ED47.bin What is the size of the file from...","categories": [],
+        "tags": [],
+        "url": "/blog/intro-to-isac/",
+        "teaser": null
       }]

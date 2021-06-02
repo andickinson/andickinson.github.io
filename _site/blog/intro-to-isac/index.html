@@ -9,8 +9,8 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>TryHackMe: Active Directory Basics - andickinson.github.io</title>
-<meta name="description" content="Learning the basics of Active Directory and how it is used in the real world today.">
+<!-- begin _includes/seo.html --><title>TryHackMe: Intro to ISAC - andickinson.github.io</title>
+<meta name="description" content="Learning how to utilize Information Sharing and Analysis Centers to gather threat intelligence and collect IOCs.">
 
 
   <meta name="author" content="Andrew Dickinson">
@@ -22,26 +22,26 @@
 <meta property="og:type" content="article">
 <meta property="og:locale" content="en_US">
 <meta property="og:site_name" content="andickinson.github.io">
-<meta property="og:title" content="TryHackMe: Active Directory Basics">
-<meta property="og:url" content="https://andickinson.github.io/blog/active-directory-basics/">
+<meta property="og:title" content="TryHackMe: Intro to ISAC">
+<meta property="og:url" content="https://andickinson.github.io/blog/intro-to-isac/">
 
 
-  <meta property="og:description" content="Learning the basics of Active Directory and how it is used in the real world today.">
-
-
-
-
-
-
-
-  <meta property="article:published_time" content="2021-05-29T23:00:00+10:00">
+  <meta property="og:description" content="Learning how to utilize Information Sharing and Analysis Centers to gather threat intelligence and collect IOCs.">
 
 
 
 
 
 
-<link rel="canonical" href="https://andickinson.github.io/blog/active-directory-basics/">
+
+  <meta property="article:published_time" content="2021-06-02T23:00:00+10:00">
+
+
+
+
+
+
+<link rel="canonical" href="https://andickinson.github.io/blog/intro-to-isac/">
 
 
 
@@ -270,15 +270,15 @@
 
 
   <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
-    <meta itemprop="headline" content="TryHackMe: Active Directory Basics">
-    <meta itemprop="description" content="Learning the basics of Active Directory and how it is used in the real world today.">
-    <meta itemprop="datePublished" content="2021-05-29T23:00:00+10:00">
+    <meta itemprop="headline" content="TryHackMe: Intro to ISAC">
+    <meta itemprop="description" content="Learning how to utilize Information Sharing and Analysis Centers to gather threat intelligence and collect IOCs.">
+    <meta itemprop="datePublished" content="2021-06-02T23:00:00+10:00">
     
 
     <div class="page__inner-wrap">
       
         <header>
-          <h1 id="page-title" class="page__title" itemprop="headline">TryHackMe: Active Directory Basics
+          <h1 id="page-title" class="page__title" itemprop="headline">TryHackMe: Intro to ISAC
 </h1>
           
 
@@ -287,7 +287,7 @@
       
       <span class="page__meta-date">
         <i class="far fa-calendar-alt" aria-hidden="true"></i>
-        <time datetime="2021-05-29T23:00:00+10:00">May 29, 2021</time>
+        <time datetime="2021-06-02T23:00:00+10:00">June 2, 2021</time>
       </span>
     
 
@@ -312,59 +312,86 @@
 
       <section class="page__content" itemprop="text">
         
-        <p>This is a write up for the <strong>Hands-On Lab</strong> task of the <a href="https://tryhackme.com/room/activedirectorybasics"><strong>Active Directory Basics</strong></a> room on <a href="https://tryhackme.com">TryHackMe</a>. Some tasks have been omitted as they do not require an answer.</p>
+        <p>This is a write up for the <strong>Investigation Scenarios</strong> task of the <a href="https://tryhackme.com/room/introtoisac"><strong>Intro to ISAC</strong></a> room on <a href="https://tryhackme.com">TryHackMe</a>. Some tasks have been omitted as they do not require an answer.</p>
 
 <hr />
 
-<h3 id="what-is-the-name-of-the-windows-10-operating-system">What is the name of the Windows 10 operating system?</h3>
+<h3 id="what-is-the-name-of-the-file-from-scenario-1">What is the name of the file from Scenario 1?</h3>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Get-NetComputer -fulldata | select operatingsystem
-</code></pre></div></div>
-
-<p><img src="/assets/images/2021-05-29-active-directory-basics/01-os.png" /></p>
+<p><img src="/assets/images/2021-06-02-intro-to-isac/01-file.png" /></p>
 
 <blockquote>
-  <p>Answer: <strong>Windows 10 Enterprise Evaluation</strong></p>
+  <p>Answer: <strong>29D6161522C7F7F21B35401907C702BDDB05ED47.bin</strong></p>
 </blockquote>
 
-<h3 id="what-is-the-second-admin-name">What is the second “Admin” name?</h3>
+<h3 id="what-is-the-size-of-the-file-from-scenario-1-in-bytes">What is the size of the file from Scenario 1 in bytes?</h3>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Get-NetUser | select cn
-</code></pre></div></div>
-
-<p><img src="/assets/images/2021-05-29-active-directory-basics/02-admin.png" /></p>
+<p><img src="/assets/images/2021-06-02-intro-to-isac/02-size.png" /></p>
 
 <blockquote>
-  <p>Answer: <strong>Admin 2</strong></p>
+  <p>Answer: <strong>96,535</strong></p>
 </blockquote>
 
-<h3 id="which-group-has-a-capital-v-in-the-group-name">Which group has a capital “V” in the group name?</h3>
+<h3 id="what-is-the-size-on-disk-of-the-file-from-scenario-1-in-bytes">What is the size on disk of the file from Scenario 1 in bytes?</h3>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Get-NetGroup -GroupName *V*
-</code></pre></div></div>
-
-<p><img src="/assets/images/2021-05-29-active-directory-basics/03-v.png" /></p>
+<p><img src="/assets/images/2021-06-02-intro-to-isac/02-size.png" /></p>
 
 <blockquote>
-  <p>Answer: <strong>Hyper-V Administrators</strong></p>
+  <p>Answer: <strong>98,304</strong></p>
 </blockquote>
 
-<h3 id="when-was-the-password-last-set-for-the-sqlservice-user">When was the password last set for the SQLService user?</h3>
+<h3 id="what-is-the-md5-hash-of-the-file-from-scenario-1">What is the MD5 hash of the file from Scenario 1?</h3>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Get-NetUser -SPN | ?{$_.memberof -match 'Domain Admins'}
-</code></pre></div></div>
+<p>Open WinMD5 and select the Scenario 1 file.</p>
 
-<p><img src="/assets/images/2021-05-29-active-directory-basics/04-pwd.png" /></p>
+<p><img src="/assets/images/2021-06-02-intro-to-isac/03-md5.png" /></p>
 
 <blockquote>
-  <p>Answer: <strong>5/13/2020 8:26:58 PM</strong></p>
+  <p>Answer: <strong>8baa9b809b591a11af423824f4d9726a</strong></p>
+</blockquote>
+
+<h3 id="what-is-the-name-of-the-file-from-scenario-2">What is the name of the file from Scenario 2?</h3>
+
+<p><img src="/assets/images/2021-06-02-intro-to-isac/04-cryptowall.png" /></p>
+
+<blockquote>
+  <p>Answer: <strong>cryptowall.bin</strong></p>
+</blockquote>
+
+<h3 id="what-is-the-size-of-the-file-from-scenario-2-in-bytes">What is the size of the file from Scenario 2 in bytes?</h3>
+
+<p><img src="/assets/images/2021-06-02-intro-to-isac/04-cryptowall.png" /></p>
+
+<blockquote>
+  <p>Answer: <strong>246,272</strong></p>
+</blockquote>
+
+<h3 id="what-is-the-size-on-disk-of-the-file-from-scenario-2-in-bytes">What is the size on disk of the file from Scenario 2 in bytes?</h3>
+
+<p><img src="/assets/images/2021-06-02-intro-to-isac/04-cryptowall.png" /></p>
+
+<blockquote>
+  <p>Answer: <strong>249,856</strong></p>
+</blockquote>
+
+<h3 id="what-is-the-md5-hash-of-the-file-from-scenario-2">What is the MD5 hash of the file from Scenario 2?</h3>
+
+<p>Open WinMD5 and select the Scenario 2 file.</p>
+
+<p><img src="/assets/images/2021-06-02-intro-to-isac/05-md5.png" /></p>
+
+<blockquote>
+  <p>Answer: <strong>47363b94cee907e2b8926c1be61150c7</strong></p>
 </blockquote>
 
 <h3 id="recap">Recap</h3>
 
 <p>In this task we learnt how to:</p>
 <ul>
-  <li>Conduct basic queries on Active Directory</li>
+  <li>Find file information in Windows</li>
+  <li>Use WinMD5 to generate hash values</li>
+  <li>Use IOCe to create IOCs</li>
+  <li>Use AlienVault to search for and identify existing threats</li>
 </ul>
 
 
@@ -377,7 +404,7 @@
 
 
         
-  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2021-05-29T23:00:00+10:00">May 29, 2021</time></p>
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2021-06-02T23:00:00+10:00">June 2, 2021</time></p>
 
 
       </footer>
@@ -387,12 +414,11 @@
       
   <nav class="pagination">
     
-      <a href="/blog/nessus/" class="pagination--pager" title="TryHackMe: Nessus
+      <a href="/blog/active-directory-basics/" class="pagination--pager" title="TryHackMe: Active Directory Basics
 ">Previous</a>
     
     
-      <a href="/blog/intro-to-isac/" class="pagination--pager" title="TryHackMe: Intro to ISAC
-">Next</a>
+      <a href="#" class="pagination--pager disabled">Next</a>
     
   </nav>
 
