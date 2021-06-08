@@ -9,8 +9,8 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>TryHackMe: Nessus - andickinson.github.io</title>
-<meta name="description" content="Learning how to set up and use Nessus, a popular vulnerabililty scanner.">
+<!-- begin _includes/seo.html --><title>TryHackMe: Intro to ISAC - andickinson.github.io</title>
+<meta name="description" content="Learning how to utilize Information Sharing and Analysis Centers to gather threat intelligence and collect IOCs.">
 
 
   <meta name="author" content="Andrew Dickinson">
@@ -22,26 +22,26 @@
 <meta property="og:type" content="article">
 <meta property="og:locale" content="en_US">
 <meta property="og:site_name" content="andickinson.github.io">
-<meta property="og:title" content="TryHackMe: Nessus">
-<meta property="og:url" content="https://andickinson.github.io/blog/nessus/">
+<meta property="og:title" content="TryHackMe: Intro to ISAC">
+<meta property="og:url" content="https://andickinson.github.io/blog/intro-to-isac/">
 
 
-  <meta property="og:description" content="Learning how to set up and use Nessus, a popular vulnerabililty scanner.">
-
-
-
-
-
-
-
-  <meta property="article:published_time" content="2021-05-26T16:00:00+10:00">
+  <meta property="og:description" content="Learning how to utilize Information Sharing and Analysis Centers to gather threat intelligence and collect IOCs.">
 
 
 
 
 
 
-<link rel="canonical" href="https://andickinson.github.io/blog/nessus/">
+
+  <meta property="article:published_time" content="2021-06-02T23:00:00+10:00">
+
+
+
+
+
+
+<link rel="canonical" href="https://andickinson.github.io/blog/intro-to-isac/">
 
 
 
@@ -270,15 +270,15 @@
 
 
   <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
-    <meta itemprop="headline" content="TryHackMe: Nessus">
-    <meta itemprop="description" content="Learning how to set up and use Nessus, a popular vulnerabililty scanner.">
-    <meta itemprop="datePublished" content="2021-05-26T16:00:00+10:00">
+    <meta itemprop="headline" content="TryHackMe: Intro to ISAC">
+    <meta itemprop="description" content="Learning how to utilize Information Sharing and Analysis Centers to gather threat intelligence and collect IOCs.">
+    <meta itemprop="datePublished" content="2021-06-02T23:00:00+10:00">
     
 
     <div class="page__inner-wrap">
       
         <header>
-          <h1 id="page-title" class="page__title" itemprop="headline">TryHackMe: Nessus
+          <h1 id="page-title" class="page__title" itemprop="headline">TryHackMe: Intro to ISAC
 </h1>
           
 
@@ -287,7 +287,7 @@
       
       <span class="page__meta-date">
         <i class="far fa-calendar-alt" aria-hidden="true"></i>
-        <time datetime="2021-05-26T16:00:00+10:00">May 26, 2021</time>
+        <time datetime="2021-06-02T23:00:00+10:00">June 2, 2021</time>
       </span>
     
 
@@ -300,7 +300,7 @@
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          1 minute read
+          less than 1 minute read
         
       </span>
     
@@ -312,100 +312,86 @@
 
       <section class="page__content" itemprop="text">
         
-        <p>This is a write up for the <strong>Scanning!</strong> and <strong>Scanning a Web Applicaiton!</strong> tasks of the <a href="https://tryhackme.com/room/rpnessusredux"><strong>Nessus</strong></a> room on <a href="https://tryhackme.com">TryHackMe</a>. Some tasks have been omitted as they do not require an answer.</p>
+        <p>This is a write up for the <strong>Investigation Scenarios</strong> task of the <a href="https://tryhackme.com/room/introtoisac"><strong>Intro to ISAC</strong></a> room on <a href="https://tryhackme.com">TryHackMe</a>. Some tasks have been omitted as they do not require an answer.</p>
 
 <hr />
 
-<h2 id="scanning">Scanning!</h2>
+<h3 id="what-is-the-name-of-the-file-from-scenario-1">What is the name of the file from Scenario 1?</h3>
 
-<h3 id="create-a-new-basic-network-scan-targeting-the-deployed-vm-what-option-can-we-set-under-basic-on-the-left-to-set-a-time-for-this-scan-to-run-this-can-be-very-useful-when-network-congestion-is-an-issue">Create a new ‘Basic Network Scan’ targeting the deployed VM. What option can we set under ‘BASIC’ (on the left) to set a time for this scan to run? This can be very useful when network congestion is an issue.</h3>
-
-<p><img src="/assets/images/2021-05-26-nessus/01-schedule.jpg" /></p>
+<p><img src="/assets/images/2021-06-02-intro-to-isac/01-file.png" /></p>
 
 <blockquote>
-  <p>Answer: <strong>Schedule</strong></p>
+  <p>Answer: <strong>29D6161522C7F7F21B35401907C702BDDB05ED47.bin</strong></p>
 </blockquote>
 
-<h3 id="under-discovery-on-the-left-set-the-scan-type-to-cover-ports-1-65535-what-is-this-type-called">Under ‘DISCOVERY’ (on the left) set the ‘Scan Type’ to cover ports 1-65535. What is this type called?</h3>
+<h3 id="what-is-the-size-of-the-file-from-scenario-1-in-bytes">What is the size of the file from Scenario 1 in bytes?</h3>
 
-<p><img src="/assets/images/2021-05-26-nessus/02-scan.jpg" /></p>
+<p><img src="/assets/images/2021-06-02-intro-to-isac/02-size.png" /></p>
 
 <blockquote>
-  <p>Answer: <strong>Port scan (all ports)</strong></p>
+  <p>Answer: <strong>96,535</strong></p>
 </blockquote>
 
-<h3 id="what-scan-type-can-we-change-to-under-advanced-for-lower-bandwidth-connection">What ‘Scan Type’ can we change to under ‘ADVANCED’ for lower bandwidth connection?</h3>
+<h3 id="what-is-the-size-on-disk-of-the-file-from-scenario-1-in-bytes">What is the size on disk of the file from Scenario 1 in bytes?</h3>
 
-<p><img src="/assets/images/2021-05-26-nessus/03-type.jpg" /></p>
+<p><img src="/assets/images/2021-06-02-intro-to-isac/02-size.png" /></p>
 
 <blockquote>
-  <p>Answer: <strong>Scan low bandwidth links</strong></p>
+  <p>Answer: <strong>98,304</strong></p>
 </blockquote>
 
-<h3 id="after-the-scan-completes-which-vulnerability-in-the-port-scanners-family-can-we-view-the-details-of-to-see-the-open-ports-on-this-host">After the scan completes, which ‘Vulnerability’ in the ‘Port scanners’ family can we view the details of to see the open ports on this host?</h3>
+<h3 id="what-is-the-md5-hash-of-the-file-from-scenario-1">What is the MD5 hash of the file from Scenario 1?</h3>
 
-<p><img src="/assets/images/2021-05-26-nessus/04-syn.jpg" /></p>
+<p>Open WinMD5 and select the Scenario 1 file.</p>
+
+<p><img src="/assets/images/2021-06-02-intro-to-isac/03-md5.png" /></p>
 
 <blockquote>
-  <p>Answer: <strong>Nessus SYN scanner</strong></p>
+  <p>Answer: <strong>8baa9b809b591a11af423824f4d9726a</strong></p>
 </blockquote>
 
-<h3 id="what-apache-http-server-version-is-reported-by-nessus">What Apache HTTP Server Version is reported by Nessus?</h3>
+<h3 id="what-is-the-name-of-the-file-from-scenario-2">What is the name of the file from Scenario 2?</h3>
 
-<p><img src="/assets/images/2021-05-26-nessus/05-apache.jpg" /></p>
+<p><img src="/assets/images/2021-06-02-intro-to-isac/04-cryptowall.png" /></p>
 
 <blockquote>
-  <p>Answer: <strong>2.4.99</strong></p>
+  <p>Answer: <strong>cryptowall.bin</strong></p>
 </blockquote>
 
-<h2 id="scanning-a-web-application">Scanning a Web Application!</h2>
+<h3 id="what-is-the-size-of-the-file-from-scenario-2-in-bytes">What is the size of the file from Scenario 2 in bytes?</h3>
 
-<h3 id="what-is-the-plugin-id-of-the-plugin-that-determines-the-http-server-type-and-version">What is the plugin id of the plugin that determines the HTTP server type and version?</h3>
-
-<p><img src="/assets/images/2021-05-26-nessus/06-ver.jpg" /></p>
+<p><img src="/assets/images/2021-06-02-intro-to-isac/04-cryptowall.png" /></p>
 
 <blockquote>
-  <p>Answer: <strong>10107</strong></p>
+  <p>Answer: <strong>246,272</strong></p>
 </blockquote>
 
-<h3 id="what-authentication-page-is-discovered-by-the-scanner-that-transmits-credentials-in-cleartext">What authentication page is discovered by the scanner that transmits credentials in cleartext?</h3>
+<h3 id="what-is-the-size-on-disk-of-the-file-from-scenario-2-in-bytes">What is the size on disk of the file from Scenario 2 in bytes?</h3>
 
-<p><img src="/assets/images/2021-05-26-nessus/07-login.jpg" /></p>
+<p><img src="/assets/images/2021-06-02-intro-to-isac/04-cryptowall.png" /></p>
 
 <blockquote>
-  <p>Answer: <strong>login.php</strong></p>
+  <p>Answer: <strong>249,856</strong></p>
 </blockquote>
 
-<h3 id="what-is-the-file-extension-of-the-config-backup">What is the file extension of the config backup?</h3>
+<h3 id="what-is-the-md5-hash-of-the-file-from-scenario-2">What is the MD5 hash of the file from Scenario 2?</h3>
 
-<p><img src="/assets/images/2021-05-26-nessus/08-bak.jpg" /></p>
+<p>Open WinMD5 and select the Scenario 2 file.</p>
 
-<blockquote>
-  <p>Answer: <strong>.bak</strong></p>
-</blockquote>
-
-<h3 id="which-directory-contains-example-documents-this-will-be-in-a-php-directory">Which directory contains example documents? (This will be in a php directory)</h3>
-
-<p><img src="/assets/images/2021-05-26-nessus/09-php.jpg" /></p>
+<p><img src="/assets/images/2021-06-02-intro-to-isac/05-md5.png" /></p>
 
 <blockquote>
-  <p>Answer: <strong>/external/phpids/0.6/docs/examples/</strong></p>
-</blockquote>
-
-<h3 id="what-vulnerability-is-this-application-susceptible-to-that-is-associated-with-x-frame-options">What vulnerability is this application susceptible to that is associated with X-Frame-Options?</h3>
-
-<p><img src="/assets/images/2021-05-26-nessus/10-clickjacking.jpg" /></p>
-
-<blockquote>
-  <p>Answer: <strong>Clickjacking</strong></p>
+  <p>Answer: <strong>47363b94cee907e2b8926c1be61150c7</strong></p>
 </blockquote>
 
 <h3 id="recap">Recap</h3>
 
 <p>In this task we learnt how to:</p>
 <ul>
-  <li>Use Nessus to conduct a Basic Network Scan</li>
-  <li>Use Nessus to conduct Web Application Tests</li>
+  <li>Find file information in Windows</li>
+  <li>Use WinMD5 to generate hash values</li>
+  <li>Use IOCe to create IOCs</li>
+  <li>Use AlienVault to search for and identify existing threats</li>
 </ul>
 
 
@@ -418,7 +404,7 @@
 
 
         
-  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2021-05-26T16:00:00+10:00">May 26, 2021</time></p>
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2021-06-02T23:00:00+10:00">June 2, 2021</time></p>
 
 
       </footer>
@@ -428,11 +414,11 @@
       
   <nav class="pagination">
     
-      <a href="/blog/splunk-boss-of-the-soc-v1/" class="pagination--pager" title="TryHackMe: Splunk - Boss of the SOC v1
+      <a href="/blog/active-directory-basics/" class="pagination--pager" title="TryHackMe: Active Directory Basics
 ">Previous</a>
     
     
-      <a href="/blog/active-directory-basics/" class="pagination--pager" title="TryHackMe: Active Directory Basics
+      <a href="/blog/openvas/" class="pagination--pager" title="TryHackMe: OpenVAS
 ">Next</a>
     
   </nav>

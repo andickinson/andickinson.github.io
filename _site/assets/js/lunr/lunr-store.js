@@ -95,6 +95,18 @@ var store = [{
         "url": "/blog/nessus/",
         "teaser": null
       },{
+        "title": "TryHackMe: Active Directory Basics",
+        "excerpt":"This is a write up for the Hands-On Lab task of the Active Directory Basics room on TryHackMe. Some tasks have been omitted as they do not require an answer. What is the name of the Windows 10 operating system? Get-NetComputer -fulldata | select operatingsystem Answer: Windows 10 Enterprise Evaluation...","categories": [],
+        "tags": [],
+        "url": "/blog/active-directory-basics/",
+        "teaser": null
+      },{
+        "title": "TryHackMe: Intro to ISAC",
+        "excerpt":"This is a write up for the Investigation Scenarios task of the Intro to ISAC room on TryHackMe. Some tasks have been omitted as they do not require an answer. What is the name of the file from Scenario 1? Answer: 29D6161522C7F7F21B35401907C702BDDB05ED47.bin What is the size of the file from...","categories": [],
+        "tags": [],
+        "url": "/blog/intro-to-isac/",
+        "teaser": null
+      },{
         "title": "TryHackMe: OpenVAS",
         "excerpt":"This is a write up for the Practical Vulnerability Management task of the OpenVAS room on TryHackMe. Some tasks have been omitted as they do not require an answer. When did the scan start in Case 001? Answer: Feb 28, 00:04:46 When did the scan end in Case 001? Answer:...","categories": [],
         "tags": [],
