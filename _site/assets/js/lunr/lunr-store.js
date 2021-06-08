@@ -94,4 +94,10 @@ var store = [{
         "tags": [],
         "url": "/blog/nessus/",
         "teaser": null
+      },{
+        "title": "TryHackMe: OpenVAS",
+        "excerpt":"This is a write up for the Practical Vulnerability Management task of the OpenVAS room on TryHackMe. Some tasks have been omitted as they do not require an answer. When did the scan start in Case 001? Answer: Feb 28, 00:04:46 When did the scan end in Case 001? Answer:...","categories": [],
+        "tags": [],
+        "url": "/blog/openvas/",
+        "teaser": null
       }]
