@@ -112,4 +112,10 @@ var store = [{
         "tags": [],
         "url": "/blog/openvas/",
         "teaser": null
+      },{
+        "title": "TryHackMe: Sysinternals",
+        "excerpt":"This is a write up for the Sysinternals room on TryHackMe. Some tasks have been omitted as they do not require an answer. There is a txt file on the desktop named file.txt. What is the text within the ADS? Answer: I am hiding in the stream. Using WHOIS tools,...","categories": [],
+        "tags": [],
+        "url": "/blog/sysinternals/",
+        "teaser": null
       }]

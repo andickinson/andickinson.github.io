@@ -9,8 +9,8 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>TryHackMe: OpenVAS - andickinson.github.io</title>
-<meta name="description" content="Learning the basics of threat and vulnerability management using Open Vulnerability Assessment Scanning.">
+<!-- begin _includes/seo.html --><title>TryHackMe: Sysinternals - andickinson.github.io</title>
+<meta name="description" content="Learning to use the Sysinternals tools to analyze Window systems or applications.">
 
 
   <meta name="author" content="Andrew Dickinson">
@@ -22,26 +22,26 @@
 <meta property="og:type" content="article">
 <meta property="og:locale" content="en_US">
 <meta property="og:site_name" content="andickinson.github.io">
-<meta property="og:title" content="TryHackMe: OpenVAS">
-<meta property="og:url" content="https://andickinson.github.io/blog/openvas/">
+<meta property="og:title" content="TryHackMe: Sysinternals">
+<meta property="og:url" content="https://andickinson.github.io/blog/sysinternals/">
 
 
-  <meta property="og:description" content="Learning the basics of threat and vulnerability management using Open Vulnerability Assessment Scanning.">
-
-
-
-
-
-
-
-  <meta property="article:published_time" content="2021-06-08T15:00:00+10:00">
+  <meta property="og:description" content="Learning to use the Sysinternals tools to analyze Window systems or applications.">
 
 
 
 
 
 
-<link rel="canonical" href="https://andickinson.github.io/blog/openvas/">
+
+  <meta property="article:published_time" content="2021-06-08T16:00:00+10:00">
+
+
+
+
+
+
+<link rel="canonical" href="https://andickinson.github.io/blog/sysinternals/">
 
 
 
@@ -270,15 +270,15 @@
 
 
   <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
-    <meta itemprop="headline" content="TryHackMe: OpenVAS">
-    <meta itemprop="description" content="Learning the basics of threat and vulnerability management using Open Vulnerability Assessment Scanning.">
-    <meta itemprop="datePublished" content="2021-06-08T15:00:00+10:00">
+    <meta itemprop="headline" content="TryHackMe: Sysinternals">
+    <meta itemprop="description" content="Learning to use the Sysinternals tools to analyze Window systems or applications.">
+    <meta itemprop="datePublished" content="2021-06-08T16:00:00+10:00">
     
 
     <div class="page__inner-wrap">
       
         <header>
-          <h1 id="page-title" class="page__title" itemprop="headline">TryHackMe: OpenVAS
+          <h1 id="page-title" class="page__title" itemprop="headline">TryHackMe: Sysinternals
 </h1>
           
 
@@ -287,7 +287,7 @@
       
       <span class="page__meta-date">
         <i class="far fa-calendar-alt" aria-hidden="true"></i>
-        <time datetime="2021-06-08T15:00:00+10:00">June 8, 2021</time>
+        <time datetime="2021-06-08T16:00:00+10:00">June 8, 2021</time>
       </span>
     
 
@@ -312,71 +312,66 @@
 
       <section class="page__content" itemprop="text">
         
-        <p>This is a write up for the <strong>Practical Vulnerability Management</strong> task of the <a href="https://tryhackme.com/room/openvas"><strong>OpenVAS</strong></a> room on <a href="https://tryhackme.com">TryHackMe</a>. Some tasks have been omitted as they do not require an answer.</p>
+        <p>This is a write up for the <a href="https://tryhackme.com/room/btsysinternalssg"><strong>Sysinternals</strong></a> room on <a href="https://tryhackme.com">TryHackMe</a>. Some tasks have been omitted as they do not require an answer.</p>
 
 <hr />
-<h3 id="when-did-the-scan-start-in-case-001">When did the scan start in Case 001?</h3>
 
-<p><img src="/assets/images/2021-06-08-openvas/01-start.jpg" /></p>
+<h3 id="there-is-a-txt-file-on-the-desktop-named-filetxt-what-is-the-text-within-the-ads">There is a txt file on the desktop named file.txt. What is the text within the ADS?</h3>
+
+<p><img src="/assets/images/2021-06-08-sysinternals/01-ads.jpg" /></p>
 
 <blockquote>
-  <p>Answer: <strong>Feb 28, 00:04:46</strong></p>
+  <p>Answer: <strong>I am hiding in the stream.</strong></p>
 </blockquote>
 
-<h3 id="when-did-the-scan-end-in-case-001">When did the scan end in Case 001?</h3>
+<h3 id="using-whois-tools-what-is-the-isporganization-for-the-remote-address-in-the-screenshots-above">Using WHOIS tools, what is the ISP/Organization for the remote address in the screenshots above?</h3>
 
-<p><img src="/assets/images/2021-06-08-openvas/02-end.jpg" /></p>
+<p>The command that should be executed is displayed below.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>whois -v &lt;ip&gt;
+</code></pre></div></div>
+
+<p>However, the IP addresses listed in the room does not list any results. Given we are using Windows and the process is <strong>svchost.exe</strong> we can assume the answer is related to Microsoft.</p>
 
 <blockquote>
-  <p>Answer: <strong>Feb 28, 00:21:02</strong></p>
+  <p>Answer: <strong>Microsoft Corporation</strong></p>
 </blockquote>
 
-<h3 id="how-many-ports-are-open-in-case-001">How many ports are open in Case 001?</h3>
+<h3 id="run-autoruns-and-inspect-what-are-the-new-entries-in-the-image-hijacks-tab-compared-to-the-screenshots-above">Run Autoruns and inspect what are the new entries in the Image Hijacks tab compared to the screenshots above.</h3>
 
-<p><img src="/assets/images/2021-06-08-openvas/03-ports.jpg" /></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>autoruns -accepteula
+</code></pre></div></div>
+
+<p><img src="/assets/images/2021-06-08-sysinternals/02-image-hijack.jpg" /></p>
+
+<h3 id="what-entry-was-updated">What entry was updated?</h3>
 
 <blockquote>
-  <p>Answer: <strong>3</strong></p>
+  <p>Answer: <strong>taskmgr.exe</strong></p>
 </blockquote>
 
-<h3 id="how-many-total-vulnerabilities-were-found-in-case-001">How many total vulnerabilities were found in Case 001?</h3>
-
-<p><img src="/assets/images/2021-06-08-openvas/04-vulns.jpg" /></p>
+<h3 id="what-is-the-updated-value">What is the updated value?</h3>
 
 <blockquote>
-  <p>Answer: <strong>5</strong></p>
+  <p>Answer: <strong>c:\tools\sysint\procexp.exe</strong></p>
 </blockquote>
 
-<h3 id="what-is-the-highest-severity-vulnerability-found-msxx-xxx">What is the highest severity vulnerability found? (MSxx-xxx)</h3>
+<h3 id="run-the-strings-tool-on-zoomitexe-what-is-the-full-path-to-the-pdb-file">Run the Strings tool on ZoomIt.exe. What is the full path to the .pdb file?</h3>
 
-<p><img src="/assets/images/2021-06-08-openvas/05-ms17.jpg" /></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>strings .\ZoomIt.exe | findstr /i ZoomIt
+</code></pre></div></div>
 
-<blockquote>
-  <p>Answer: <strong>MS17-010</strong></p>
-</blockquote>
-
-<h3 id="what-is-the-first-affected-os-to-this-vulnerability">What is the first affected OS to this vulnerability?</h3>
-
-<p><img src="/assets/images/2021-06-08-openvas/06-os.jpg" /></p>
+<p><img src="/assets/images/2021-06-08-sysinternals/03-zoomit.jpg" /></p>
 
 <blockquote>
-  <p>Answer: <strong>Microsoft Windows 10 x32/x64 Edition</strong></p>
-</blockquote>
-
-<h3 id="what-is-the-recommended-vulnerability-detection-method">What is the recommended vulnerability detection method?</h3>
-
-<p><img src="/assets/images/2021-06-08-openvas/07-vdm.jpg" /></p>
-
-<blockquote>
-  <p>Answer: <strong>Send the crafted SMB transaction request with fid = 0 and check the response to confirm the vulnerability.</strong></p>
+  <p>Answer: <strong>C:\agent_work\112\s\Win32\Release\ZoomIt64.pdb</strong></p>
 </blockquote>
 
 <h3 id="recap">Recap</h3>
 
 <p>In this task we learnt how to:</p>
 <ul>
-  <li>Use OpenVAS to scan infrastructure</li>
-  <li>Analyse and interpret OpenVAS reports</li>
+  <li>Use Sysinternals tools to find Windows system information</li>
 </ul>
 
 
@@ -389,7 +384,7 @@
 
 
         
-  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2021-06-08T15:00:00+10:00">June 8, 2021</time></p>
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2021-06-08T16:00:00+10:00">June 8, 2021</time></p>
 
 
       </footer>
@@ -399,12 +394,11 @@
       
   <nav class="pagination">
     
-      <a href="/blog/intro-to-isac/" class="pagination--pager" title="TryHackMe: Intro to ISAC
+      <a href="/blog/openvas/" class="pagination--pager" title="TryHackMe: OpenVAS
 ">Previous</a>
     
     
-      <a href="/blog/sysinternals/" class="pagination--pager" title="TryHackMe: Sysinternals
-">Next</a>
+      <a href="#" class="pagination--pager disabled">Next</a>
     
   </nav>
 
