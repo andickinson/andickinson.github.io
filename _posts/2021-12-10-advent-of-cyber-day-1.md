@@ -1,6 +1,6 @@
 ---
 title:  "TryHackMe: Advent of Cyber - Day 1 - Save the Gifts"
-date:   2021-06-08 16:00:00 +1000
+date:   2021-12-10 16:00:00 +1000
 excerpt: Learning to exploit Indirect Direct Object Reference vulnerabilities. 
 ---
 
