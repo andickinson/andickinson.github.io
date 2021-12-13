@@ -10,7 +10,7 @@ This is a write up for the Day 5 - Pesky Elf Forum challenge in the [**Advent of
 
 ### What flag did you get when you disabled the plugin?
 
-After loggin in a McSkidy, we add a comment to check if a Stored XSS vulnerability is present.
+After logging in a McSkidy, we add a comment to check if a Stored XSS vulnerability is present.
 
 Add an underline to the text and as it is rendered, Stored XSS is present.
 
