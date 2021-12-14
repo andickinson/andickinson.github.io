@@ -118,4 +118,46 @@ var store = [{
         "tags": [],
         "url": "/blog/sysinternals/",
         "teaser": null
+      },{
+        "title": "TryHackMe: Advent of Cyber - Day 1 - Save the Gifts",
+        "excerpt":"This is a write up for the Day 1 - Save the Gifts challenge in the Advent of Cyber room on TryHackMe. Some tasks may have been omitted as they do not require an answer. After finding Santa’s account, what is their position in the company? Santa is important, so...","categories": [],
+        "tags": [],
+        "url": "/blog/advent-of-cyber-day-1/",
+        "teaser": null
+      },{
+        "title": "TryHackMe: Advent of Cyber - Day 2 - Elf HR Problems",
+        "excerpt":"This is a write up for the Day 2 - Elf HR Problems challenge in the Advent of Cyber room on TryHackMe. Some tasks may have been omitted as they do not require an answer. What is the name of the new cookie that was created for your account? Attempt...","categories": [],
+        "tags": [],
+        "url": "/blog/advent-of-cyber-day-2/",
+        "teaser": null
+      },{
+        "title": "TryHackMe: Advent of Cyber - Day 3 - Christmas Blackout",
+        "excerpt":"This is a write up for the Day 3 - Christmas Blackout challenge in the Advent of Cyber room on TryHackMe. Some tasks may have been omitted as they do not require an answer. Using a common wordlist for discovering content, enumerate http://10.10.159.240 to find the location of the administrator...","categories": [],
+        "tags": [],
+        "url": "/blog/advent-of-cyber-day-3/",
+        "teaser": null
+      },{
+        "title": "TryHackMe: Advent of Cyber - Day 4 - Santa's Running Behind",
+        "excerpt":"This is a write up for the Day 4 - Santa’s Running Behind challenge in the Advent of Cyber room on TryHackMe. Some tasks may have been omitted as they do not require an answer. What valid password can you use to access the “santa” account? The entry that returned...","categories": [],
+        "tags": [],
+        "url": "/blog/advent-of-cyber-day-4/",
+        "teaser": null
+      },{
+        "title": "TryHackMe: Advent of Cyber - Day 5 - Pesky Elf Forum",
+        "excerpt":"This is a write up for the Day 5 - Pesky Elf Forum challenge in the Advent of Cyber room on TryHackMe. Some tasks may have been omitted as they do not require an answer. What flag did you get when you disabled the plugin? After logging in a McSkidy,...","categories": [],
+        "tags": [],
+        "url": "/blog/advent-of-cyber-day-5/",
+        "teaser": null
+      },{
+        "title": "TryHackMe: Advent of Cyber - Day 6 - Patch Management is Hard",
+        "excerpt":"This is a write up for the Day 6 - Patch Management is Hard challenge in the Advent of Cyber room on TryHackMe. Some tasks may have been omitted as they do not require an answer. Deploy the attached VM and look around. What is the entry point for our...","categories": [],
+        "tags": [],
+        "url": "/blog/advent-of-cyber-day-6/",
+        "teaser": null
+      },{
+        "title": "TryHackMe: Advent of Cyber - Day 7 - Migration Without Security",
+        "excerpt":"This is a write up for the Day 7 - Migration Without Security challenge in the Advent of Cyber room on TryHackMe. Some tasks may have been omitted as they do not require an answer. Interact with the MongoDB server to find the flag. What is the flag? Listing the...","categories": [],
+        "tags": [],
+        "url": "/blog/advent-of-cyber-day-7/",
+        "teaser": null
       }]

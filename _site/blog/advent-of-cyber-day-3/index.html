@@ -9,8 +9,8 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>TryHackMe: Sysinternals - andickinson.github.io</title>
-<meta name="description" content="Learning to use the Sysinternals tools to analyze Window systems or applications.">
+<!-- begin _includes/seo.html --><title>TryHackMe: Advent of Cyber - Day 3 - Christmas Blackout - andickinson.github.io</title>
+<meta name="description" content="Learning how to use Dirbuster.">
 
 
   <meta name="author" content="Andrew Dickinson">
@@ -22,26 +22,26 @@
 <meta property="og:type" content="article">
 <meta property="og:locale" content="en_US">
 <meta property="og:site_name" content="andickinson.github.io">
-<meta property="og:title" content="TryHackMe: Sysinternals">
-<meta property="og:url" content="https://andickinson.github.io/blog/sysinternals/">
+<meta property="og:title" content="TryHackMe: Advent of Cyber - Day 3 - Christmas Blackout">
+<meta property="og:url" content="https://andickinson.github.io/blog/advent-of-cyber-day-3/">
 
 
-  <meta property="og:description" content="Learning to use the Sysinternals tools to analyze Window systems or applications.">
-
-
-
-
-
-
-
-  <meta property="article:published_time" content="2021-06-08T16:00:00+10:00">
+  <meta property="og:description" content="Learning how to use Dirbuster.">
 
 
 
 
 
 
-<link rel="canonical" href="https://andickinson.github.io/blog/sysinternals/">
+
+  <meta property="article:published_time" content="2021-12-11T17:30:00+11:00">
+
+
+
+
+
+
+<link rel="canonical" href="https://andickinson.github.io/blog/advent-of-cyber-day-3/">
 
 
 
@@ -270,15 +270,15 @@
 
 
   <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
-    <meta itemprop="headline" content="TryHackMe: Sysinternals">
-    <meta itemprop="description" content="Learning to use the Sysinternals tools to analyze Window systems or applications.">
-    <meta itemprop="datePublished" content="2021-06-08T16:00:00+10:00">
+    <meta itemprop="headline" content="TryHackMe: Advent of Cyber - Day 3 - Christmas Blackout">
+    <meta itemprop="description" content="Learning how to use Dirbuster.">
+    <meta itemprop="datePublished" content="2021-12-11T17:30:00+11:00">
     
 
     <div class="page__inner-wrap">
       
         <header>
-          <h1 id="page-title" class="page__title" itemprop="headline">TryHackMe: Sysinternals
+          <h1 id="page-title" class="page__title" itemprop="headline">TryHackMe: Advent of Cyber - Day 3 - Christmas Blackout
 </h1>
           
 
@@ -287,7 +287,7 @@
       
       <span class="page__meta-date">
         <i class="far fa-calendar-alt" aria-hidden="true"></i>
-        <time datetime="2021-06-08T16:00:00+10:00">June 8, 2021</time>
+        <time datetime="2021-12-11T17:30:00+11:00">December 11, 2021</time>
       </span>
     
 
@@ -312,66 +312,54 @@
 
       <section class="page__content" itemprop="text">
         
-        <p>This is a write up for the <a href="https://tryhackme.com/room/btsysinternalssg"><strong>Sysinternals</strong></a> room on <a href="https://tryhackme.com">TryHackMe</a>. Some tasks have been omitted as they do not require an answer.</p>
+        <p>This is a write up for the Day 3 - Christmas Blackout challenge in the <a href="https://tryhackme.com/room/adventofcyber3"><strong>Advent of Cyber</strong></a> room on <a href="https://tryhackme.com">TryHackMe</a>. Some tasks may have been omitted as they do not require an answer.</p>
 
 <hr />
 
-<h3 id="there-is-a-txt-file-on-the-desktop-named-filetxt-what-is-the-text-within-the-ads">There is a txt file on the desktop named file.txt. What is the text within the ADS?</h3>
+<h3 id="using-a-common-wordlist-for-discovering-content-enumerate-http1010159240-to-find-the-location-of-the-administrator-dashboard-what-is-the-name-of-the-folder">Using a common wordlist for discovering content, enumerate http://10.10.159.240 to find the location of the administrator dashboard. What is the name of the folder?</h3>
 
-<p><img src="/assets/images/2021-06-08-sysinternals/01-ads.jpg" /></p>
+<p>Run the following command in terminal.</p>
 
-<blockquote>
-  <p>Answer: <strong>I am hiding in the stream.</strong></p>
-</blockquote>
-
-<h3 id="using-whois-tools-what-is-the-isporganization-for-the-remote-address-in-the-screenshots-above">Using WHOIS tools, what is the ISP/Organization for the remote address in the screenshots above?</h3>
-
-<p>The command that should be executed is displayed below.</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>whois -v &lt;ip&gt;
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dirb http://&lt;ip&gt; /usr/share/wordlist/dirb/common.txt
 </code></pre></div></div>
 
-<p>However, the IP addresses listed in the room does not list any results. Given we are using Windows and the process is <strong>svchost.exe</strong> we can assume the answer is related to Microsoft.</p>
+<p><img src="/assets/images/2021-12-11-advent-of-cyber-day-3/d3_1.jpg" /></p>
 
 <blockquote>
-  <p>Answer: <strong>Microsoft Corporation</strong></p>
+  <p>Answer: <strong>admin</strong></p>
 </blockquote>
 
-<h3 id="run-autoruns-and-inspect-what-are-the-new-entries-in-the-image-hijacks-tab-compared-to-the-screenshots-above">Run Autoruns and inspect what are the new entries in the Image Hijacks tab compared to the screenshots above.</h3>
+<h3 id="in-your-web-browser-try-some-default-credentials-on-the-newly-discovered-login-form-for-the-administrator-user-what-is-the-password">In your web browser, try some default credentials on the newly discovered login form for the “administrator” user. What is the password?</h3>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>autoruns -accepteula
+<p>Access the server’s ip from the web browser.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://&lt;ip&gt;/admin
 </code></pre></div></div>
 
-<p><img src="/assets/images/2021-06-08-sysinternals/02-image-hijack.jpg" /></p>
+<p>Trying a common username/password such as:</p>
 
-<h3 id="what-entry-was-updated">What entry was updated?</h3>
-
-<blockquote>
-  <p>Answer: <strong>taskmgr.exe</strong></p>
-</blockquote>
-
-<h3 id="what-is-the-updated-value">What is the updated value?</h3>
-
-<blockquote>
-  <p>Answer: <strong>c:\tools\sysint\procexp.exe</strong></p>
-</blockquote>
-
-<h3 id="run-the-strings-tool-on-zoomitexe-what-is-the-full-path-to-the-pdb-file">Run the Strings tool on ZoomIt.exe. What is the full path to the .pdb file?</h3>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>strings .\ZoomIt.exe | findstr /i ZoomIt
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>administrator:administrator
 </code></pre></div></div>
 
-<p><img src="/assets/images/2021-06-08-sysinternals/03-zoomit.jpg" /></p>
+<blockquote>
+  <p>Answer: <strong>administrator</strong></p>
+</blockquote>
+
+<h3 id="access-the-admin-panel-what-is-the-value-of-the-flag">Access the admin panel. What is the value of the flag?</h3>
+
+<p>Once logged in, we can see the flag.</p>
+
+<p><img src="/assets/images/2021-12-11-advent-of-cyber-day-3/d3_2.jpg" /></p>
 
 <blockquote>
-  <p>Answer: <strong>C:\agent_work\112\s\Win32\Release\ZoomIt64.pdb</strong></p>
+  <p>Answer: <strong>THM{ADM1N_AC3SS}</strong></p>
 </blockquote>
 
 <h3 id="recap">Recap</h3>
 
 <p>In this task we learnt how to:</p>
 <ul>
-  <li>Use Sysinternals tools to find Windows system information</li>
+  <li>Use Dirbuster with word lists to find URLs</li>
 </ul>
 
 
@@ -384,7 +372,7 @@
 
 
         
-  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2021-06-08T16:00:00+10:00">June 8, 2021</time></p>
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2021-12-11T17:30:00+11:00">December 11, 2021</time></p>
 
 
       </footer>
@@ -394,11 +382,11 @@
       
   <nav class="pagination">
     
-      <a href="/blog/openvas/" class="pagination--pager" title="TryHackMe: OpenVAS
+      <a href="/blog/advent-of-cyber-day-2/" class="pagination--pager" title="TryHackMe: Advent of Cyber - Day 2 - Elf HR Problems
 ">Previous</a>
     
     
-      <a href="/blog/advent-of-cyber-day-1/" class="pagination--pager" title="TryHackMe: Advent of Cyber - Day 1 - Save the Gifts
+      <a href="/blog/advent-of-cyber-day-4/" class="pagination--pager" title="TryHackMe: Advent of Cyber - Day 4 - Santa’s Running Behind
 ">Next</a>
     
   </nav>
