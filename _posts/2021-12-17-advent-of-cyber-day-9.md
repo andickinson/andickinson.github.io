@@ -32,7 +32,11 @@ This is a write up for the Day 9 - Where Is All This Data Going challenge in the
 
 > Answer: **THM{dd63a80bf9fdd21aabbf70af7438c257}**
 
-### In the FTP section, what is the FTP command used to upload the secret.txt  file?
+### In the FTP section, what is the FTP login password?
+
+> Answer: **TryH@ckM3!**
+
+### In the FTP section, what is the FTP command used to upload the secret.txt file?
 
 <img src="{{ site.baseurl }}/assets/images/2021-12-17-advent-of-cyber-day-9/d9_05.jpg">
 
