@@ -4,7 +4,7 @@ date:   2021-12-18 12:00:00 +1000
 excerpt: Learning about nmap.
 ---
 
-This is a write up for the Day 9 - Day 10 - Offensive Is The Best Defence challenge in the [**Advent of Cyber**](https://tryhackme.com/room/adventofcyber3) room on [TryHackMe](https://tryhackme.com). Some tasks may have been omitted as they do not require an answer.
+This is a write up for the Day 10 - Offensive Is The Best Defence challenge in the [**Advent of Cyber**](https://tryhackme.com/room/adventofcyber3) room on [TryHackMe](https://tryhackme.com). Some tasks may have been omitted as they do not require an answer.
 
 ***
 
