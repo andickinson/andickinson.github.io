@@ -9,8 +9,8 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>TryHackMe: Advent of Cyber - Day 7 - Migration Without Security - andickinson.github.io</title>
-<meta name="description" content="Learning about Local File Inclusion (LFI) Vulnerabilities.">
+<!-- begin _includes/seo.html --><title>TryHackMe: Advent of Cyber - Day 9 - Where Is All This Data Going - andickinson.github.io</title>
+<meta name="description" content="Learning about basic packet analysis with Wireshark.">
 
 
   <meta name="author" content="Andrew Dickinson">
@@ -22,26 +22,26 @@
 <meta property="og:type" content="article">
 <meta property="og:locale" content="en_US">
 <meta property="og:site_name" content="andickinson.github.io">
-<meta property="og:title" content="TryHackMe: Advent of Cyber - Day 7 - Migration Without Security">
-<meta property="og:url" content="https://andickinson.github.io/blog/advent-of-cyber-day-7/">
+<meta property="og:title" content="TryHackMe: Advent of Cyber - Day 9 - Where Is All This Data Going">
+<meta property="og:url" content="https://andickinson.github.io/blog/advent-of-cyber-day-9/">
 
 
-  <meta property="og:description" content="Learning about Local File Inclusion (LFI) Vulnerabilities.">
-
-
-
-
-
-
-
-  <meta property="article:published_time" content="2021-12-14T12:00:00+11:00">
+  <meta property="og:description" content="Learning about basic packet analysis with Wireshark.">
 
 
 
 
 
 
-<link rel="canonical" href="https://andickinson.github.io/blog/advent-of-cyber-day-7/">
+
+  <meta property="article:published_time" content="2021-12-17T13:00:00+11:00">
+
+
+
+
+
+
+<link rel="canonical" href="https://andickinson.github.io/blog/advent-of-cyber-day-9/">
 
 
 
@@ -270,15 +270,15 @@
 
 
   <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
-    <meta itemprop="headline" content="TryHackMe: Advent of Cyber - Day 7 - Migration Without Security">
-    <meta itemprop="description" content="Learning about Local File Inclusion (LFI) Vulnerabilities.">
-    <meta itemprop="datePublished" content="2021-12-14T12:00:00+11:00">
+    <meta itemprop="headline" content="TryHackMe: Advent of Cyber - Day 9 - Where Is All This Data Going">
+    <meta itemprop="description" content="Learning about basic packet analysis with Wireshark.">
+    <meta itemprop="datePublished" content="2021-12-17T13:00:00+11:00">
     
 
     <div class="page__inner-wrap">
       
         <header>
-          <h1 id="page-title" class="page__title" itemprop="headline">TryHackMe: Advent of Cyber - Day 7 - Migration Without Security
+          <h1 id="page-title" class="page__title" itemprop="headline">TryHackMe: Advent of Cyber - Day 9 - Where Is All This Data Going
 </h1>
           
 
@@ -287,7 +287,7 @@
       
       <span class="page__meta-date">
         <i class="far fa-calendar-alt" aria-hidden="true"></i>
-        <time datetime="2021-12-14T12:00:00+11:00">December 14, 2021</time>
+        <time datetime="2021-12-17T13:00:00+11:00">December 17, 2021</time>
       </span>
     
 
@@ -300,7 +300,7 @@
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          1 minute read
+          less than 1 minute read
         
       </span>
     
@@ -312,89 +312,69 @@
 
       <section class="page__content" itemprop="text">
         
-        <p>This is a write up for the Day 7 - Migration Without Security challenge in the <a href="https://tryhackme.com/room/adventofcyber3"><strong>Advent of Cyber</strong></a> room on <a href="https://tryhackme.com">TryHackMe</a>. Some tasks may have been omitted as they do not require an answer.</p>
+        <p>This is a write up for the Day 9 - Where Is All This Data Going challenge in the <a href="https://tryhackme.com/room/adventofcyber3"><strong>Advent of Cyber</strong></a> room on <a href="https://tryhackme.com">TryHackMe</a>. Some tasks may have been omitted as they do not require an answer.</p>
 
 <hr />
 
-<h3 id="interact-with-the-mongodb-server-to-find-the-flag-what-is-the-flag">Interact with the MongoDB server to find the flag. What is the flag?</h3>
+<h3 id="what-operating-system-is-santas-laptop-running-os-name">What operating system is Santa’s laptop running (“OS Name”)?</h3>
 
-<p>Listing the databases shows a db called “flagdb”.</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>show databases
-AoC3    0.000GB
-admin   0.000GB
-config  0.000GB
-flagdb  0.000GB
-local   0.000GB
-</code></pre></div></div>
-
-<p>We can then open the db with <code class="language-plaintext highlighter-rouge">use flagdb</code>.</p>
-
-<p><code class="language-plaintext highlighter-rouge">show collections</code> will list all available collections.</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>show collections
-flagColl
-</code></pre></div></div>
-
-<p><code class="language-plaintext highlighter-rouge">db.flagColl.find()</code> will reveal the flag.</p>
-
-<p><img src="/assets/images/2021-12-14-advent-of-cyber-day-7/d7_1.jpg" /></p>
+<p><img src="/assets/images/2021-12-17-advent-of-cyber-day-9/d9_01.jpg" /></p>
 
 <blockquote>
-  <p>Answer: <strong>THM{8814a5e6662a9763f7df23ee59d944f9}</strong></p>
+  <p>Answer: <strong>login</strong></p>
 </blockquote>
 
-<h3 id="we-discussed-how-to-bypass-login-pages-as-an-admin-can-you-log-into-the-application-that-grinch-enterprise-controls-as-admin-and-retrieve-the-flag">We discussed how to bypass login pages as an admin. Can you log into the application that Grinch Enterprise controls as admin and retrieve the flag?</h3>
+<h3 id="what-is-the-username-and-password-used-in-the-login-page-in-the-http-2---post-section">What is the username and password used in the login page in the HTTP #2 - POST section?</h3>
 
-<p>We can intercept the login form and inject the following.</p>
-
-<p><img src="/assets/images/2021-12-14-advent-of-cyber-day-7/d7_2.jpg" /></p>
-
-<p>Forwarding this on will allow us to log in to the system. This will reveal the flag on the <code class="language-plaintext highlighter-rouge">/flag</code> page.</p>
-
-<p><img src="/assets/images/2021-12-14-advent-of-cyber-day-7/d7_3.jpg" /></p>
+<p><img src="/assets/images/2021-12-17-advent-of-cyber-day-9/d9_02.jpg" /></p>
 
 <blockquote>
-  <p>Answer: <strong>THM{b6b304f5d5834a4d089b570840b467a8}</strong></p>
+  <p>Answer: <strong>McSkidy:Christmas2021!</strong></p>
 </blockquote>
 
-<h3 id="once-you-are-logged-in-use-the-gift-search-page-to-list-all-usernames-that-have-guest-roles-what-is-the-flag">Once you are logged in, use the gift search page to list all usernames that have guest roles. What is the flag?</h3>
+<h3 id="what-is-the-user-agents-name-that-has-been-sent-in-http-2---post-section">What is the User-Agent’s name that has been sent in HTTP #2 - POST section?</h3>
 
-<p>The search page is passing a GET parameter which exposes the <code class="language-plaintext highlighter-rouge">username</code> and <code class="language-plaintext highlighter-rouge">role</code> variables. We know the user we are looking for is not an admin so we can structure our query as follows.</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://10.10.52.100/search?username[$ne]=admin&amp;role=guest
-</code></pre></div></div>
-
-<p>Scrolling down the page reveals the flag.</p>
-
-<p><img src="/assets/images/2021-12-14-advent-of-cyber-day-7/d7_4.jpg" /></p>
+<p><img src="/assets/images/2021-12-17-advent-of-cyber-day-9/d9_03.jpg" /></p>
 
 <blockquote>
-  <p>Answer: <strong>THM{2ec099f2d602cc4968c5267970be1326}</strong></p>
+  <p>Answer: <strong>TryHackMe-UserAgent-THM{d8ab1be969825f2c5c937aec23d55bc9}</strong></p>
 </blockquote>
 
-<h3 id="use-the-gift-search-page-to-perform-nosql-injection-and-retrieve-the-mcskidy-record-what-is-the-details-record">Use the gift search page to perform NoSQL injection and retrieve the mcskidy record. What is the details record?</h3>
+<h3 id="in-the-dns-section-there-is-a-txt-dns-query-what-is-the-flag-in-the-message-of-that-dns-query">In the DNS section, there is a TXT DNS query. What is the flag in the message of that DNS query?</h3>
 
-<p>We can follow the same principle as the previous question. We know that the username is <code class="language-plaintext highlighter-rouge">mcskidy</code> and could have any role. We can check for role not equal to null to return all results.</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://10.10.52.100/search?username=mcskidy&amp;role[$ne]=
-</code></pre></div></div>
-
-<p><img src="/assets/images/2021-12-14-advent-of-cyber-day-7/d7_5.jpg" /></p>
+<p><img src="/assets/images/2021-12-17-advent-of-cyber-day-9/d9_04.jpg" /></p>
 
 <blockquote>
-  <p>Answer: <strong>ID:6184f516ef6da50433f100f4:mcskidy:admin</strong></p>
+  <p>Answer: <strong>THM{dd63a80bf9fdd21aabbf70af7438c257}</strong></p>
+</blockquote>
+
+<h3 id="in-the-ftp-section-what-is-the-ftp-login-password">In the FTP section, what is the FTP login password?</h3>
+
+<blockquote>
+  <p>Answer: <strong>TryH@ckM3!</strong></p>
+</blockquote>
+
+<h3 id="in-the-ftp-section-what-is-the-ftp-command-used-to-upload-the-secrettxt-file">In the FTP section, what is the FTP command used to upload the secret.txt file?</h3>
+
+<p><img src="/assets/images/2021-12-17-advent-of-cyber-day-9/d9_05.jpg" /></p>
+
+<blockquote>
+  <p>Answer: <strong>STOR</strong></p>
+</blockquote>
+
+<h3 id="in-the-ftp-section-what-is-the-content-of-the-secrettxt-file">In the FTP section, what is the content of the secret.txt file?</h3>
+
+<p><img src="/assets/images/2021-12-17-advent-of-cyber-day-9/d9_06.jpg" /></p>
+
+<blockquote>
+  <p>Answer: <strong>123^-^321</strong></p>
 </blockquote>
 
 <h3 id="recap">Recap</h3>
 
 <p>In this task we learnt:</p>
 <ul>
-  <li>What is NoSQL?</li>
-  <li>Understanding NoSQL database</li>
-  <li>Understand Why NoSQL happens</li>
-  <li>Understand what NoSQL injection is</li>
-  <li>Using NoSQL Injection to bypass a login form</li>
+  <li>Basic packet analysis with Wireshark</li>
 </ul>
 
 
@@ -407,7 +387,7 @@ flagColl
 
 
         
-  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2021-12-14T12:00:00+11:00">December 14, 2021</time></p>
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2021-12-17T13:00:00+11:00">December 17, 2021</time></p>
 
 
       </footer>
@@ -417,11 +397,11 @@ flagColl
       
   <nav class="pagination">
     
-      <a href="/blog/advent-of-cyber-day-6/" class="pagination--pager" title="TryHackMe: Advent of Cyber - Day 6 - Patch Management is Hard
+      <a href="/blog/advent-of-cyber-day-8/" class="pagination--pager" title="TryHackMe: Advent of Cyber - Day 8 - Santa’s Bag of Toys
 ">Previous</a>
     
     
-      <a href="/blog/advent-of-cyber-day-8/" class="pagination--pager" title="TryHackMe: Advent of Cyber - Day 8 - Santa’s Bag of Toys
+      <a href="/blog/advent-of-cyber-day-10/" class="pagination--pager" title="TryHackMe: Advent of Cyber - Day 10 - Offensive Is The Best Defence
 ">Next</a>
     
   </nav>

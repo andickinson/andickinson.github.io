@@ -9,8 +9,8 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>TryHackMe: Advent of Cyber - Day 7 - Migration Without Security - andickinson.github.io</title>
-<meta name="description" content="Learning about Local File Inclusion (LFI) Vulnerabilities.">
+<!-- begin _includes/seo.html --><title>TryHackMe: Advent of Cyber - Day 10 - Offensive Is The Best Defence - andickinson.github.io</title>
+<meta name="description" content="Learning about nmap.">
 
 
   <meta name="author" content="Andrew Dickinson">
@@ -22,26 +22,26 @@
 <meta property="og:type" content="article">
 <meta property="og:locale" content="en_US">
 <meta property="og:site_name" content="andickinson.github.io">
-<meta property="og:title" content="TryHackMe: Advent of Cyber - Day 7 - Migration Without Security">
-<meta property="og:url" content="https://andickinson.github.io/blog/advent-of-cyber-day-7/">
+<meta property="og:title" content="TryHackMe: Advent of Cyber - Day 10 - Offensive Is The Best Defence">
+<meta property="og:url" content="https://andickinson.github.io/blog/advent-of-cyber-day-10/">
 
 
-  <meta property="og:description" content="Learning about Local File Inclusion (LFI) Vulnerabilities.">
-
-
-
-
-
-
-
-  <meta property="article:published_time" content="2021-12-14T12:00:00+11:00">
+  <meta property="og:description" content="Learning about nmap.">
 
 
 
 
 
 
-<link rel="canonical" href="https://andickinson.github.io/blog/advent-of-cyber-day-7/">
+
+  <meta property="article:published_time" content="2021-12-18T13:00:00+11:00">
+
+
+
+
+
+
+<link rel="canonical" href="https://andickinson.github.io/blog/advent-of-cyber-day-10/">
 
 
 
@@ -270,15 +270,15 @@
 
 
   <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
-    <meta itemprop="headline" content="TryHackMe: Advent of Cyber - Day 7 - Migration Without Security">
-    <meta itemprop="description" content="Learning about Local File Inclusion (LFI) Vulnerabilities.">
-    <meta itemprop="datePublished" content="2021-12-14T12:00:00+11:00">
+    <meta itemprop="headline" content="TryHackMe: Advent of Cyber - Day 10 - Offensive Is The Best Defence">
+    <meta itemprop="description" content="Learning about nmap.">
+    <meta itemprop="datePublished" content="2021-12-18T13:00:00+11:00">
     
 
     <div class="page__inner-wrap">
       
         <header>
-          <h1 id="page-title" class="page__title" itemprop="headline">TryHackMe: Advent of Cyber - Day 7 - Migration Without Security
+          <h1 id="page-title" class="page__title" itemprop="headline">TryHackMe: Advent of Cyber - Day 10 - Offensive Is The Best Defence
 </h1>
           
 
@@ -287,7 +287,7 @@
       
       <span class="page__meta-date">
         <i class="far fa-calendar-alt" aria-hidden="true"></i>
-        <time datetime="2021-12-14T12:00:00+11:00">December 14, 2021</time>
+        <time datetime="2021-12-18T13:00:00+11:00">December 18, 2021</time>
       </span>
     
 
@@ -312,89 +312,83 @@
 
       <section class="page__content" itemprop="text">
         
-        <p>This is a write up for the Day 7 - Migration Without Security challenge in the <a href="https://tryhackme.com/room/adventofcyber3"><strong>Advent of Cyber</strong></a> room on <a href="https://tryhackme.com">TryHackMe</a>. Some tasks may have been omitted as they do not require an answer.</p>
+        <p>This is a write up for the Day 10 - Offensive Is The Best Defence challenge in the <a href="https://tryhackme.com/room/adventofcyber3"><strong>Advent of Cyber</strong></a> room on <a href="https://tryhackme.com">TryHackMe</a>. Some tasks may have been omitted as they do not require an answer.</p>
 
 <hr />
 
-<h3 id="interact-with-the-mongodb-server-to-find-the-flag-what-is-the-flag">Interact with the MongoDB server to find the flag. What is the flag?</h3>
+<h3 id="help-mcskidy-and-run-nmap--st-1010175143-how-many-ports-are-open-between-1-and-100">Help McSkidy and run nmap -sT 10.10.175.143. How many ports are open between 1 and 100?</h3>
 
-<p>Listing the databases shows a db called “flagdb”.</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>show databases
-AoC3    0.000GB
-admin   0.000GB
-config  0.000GB
-flagdb  0.000GB
-local   0.000GB
-</code></pre></div></div>
-
-<p>We can then open the db with <code class="language-plaintext highlighter-rouge">use flagdb</code>.</p>
-
-<p><code class="language-plaintext highlighter-rouge">show collections</code> will list all available collections.</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>show collections
-flagColl
-</code></pre></div></div>
-
-<p><code class="language-plaintext highlighter-rouge">db.flagColl.find()</code> will reveal the flag.</p>
-
-<p><img src="/assets/images/2021-12-14-advent-of-cyber-day-7/d7_1.jpg" /></p>
+<p><img src="/assets/images/2021-12-18-advent-of-cyber-day-10/d10_01.jpg" /></p>
 
 <blockquote>
-  <p>Answer: <strong>THM{8814a5e6662a9763f7df23ee59d944f9}</strong></p>
+  <p>Answer: <strong>2</strong></p>
 </blockquote>
 
-<h3 id="we-discussed-how-to-bypass-login-pages-as-an-admin-can-you-log-into-the-application-that-grinch-enterprise-controls-as-admin-and-retrieve-the-flag">We discussed how to bypass login pages as an admin. Can you log into the application that Grinch Enterprise controls as admin and retrieve the flag?</h3>
-
-<p>We can intercept the login form and inject the following.</p>
-
-<p><img src="/assets/images/2021-12-14-advent-of-cyber-day-7/d7_2.jpg" /></p>
-
-<p>Forwarding this on will allow us to log in to the system. This will reveal the flag on the <code class="language-plaintext highlighter-rouge">/flag</code> page.</p>
-
-<p><img src="/assets/images/2021-12-14-advent-of-cyber-day-7/d7_3.jpg" /></p>
+<h3 id="what-is-the-smallest-port-number-that-is-open">What is the smallest port number that is open?</h3>
 
 <blockquote>
-  <p>Answer: <strong>THM{b6b304f5d5834a4d089b570840b467a8}</strong></p>
+  <p>Answer: <strong>22</strong></p>
 </blockquote>
 
-<h3 id="once-you-are-logged-in-use-the-gift-search-page-to-list-all-usernames-that-have-guest-roles-what-is-the-flag">Once you are logged in, use the gift search page to list all usernames that have guest roles. What is the flag?</h3>
-
-<p>The search page is passing a GET parameter which exposes the <code class="language-plaintext highlighter-rouge">username</code> and <code class="language-plaintext highlighter-rouge">role</code> variables. We know the user we are looking for is not an admin so we can structure our query as follows.</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://10.10.52.100/search?username[$ne]=admin&amp;role=guest
-</code></pre></div></div>
-
-<p>Scrolling down the page reveals the flag.</p>
-
-<p><img src="/assets/images/2021-12-14-advent-of-cyber-day-7/d7_4.jpg" /></p>
+<h3 id="what-is-the-service-related-to-the-highest-port-number-you-found-in-the-first-question">What is the service related to the highest port number you found in the first question?</h3>
 
 <blockquote>
-  <p>Answer: <strong>THM{2ec099f2d602cc4968c5267970be1326}</strong></p>
+  <p>Answer: <strong>http</strong></p>
 </blockquote>
 
-<h3 id="use-the-gift-search-page-to-perform-nosql-injection-and-retrieve-the-mcskidy-record-what-is-the-details-record">Use the gift search page to perform NoSQL injection and retrieve the mcskidy record. What is the details record?</h3>
+<h3 id="now-run-nmap--ss-1010175143-did-you-get-the-same-results-yn">Now run nmap -sS 10.10.175.143. Did you get the same results? (Y/N)</h3>
 
-<p>We can follow the same principle as the previous question. We know that the username is <code class="language-plaintext highlighter-rouge">mcskidy</code> and could have any role. We can check for role not equal to null to return all results.</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://10.10.52.100/search?username=mcskidy&amp;role[$ne]=
-</code></pre></div></div>
-
-<p><img src="/assets/images/2021-12-14-advent-of-cyber-day-7/d7_5.jpg" /></p>
+<p><img src="/assets/images/2021-12-18-advent-of-cyber-day-10/d10_02.jpg" /></p>
 
 <blockquote>
-  <p>Answer: <strong>ID:6184f516ef6da50433f100f4:mcskidy:admin</strong></p>
+  <p>Answer: <strong>Y</strong></p>
+</blockquote>
+
+<h3 id="if-you-want-nmap-to-detect-the-version-info-of-the-services-installed-you-can-use-nmap--sv-1010175143-what-is-the-version-number-of-the-web-server">If you want Nmap to detect the version info of the services installed, you can use nmap -sV 10.10.175.143. What is the version number of the web server?</h3>
+
+<p><img src="/assets/images/2021-12-18-advent-of-cyber-day-10/d10_03.jpg" /></p>
+
+<blockquote>
+  <p>Answer: <strong>Apache httpd 2.4.49</strong></p>
+</blockquote>
+
+<h3 id="by-checking-the-vulnerabilities-related-to-the-installed-web-server-you-learn-that-there-is-a-critical-vulnerability-that-allows-path-traversal-and-remote-code-execution-now-you-can-tell-mcskidy-that-grinch-enterprises-used-this-vulnerability-what-is-the-cve-number-of-the-vulnerability-that-was-solved-in-version-2451">By checking the vulnerabilities related to the installed web server, you learn that there is a critical vulnerability that allows path traversal and remote code execution. Now you can tell McSkidy that Grinch Enterprises used this vulnerability. What is the CVE number of the vulnerability that was solved in version 2.4.51?</h3>
+
+<p>The CVE is stated on https://httpd.apache.org/security/vulnerabilities_24.html</p>
+
+<blockquote>
+  <p>Answer: <strong>CVE-2021-42013</strong></p>
+</blockquote>
+
+<h3 id="you-are-putting-the-pieces-together-and-have-a-good-idea-of-how-your-web-server-was-exploited-mcskidy-is-suspicious-that-the-attacker-might-have-installed-a-backdoor-she-asks-you-to-check-if-there-is-some-service-listening-on-an-uncommon-port-ie-outside-the-1000-common-ports-that-nmap-scans-by-default-she-explains-that-adding--p1-65535-or--p--will-scan-all-65535-tcp-ports-instead-of-only-scanning-the-1000-most-common-ports-what-is-the-port-number-that-appeared-in-the-results-now">You are putting the pieces together and have a good idea of how your web server was exploited. McSkidy is suspicious that the attacker might have installed a backdoor. She asks you to check if there is some service listening on an uncommon port, i.e. outside the 1000 common ports that Nmap scans by default. She explains that adding -p1-65535 or -p- will scan all 65,535 TCP ports instead of only scanning the 1000 most common ports. What is the port number that appeared in the results now?</h3>
+
+<p>The Attack Box was too slow to run such a large query, so a Kali VM was used.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nmap -sT 10.10.175.143 -p- -v
+</code></pre></div></div>
+
+<p><img src="/assets/images/2021-12-18-advent-of-cyber-day-10/d10_04.jpg" /></p>
+
+<blockquote>
+  <p>Answer: <strong>20212</strong></p>
+</blockquote>
+
+<h3 id="what-is-the-name-of-the-program-listening-on-the-newly-discovered-port">What is the name of the program listening on the newly discovered port?</h3>
+
+<p>For some reason my Kali VM was not returning the service name. I had to switch back to the Attack Box to get the answer.</p>
+
+<p><img src="/assets/images/2021-12-18-advent-of-cyber-day-10/d10_05.jpg" /></p>
+
+<blockquote>
+  <p>Answer: <strong>telnetd</strong></p>
 </blockquote>
 
 <h3 id="recap">Recap</h3>
 
 <p>In this task we learnt:</p>
 <ul>
-  <li>What is NoSQL?</li>
-  <li>Understanding NoSQL database</li>
-  <li>Understand Why NoSQL happens</li>
-  <li>Understand what NoSQL injection is</li>
-  <li>Using NoSQL Injection to bypass a login form</li>
+  <li>How nmap works</li>
+  <li>How to conduct port scans</li>
 </ul>
 
 
@@ -407,7 +401,7 @@ flagColl
 
 
         
-  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2021-12-14T12:00:00+11:00">December 14, 2021</time></p>
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2021-12-18T13:00:00+11:00">December 18, 2021</time></p>
 
 
       </footer>
@@ -417,11 +411,11 @@ flagColl
       
   <nav class="pagination">
     
-      <a href="/blog/advent-of-cyber-day-6/" class="pagination--pager" title="TryHackMe: Advent of Cyber - Day 6 - Patch Management is Hard
+      <a href="/blog/advent-of-cyber-day-9/" class="pagination--pager" title="TryHackMe: Advent of Cyber - Day 9 - Where Is All This Data Going
 ">Previous</a>
     
     
-      <a href="/blog/advent-of-cyber-day-8/" class="pagination--pager" title="TryHackMe: Advent of Cyber - Day 8 - Santa’s Bag of Toys
+      <a href="/blog/advent-of-cyber-day-11/" class="pagination--pager" title="TryHackMe: Advent of Cyber - Day 11 - Where Are The Reindeers?
 ">Next</a>
     
   </nav>

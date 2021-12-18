@@ -1,0 +1,536 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>TryHackMe: Advent of Cyber - Day 8 - Santa’s Bag of Toys - andickinson.github.io</title>
+<meta name="description" content="Learning about Windows Forensics.">
+
+
+  <meta name="author" content="Andrew Dickinson">
+  
+  <meta property="article:author" content="Andrew Dickinson">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="andickinson.github.io">
+<meta property="og:title" content="TryHackMe: Advent of Cyber - Day 8 - Santa’s Bag of Toys">
+<meta property="og:url" content="https://andickinson.github.io/blog/advent-of-cyber-day-8/">
+
+
+  <meta property="og:description" content="Learning about Windows Forensics.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2021-12-17T12:30:00+11:00">
+
+
+
+
+
+
+<link rel="canonical" href="https://andickinson.github.io/blog/advent-of-cyber-day-8/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": null,
+      "url": "https://andickinson.github.io/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          andickinson.github.io
+          
+        </a>
+        <ul class="visible-links"></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="/assets/images/avatar.jpg" alt="Andrew Dickinson" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Andrew Dickinson</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>Technical Consultant, Team Leader, Cyber Security Specialist</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Melbourne, Australia</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="https://www.linkedin.com/in/a-dickinson" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span class="label">LinkedIn</span></a></li>
+          
+        
+          
+            <li><a href="https://github.com/andickinson" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+            <li><a href="https://tryhackme.com/p/foolish" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-laptop-code" aria-hidden="true"></i><span class="label">TryHackMe</span></a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="TryHackMe: Advent of Cyber - Day 8 - Santa’s Bag of Toys">
+    <meta itemprop="description" content="Learning about Windows Forensics.">
+    <meta itemprop="datePublished" content="2021-12-17T12:30:00+11:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">TryHackMe: Advent of Cyber - Day 8 - Santa’s Bag of Toys
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2021-12-17T12:30:00+11:00">December 17, 2021</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          2 minute read
+        
+      </span>
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>This is a write up for the Day 8 - Santa’s Bag of Toys challenge in the <a href="https://tryhackme.com/room/adventofcyber3"><strong>Advent of Cyber</strong></a> room on <a href="https://tryhackme.com">TryHackMe</a>. Some tasks may have been omitted as they do not require an answer.</p>
+
+<hr />
+
+<h3 id="what-operating-system-is-santas-laptop-running-os-name">What operating system is Santa’s laptop running (“OS Name”)?</h3>
+
+<p>Open the first log file and look for a line starting with <code class="language-plaintext highlighter-rouge">OS Name</code>.</p>
+
+<p><img src="/assets/images/2021-12-17-advent-of-cyber-day-8/d8_01.jpg" /></p>
+
+<blockquote>
+  <p>Answer: <strong>Microsoft Windows 11 Pro</strong></p>
+</blockquote>
+
+<h3 id="what-was-the-password-set-for-the-new-backdoor-account">What was the password set for the new “backdoor” account?</h3>
+
+<p>In the second log file, we can see the <code class="language-plaintext highlighter-rouge">net user</code> command which shows the password.</p>
+
+<p><img src="/assets/images/2021-12-17-advent-of-cyber-day-8/d8_02.jpg" /></p>
+
+<blockquote>
+  <p>Answer: <strong>grinchstolechristmas</strong></p>
+</blockquote>
+
+<h3 id="in-one-of-the-transcription-logs-the-bad-actor-interacts-with-the-target-under-the-new-backdoor-user-account-and-copies-a-unique-file-to-the-desktop-before-it-is-copied-to-the-desktop-what-is-the-full-path-of-the-original-file">In one of the transcription logs, the bad actor interacts with the target under the new backdoor user account, and copies a unique file to the Desktop. Before it is copied to the Desktop, what is the full path of the original file?</h3>
+
+<p>The third log file shows the <code class="language-plaintext highlighter-rouge">copy</code> command.</p>
+
+<p><img src="/assets/images/2021-12-17-advent-of-cyber-day-8/d8_03.jpg" /></p>
+
+<blockquote>
+  <p>Answer: <strong>C:\Userse\santa\AppData\Local\Microsoft\Windows\UsrClass.dat</strong></p>
+</blockquote>
+
+<h3 id="the-actor-uses-a-living-off-the-land-binary-lolbin-to-encode-this-file-and-then-verifies-it-succeeded-by-viewing-the-output-file-what-is-the-name-of-this-lolbin">The actor uses a Living Off The Land binary (LOLbin) to encode this file, and then verifies it succeeded by viewing the output file. What is the name of this LOLbin?</h3>
+
+<p>This can be found in the third log file.</p>
+
+<p><img src="/assets/images/2021-12-17-advent-of-cyber-day-8/d8_04.jpg" /></p>
+
+<blockquote>
+  <p>Answer: <strong>certutil.exe</strong></p>
+</blockquote>
+
+<h3 id="drill-down-into-the-folders-and-see-if-you-can-find-anything-that-might-indicate-how-we-could-better-track-down-what-this-santarat-really-is-what-specific-folder-name-clues-us-in-that-this-might-be-publicly-accessible-software-hosted-on-a-code-sharing-platform">Drill down into the folders and see if you can find anything that might indicate how we could better track down what this SantaRat really is. What specific folder name clues us in that this might be publicly accessible software hosted on a code-sharing platform?</h3>
+
+<p>Opening the SantaRat folder shows a version control folder.</p>
+
+<p><img src="/assets/images/2021-12-17-advent-of-cyber-day-8/d8_05.jpg" /></p>
+
+<blockquote>
+  <p>Answer: <strong>.github</strong></p>
+</blockquote>
+
+<h3 id="additionally-there-is-a-unique-folder-named-bag-of-toys-on-the-desktop-this-must-be-where-santa-prepares-his-collection-of-toys-and-this-is-certainly-sensitive-data-that-the-actor-could-have-compromised-what-is-the-name-of-the-file-found-in-this-folder">Additionally, there is a unique folder named “Bag of Toys” on the Desktop! This must be where Santa prepares his collection of toys, and this is certainly sensitive data that the actor could have compromised. What is the name of the file found in this folder?</h3>
+
+<p><img src="/assets/images/2021-12-17-advent-of-cyber-day-8/d8_06.jpg" /></p>
+
+<blockquote>
+  <p>Answer: <strong>bag_of_toys.zip</strong></p>
+</blockquote>
+
+<h3 id="what-is-the-name-of-the-user-that-owns-the-santarat-repository">What is the name of the user that owns the SantaRat repository?</h3>
+
+<p>The GitHub repository is located here: https://github.com/Grinchiest/SantaRat</p>
+
+<blockquote>
+  <p>Answer: <strong>Grinchiest</strong></p>
+</blockquote>
+
+<h3 id="explore-the-other-repositories-that-this-user-owns-what-is-the-name-of-the-repository-that-seems-especially-pertinent-to-our-investigation">Explore the other repositories that this user owns. What is the name of the repository that seems especially pertinent to our investigation?</h3>
+
+<p>The following repository is of interest: https://github.com/Grinchiest/operation-bag-of-toys</p>
+
+<blockquote>
+  <p>Answer: <strong>operation-bag-of-toys</strong></p>
+</blockquote>
+
+<h3 id="what-is-the-name-of-the-executable-that-installed-a-unique-utility-the-actor-used-to-collect-the-bag-of-toys">What is the name of the executable that installed a unique utility the actor used to collect the bag of toys?</h3>
+
+<p>The third log file shows the user installing a utility.</p>
+
+<p><img src="/assets/images/2021-12-17-advent-of-cyber-day-8/d8_07.jpg" /></p>
+
+<blockquote>
+  <p>Answer: <strong>uharc-cmd-install.exe</strong></p>
+</blockquote>
+
+<h3 id="what-are-the-contents-of-these-malicious-files-coal-mold-and-all-the-others">What are the contents of these “malicious” files (coal, mold, and all the others)?</h3>
+
+<p>The fourth log file shows the values being overridden by a value of <code class="language-plaintext highlighter-rouge">GRINCHMAS</code>.</p>
+
+<p><img src="/assets/images/2021-12-17-advent-of-cyber-day-8/d8_08.jpg" /></p>
+
+<blockquote>
+  <p>Answer: <strong>GRINCHMAS</strong></p>
+</blockquote>
+
+<h3 id="what-is-the-password-to-the-original-bag_of_toysuha-archive">What is the password to the original bag_of_toys.uha archive?</h3>
+
+<p>The user accidentally committed the <code class="language-plaintext highlighter-rouge">bag_of_toys.uha</code> file which also included the password in the commit message.</p>
+
+<p>https://github.com/Grinchiest/operation-bag-of-toys/commit/41615462e4fdc0ceeb4ef1bec693ec3de1125ed2</p>
+
+<p><img src="/assets/images/2021-12-17-advent-of-cyber-day-8/d8_09.jpg" /></p>
+
+<blockquote>
+  <p>Answer: <strong>TheGrinchiestGrinchmasOfAll</strong></p>
+</blockquote>
+
+<h3 id="how-many-original-files-were-present-in-santas-bag-of-toys">How many original files were present in Santa’s Bag of Toys?</h3>
+
+<p>Opening the <code class="language-plaintext highlighter-rouge">bag_of_toys.uha</code> file with the discovered password show us the total number of files.</p>
+
+<p><img src="/assets/images/2021-12-17-advent-of-cyber-day-8/d8_10.jpg" /></p>
+
+<blockquote>
+  <p>Answer: <strong>228</strong></p>
+</blockquote>
+
+<h3 id="recap">Recap</h3>
+
+<p>In this task we learnt:</p>
+<ul>
+  <li>Windows Forensics</li>
+  <li>LOLbin encoding</li>
+  <li>Base64 decodes via CyberChef</li>
+  <li>Uses for ShellBagsExplorer</li>
+  <li>GitHub OSINT</li>
+</ul>
+
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2021-12-17T12:30:00+11:00">December 17, 2021</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/blog/advent-of-cyber-day-7/" class="pagination--pager" title="TryHackMe: Advent of Cyber - Day 7 - Migration Without Security
+">Previous</a>
+    
+    
+      <a href="/blog/advent-of-cyber-day-9/" class="pagination--pager" title="TryHackMe: Advent of Cyber - Day 9 - Where Is All This Data Going
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2021 andickinson.github.io. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+
+  </body>
+</html>

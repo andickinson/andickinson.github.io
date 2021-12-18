@@ -160,4 +160,28 @@ var store = [{
         "tags": [],
         "url": "/blog/advent-of-cyber-day-7/",
         "teaser": null
+      },{
+        "title": "TryHackMe: Advent of Cyber - Day 8 - Santa's Bag of Toys",
+        "excerpt":"This is a write up for the Day 8 - Santa’s Bag of Toys challenge in the Advent of Cyber room on TryHackMe. Some tasks may have been omitted as they do not require an answer. What operating system is Santa’s laptop running (“OS Name”)? Open the first log file...","categories": [],
+        "tags": [],
+        "url": "/blog/advent-of-cyber-day-8/",
+        "teaser": null
+      },{
+        "title": "TryHackMe: Advent of Cyber - Day 9 - Where Is All This Data Going",
+        "excerpt":"This is a write up for the Day 9 - Where Is All This Data Going challenge in the Advent of Cyber room on TryHackMe. Some tasks may have been omitted as they do not require an answer. What operating system is Santa’s laptop running (“OS Name”)? Answer: login What...","categories": [],
+        "tags": [],
+        "url": "/blog/advent-of-cyber-day-9/",
+        "teaser": null
+      },{
+        "title": "TryHackMe: Advent of Cyber - Day 10 - Offensive Is The Best Defence",
+        "excerpt":"This is a write up for the Day 10 - Offensive Is The Best Defence challenge in the Advent of Cyber room on TryHackMe. Some tasks may have been omitted as they do not require an answer. Help McSkidy and run nmap -sT 10.10.175.143. How many ports are open between...","categories": [],
+        "tags": [],
+        "url": "/blog/advent-of-cyber-day-10/",
+        "teaser": null
+      },{
+        "title": "TryHackMe: Advent of Cyber - Day 11 - Where Are The Reindeers?",
+        "excerpt":"This is a write up for the Day 11 - Where Are The Reindeers? challenge in the Advent of Cyber room on TryHackMe. Some tasks may have been omitted as they do not require an answer. There is an open port related to MS SQL Server accessible over the network....","categories": [],
+        "tags": [],
+        "url": "/blog/advent-of-cyber-day-11/",
+        "teaser": null
       }]
