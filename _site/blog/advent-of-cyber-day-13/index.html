@@ -9,8 +9,8 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>TryHackMe: Advent of Cyber - Day 11 - Where Are The Reindeers? - andickinson.github.io</title>
-<meta name="description" content="Learning about nmap.">
+<!-- begin _includes/seo.html --><title>TryHackMe: Advent of Cyber - Day 13 - They Lost The Plan! - andickinson.github.io</title>
+<meta name="description" content="Learning about Windows Privilege Escalation.">
 
 
   <meta name="author" content="Andrew Dickinson">
@@ -22,26 +22,26 @@
 <meta property="og:type" content="article">
 <meta property="og:locale" content="en_US">
 <meta property="og:site_name" content="andickinson.github.io">
-<meta property="og:title" content="TryHackMe: Advent of Cyber - Day 11 - Where Are The Reindeers?">
-<meta property="og:url" content="https://andickinson.github.io/blog/advent-of-cyber-day-11/">
+<meta property="og:title" content="TryHackMe: Advent of Cyber - Day 13 - They Lost The Plan!">
+<meta property="og:url" content="https://andickinson.github.io/blog/advent-of-cyber-day-13/">
 
 
-  <meta property="og:description" content="Learning about nmap.">
-
-
-
-
-
-
-
-  <meta property="article:published_time" content="2021-12-18T13:30:00+11:00">
+  <meta property="og:description" content="Learning about Windows Privilege Escalation.">
 
 
 
 
 
 
-<link rel="canonical" href="https://andickinson.github.io/blog/advent-of-cyber-day-11/">
+
+  <meta property="article:published_time" content="2021-12-18T14:30:00+11:00">
+
+
+
+
+
+
+<link rel="canonical" href="https://andickinson.github.io/blog/advent-of-cyber-day-13/">
 
 
 
@@ -270,15 +270,15 @@
 
 
   <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
-    <meta itemprop="headline" content="TryHackMe: Advent of Cyber - Day 11 - Where Are The Reindeers?">
-    <meta itemprop="description" content="Learning about nmap.">
-    <meta itemprop="datePublished" content="2021-12-18T13:30:00+11:00">
+    <meta itemprop="headline" content="TryHackMe: Advent of Cyber - Day 13 - They Lost The Plan!">
+    <meta itemprop="description" content="Learning about Windows Privilege Escalation.">
+    <meta itemprop="datePublished" content="2021-12-18T14:30:00+11:00">
     
 
     <div class="page__inner-wrap">
       
         <header>
-          <h1 id="page-title" class="page__title" itemprop="headline">TryHackMe: Advent of Cyber - Day 11 - Where Are The Reindeers?
+          <h1 id="page-title" class="page__title" itemprop="headline">TryHackMe: Advent of Cyber - Day 13 - They Lost The Plan!
 </h1>
           
 
@@ -287,7 +287,7 @@
       
       <span class="page__meta-date">
         <i class="far fa-calendar-alt" aria-hidden="true"></i>
-        <time datetime="2021-12-18T13:30:00+11:00">December 18, 2021</time>
+        <time datetime="2021-12-18T14:30:00+11:00">December 18, 2021</time>
       </span>
     
 
@@ -300,7 +300,7 @@
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          1 minute read
+          less than 1 minute read
         
       </span>
     
@@ -312,81 +312,80 @@
 
       <section class="page__content" itemprop="text">
         
-        <p>This is a write up for the Day 11 - Where Are The Reindeers? challenge in the <a href="https://tryhackme.com/room/adventofcyber3"><strong>Advent of Cyber</strong></a> room on <a href="https://tryhackme.com">TryHackMe</a>. Some tasks may have been omitted as they do not require an answer.</p>
+        <p>This is a write up for the Day 13 - They Lost The Plan! challenge in the <a href="https://tryhackme.com/room/adventofcyber3"><strong>Advent of Cyber</strong></a> room on <a href="https://tryhackme.com">TryHackMe</a>. Some tasks may have been omitted as they do not require an answer.</p>
 
 <hr />
 
-<h3 id="there-is-an-open-port-related-to-ms-sql-server-accessible-over-the-network-what-is-the-port-number">There is an open port related to MS SQL Server accessible over the network. What is the port number?</h3>
+<h3 id="complete-the-username-p">Complete the username: p…..</h3>
 
-<p>Run <code class="language-plaintext highlighter-rouge">nmap -sV 10.10.160.62 -v -Pn</code>.</p>
+<p>Open the Command Prompt and type <code class="language-plaintext highlighter-rouge">net users</code></p>
 
-<p><img src="/assets/images/2021-12-18-advent-of-cyber-day-11/d11_01.jpg" /></p>
+<p><img src="/assets/images/2021-12-18-advent-of-cyber-day-13/d13_01.jpg" /></p>
 
 <blockquote>
-  <p>Answer: <strong>1433</strong></p>
+  <p>Answer: <strong>pepper</strong></p>
 </blockquote>
 
-<h3 id="if-the-connection-is-successful-you-will-get-a-prompt-what-is-the-prompt-that-you-have-received">If the connection is successful, you will get a prompt. What is the prompt that you have received?</h3>
+<h3 id="what-is-the-os-version">What is the OS version?</h3>
 
-<p>Run <code class="language-plaintext highlighter-rouge">sqsh -S 10.10.160.62 -U sa -p t7uLKzddQzVjVFJp</code></p>
+<p>Run <code class="language-plaintext highlighter-rouge">systeminfo</code></p>
 
-<p><img src="/assets/images/2021-12-18-advent-of-cyber-day-11/d11_02.jpg" /></p>
+<p><img src="/assets/images/2021-12-18-advent-of-cyber-day-13/d13_02.jpg" /></p>
 
 <blockquote>
-  <p>Answer: <strong>1&gt;</strong></p>
+  <p>Answer: <strong>10.0.17763 N/A Build 17763</strong></p>
 </blockquote>
 
-<h3 id="we-can-see-four-columns-in-the-table-displayed-above-id-first-name-last-name-and-nickname-what-is-the-first-name-of-the-reindeer-of-id-9">We can see four columns in the table displayed above: id, first (name), last (name), and nickname. What is the first name of the reindeer of id 9?</h3>
+<h3 id="what-backup-service-did-you-find-running-on-the-system">What backup service did you find running on the system?</h3>
 
-<p><img src="/assets/images/2021-12-18-advent-of-cyber-day-11/d11_03.jpg" /></p>
+<p>Run <code class="language-plaintext highlighter-rouge">wmic service list | findstr "Backup"</code></p>
+
+<p><img src="/assets/images/2021-12-18-advent-of-cyber-day-13/d13_03.jpg" /></p>
 
 <blockquote>
-  <p>Answer: <strong>Rudolph</strong></p>
+  <p>Answer: <strong>IperiusSvc</strong></p>
 </blockquote>
 
-<h3 id="check-the-table-schedule-what-is-the-destination-of-the-trip-scheduled-on-december-7">Check the table schedule. What is the destination of the trip scheduled on December 7?</h3>
-
-<p>Run <code class="language-plaintext highlighter-rouge">SELECT * FROM reindeer.dbo.schedule</code></p>
-
-<p><img src="/assets/images/2021-12-18-advent-of-cyber-day-11/d11_04.jpg" /></p>
+<h3 id="what-is-the-path-of-the-executable-for-the-backup-service-you-have-identified">What is the path of the executable for the backup service you have identified?</h3>
 
 <blockquote>
-  <p>Answer: <strong>Prague</strong></p>
+  <p>Answer: <strong>C:\Program Files (x86)\Iperius Backup\IperiusService.exe</strong></p>
 </blockquote>
 
-<h3 id="check-the-table-presents-what-is-the-quantity-available-for-the-present-power-bank">Check the table presents. What is the quantity available for the present “Power Bank”?</h3>
+<h3 id="run-the-whoami-command-on-the-connection-you-have-received-on-your-attacking-machine-what-user-do-you-have">Run the whoami command on the connection you have received on your attacking machine. What user do you have?</h3>
 
-<p>Run <code class="language-plaintext highlighter-rouge">SELECT * FROM reindeer.dbo.presents</code></p>
-
-<p><img src="/assets/images/2021-12-18-advent-of-cyber-day-11/d11_05.jpg" /></p>
+<p><img src="/assets/images/2021-12-18-advent-of-cyber-day-13/d13_04.jpg" /></p>
 
 <blockquote>
-  <p>Answer: <strong>25000</strong></p>
+  <p>Answer: <strong>the-grinch-hack\thegrinch</strong></p>
 </blockquote>
 
-<h3 id="there-is-a-flag-hidden-in-the-grinch-users-home-directory-what-are-its-contents">There is a flag hidden in the grinch user’s home directory. What are its contents?</h3>
+<h3 id="what-is-the-content-of-the-flagtxt-file">What is the content of the flag.txt file?</h3>
 
-<p>Run <code class="language-plaintext highlighter-rouge">xp_cmdshell 'dir c:\users\grinch\Documents</code></p>
+<p>Run <code class="language-plaintext highlighter-rouge">cd C:\Users\thegrinch\Documents</code>
+Run <code class="language-plaintext highlighter-rouge">type flag.txt</code></p>
 
-<p>This shows a file called <code class="language-plaintext highlighter-rouge">flag.txt</code>.</p>
-
-<p><img src="/assets/images/2021-12-18-advent-of-cyber-day-11/d11_06.jpg" /></p>
-
-<p>Run <code class="language-plaintext highlighter-rouge">xp_cmdshell 'type c:\users\grinch\Documents\flag.txt</code></p>
-
-<p><img src="/assets/images/2021-12-18-advent-of-cyber-day-11/d11_07.jpg" /></p>
+<p><img src="/assets/images/2021-12-18-advent-of-cyber-day-13/d13_05.jpg" /></p>
 
 <blockquote>
-  <p>Answer: <strong>THM{YjtKeUy2qT3v5dDH}</strong></p>
+  <p>Answer: <strong>THM-736635221</strong></p>
+</blockquote>
+
+<h3 id="the-grinch-forgot-to-delete-a-file-where-he-kept-notes-about-his-schedule-where-can-we-find-him-at-530">The Grinch forgot to delete a file where he kept notes about his schedule! Where can we find him at 5:30?</h3>
+
+<p>Run <code class="language-plaintext highlighter-rouge">type Schedule.txt</code></p>
+
+<p><img src="/assets/images/2021-12-18-advent-of-cyber-day-13/d13_06.jpg" /></p>
+
+<blockquote>
+  <p>Answer: <strong>jazzercize</strong></p>
 </blockquote>
 
 <h3 id="recap">Recap</h3>
 
 <p>In this task we learnt:</p>
 <ul>
-  <li>How to conduct port scans</li>
-  <li>Using sqsh to interact with a MS SQL Server</li>
-  <li>Executing commands with xp_cmdshell to read outputs using sqsh</li>
+  <li>How to conduct Windows Privilege Escalation</li>
 </ul>
 
 
@@ -399,7 +398,7 @@
 
 
         
-  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2021-12-18T13:30:00+11:00">December 18, 2021</time></p>
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2021-12-18T14:30:00+11:00">December 18, 2021</time></p>
 
 
       </footer>
@@ -409,12 +408,11 @@
       
   <nav class="pagination">
     
-      <a href="/blog/advent-of-cyber-day-10/" class="pagination--pager" title="TryHackMe: Advent of Cyber - Day 10 - Offensive Is The Best Defence
+      <a href="/blog/advent-of-cyber-day-12/" class="pagination--pager" title="TryHackMe: Advent of Cyber - Day 12 - Sharing Without Caring
 ">Previous</a>
     
     
-      <a href="/blog/advent-of-cyber-day-12/" class="pagination--pager" title="TryHackMe: Advent of Cyber - Day 12 - Sharing Without Caring
-">Next</a>
+      <a href="#" class="pagination--pager disabled">Next</a>
     
   </nav>
 

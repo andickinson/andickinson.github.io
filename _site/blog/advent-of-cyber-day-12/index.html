@@ -9,7 +9,7 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>TryHackMe: Advent of Cyber - Day 11 - Where Are The Reindeers? - andickinson.github.io</title>
+<!-- begin _includes/seo.html --><title>TryHackMe: Advent of Cyber - Day 12 - Sharing Without Caring - andickinson.github.io</title>
 <meta name="description" content="Learning about nmap.">
 
 
@@ -22,8 +22,8 @@
 <meta property="og:type" content="article">
 <meta property="og:locale" content="en_US">
 <meta property="og:site_name" content="andickinson.github.io">
-<meta property="og:title" content="TryHackMe: Advent of Cyber - Day 11 - Where Are The Reindeers?">
-<meta property="og:url" content="https://andickinson.github.io/blog/advent-of-cyber-day-11/">
+<meta property="og:title" content="TryHackMe: Advent of Cyber - Day 12 - Sharing Without Caring">
+<meta property="og:url" content="https://andickinson.github.io/blog/advent-of-cyber-day-12/">
 
 
   <meta property="og:description" content="Learning about nmap.">
@@ -34,14 +34,14 @@
 
 
 
-  <meta property="article:published_time" content="2021-12-18T13:30:00+11:00">
+  <meta property="article:published_time" content="2021-12-18T14:00:00+11:00">
 
 
 
 
 
 
-<link rel="canonical" href="https://andickinson.github.io/blog/advent-of-cyber-day-11/">
+<link rel="canonical" href="https://andickinson.github.io/blog/advent-of-cyber-day-12/">
 
 
 
@@ -270,15 +270,15 @@
 
 
   <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
-    <meta itemprop="headline" content="TryHackMe: Advent of Cyber - Day 11 - Where Are The Reindeers?">
+    <meta itemprop="headline" content="TryHackMe: Advent of Cyber - Day 12 - Sharing Without Caring">
     <meta itemprop="description" content="Learning about nmap.">
-    <meta itemprop="datePublished" content="2021-12-18T13:30:00+11:00">
+    <meta itemprop="datePublished" content="2021-12-18T14:00:00+11:00">
     
 
     <div class="page__inner-wrap">
       
         <header>
-          <h1 id="page-title" class="page__title" itemprop="headline">TryHackMe: Advent of Cyber - Day 11 - Where Are The Reindeers?
+          <h1 id="page-title" class="page__title" itemprop="headline">TryHackMe: Advent of Cyber - Day 12 - Sharing Without Caring
 </h1>
           
 
@@ -287,7 +287,7 @@
       
       <span class="page__meta-date">
         <i class="far fa-calendar-alt" aria-hidden="true"></i>
-        <time datetime="2021-12-18T13:30:00+11:00">December 18, 2021</time>
+        <time datetime="2021-12-18T14:00:00+11:00">December 18, 2021</time>
       </span>
     
 
@@ -312,81 +312,86 @@
 
       <section class="page__content" itemprop="text">
         
-        <p>This is a write up for the Day 11 - Where Are The Reindeers? challenge in the <a href="https://tryhackme.com/room/adventofcyber3"><strong>Advent of Cyber</strong></a> room on <a href="https://tryhackme.com">TryHackMe</a>. Some tasks may have been omitted as they do not require an answer.</p>
+        <p>This is a write up for the Day 12 - Sharing Without Caring challenge in the <a href="https://tryhackme.com/room/adventofcyber3"><strong>Advent of Cyber</strong></a> room on <a href="https://tryhackme.com">TryHackMe</a>. Some tasks may have been omitted as they do not require an answer.</p>
 
 <hr />
 
-<h3 id="there-is-an-open-port-related-to-ms-sql-server-accessible-over-the-network-what-is-the-port-number">There is an open port related to MS SQL Server accessible over the network. What is the port number?</h3>
+<h3 id="scan-the-target-server-with-the-ip-1010152229-remember-that-ms-windows-hosts-block-pings-by-default-so-we-need-to-add--pn-for-example-nmap--pn-1010152229-for-the-scan-to-work-correctly-how-many-tcp-ports-are-open">Scan the target server with the IP 10.10.152.229. Remember that MS Windows hosts block pings by default, so we need to add -Pn, for example, nmap -Pn 10.10.152.229 for the scan to work correctly. How many TCP ports are open?</h3>
 
-<p>Run <code class="language-plaintext highlighter-rouge">nmap -sV 10.10.160.62 -v -Pn</code>.</p>
+<p>Run <code class="language-plaintext highlighter-rouge">nmap -Pn 10.10.152.229 -v</code>.</p>
 
-<p><img src="/assets/images/2021-12-18-advent-of-cyber-day-11/d11_01.jpg" /></p>
+<p><img src="/assets/images/2021-12-18-advent-of-cyber-day-12/d12_01.jpg" /></p>
 
 <blockquote>
-  <p>Answer: <strong>1433</strong></p>
+  <p>Answer: <strong>7</strong></p>
 </blockquote>
 
-<h3 id="if-the-connection-is-successful-you-will-get-a-prompt-what-is-the-prompt-that-you-have-received">If the connection is successful, you will get a prompt. What is the prompt that you have received?</h3>
-
-<p>Run <code class="language-plaintext highlighter-rouge">sqsh -S 10.10.160.62 -U sa -p t7uLKzddQzVjVFJp</code></p>
-
-<p><img src="/assets/images/2021-12-18-advent-of-cyber-day-11/d11_02.jpg" /></p>
+<h3 id="in-the-scan-results-you-received-earlier-you-should-be-able-to-spot-nfs-or-mountd-depending-on-whether-you-used-the--sv-option-with-nmap-or-not-which-port-is-detected-by-nmap-as-nfs-or-using-the-mountd-service">In the scan results you received earlier, you should be able to spot NFS or mountd, depending on whether you used the -sV option with Nmap or not. Which port is detected by Nmap as NFS or using the mountd service?</h3>
 
 <blockquote>
-  <p>Answer: <strong>1&gt;</strong></p>
+  <p>Answer: <strong>2049</strong></p>
 </blockquote>
 
-<h3 id="we-can-see-four-columns-in-the-table-displayed-above-id-first-name-last-name-and-nickname-what-is-the-first-name-of-the-reindeer-of-id-9">We can see four columns in the table displayed above: id, first (name), last (name), and nickname. What is the first name of the reindeer of id 9?</h3>
+<h3 id="how-many-shares-did-you-find">How many shares did you find?</h3>
 
-<p><img src="/assets/images/2021-12-18-advent-of-cyber-day-11/d11_03.jpg" /></p>
+<p>Run <code class="language-plaintext highlighter-rouge">showmount -e 10.10.152.229</code></p>
+
+<p><img src="/assets/images/2021-12-18-advent-of-cyber-day-12/d12_02.jpg" /></p>
 
 <blockquote>
-  <p>Answer: <strong>Rudolph</strong></p>
+  <p>Answer: <strong>4</strong></p>
 </blockquote>
 
-<h3 id="check-the-table-schedule-what-is-the-destination-of-the-trip-scheduled-on-december-7">Check the table schedule. What is the destination of the trip scheduled on December 7?</h3>
-
-<p>Run <code class="language-plaintext highlighter-rouge">SELECT * FROM reindeer.dbo.schedule</code></p>
-
-<p><img src="/assets/images/2021-12-18-advent-of-cyber-day-11/d11_04.jpg" /></p>
+<h3 id="how-many-shares-show-everyone">How many shares show “everyone”?</h3>
 
 <blockquote>
-  <p>Answer: <strong>Prague</strong></p>
+  <p>Answer: <strong>3</strong></p>
 </blockquote>
 
-<h3 id="check-the-table-presents-what-is-the-quantity-available-for-the-present-power-bank">Check the table presents. What is the quantity available for the present “Power Bank”?</h3>
+<h3 id="what-is-the-title-of-file-2680-0txt">What is the title of file 2680-0.txt?</h3>
 
-<p>Run <code class="language-plaintext highlighter-rouge">SELECT * FROM reindeer.dbo.presents</code></p>
+<p>Run <code class="language-plaintext highlighter-rouge">mount 10.10.152.229:/share tmp1</code></p>
 
-<p><img src="/assets/images/2021-12-18-advent-of-cyber-day-11/d11_05.jpg" /></p>
+<p>There are two txt files in the folder.</p>
+
+<p><img src="/assets/images/2021-12-18-advent-of-cyber-day-12/d12_03.jpg" /></p>
+
+<p>Run <code class="language-plaintext highlighter-rouge">head 2680-0.txt</code></p>
+
+<p><img src="/assets/images/2021-12-18-advent-of-cyber-day-12/d12_04.jpg" /></p>
 
 <blockquote>
-  <p>Answer: <strong>25000</strong></p>
+  <p>Answer: <strong>Meditations</strong></p>
 </blockquote>
 
-<h3 id="there-is-a-flag-hidden-in-the-grinch-users-home-directory-what-are-its-contents">There is a flag hidden in the grinch user’s home directory. What are its contents?</h3>
+<h3 id="it-seems-that-grinch-enterprises-has-forgotten-their-ssh-keys-on-our-system-one-of-the-shares-contains-a-private-key-used-for-ssh-authentication-id_rsa-what-is-the-name-of-the-share">It seems that Grinch Enterprises has forgotten their SSH keys on our system. One of the shares contains a private key used for SSH authentication (id_rsa). What is the name of the share?</h3>
 
-<p>Run <code class="language-plaintext highlighter-rouge">xp_cmdshell 'dir c:\users\grinch\Documents</code></p>
+<p>Run <code class="language-plaintext highlighter-rouge">mount 10.10.152.229:/confidential tmp2</code></p>
 
-<p>This shows a file called <code class="language-plaintext highlighter-rouge">flag.txt</code>.</p>
+<p>You can see the ssh folder inside this directory.</p>
 
-<p><img src="/assets/images/2021-12-18-advent-of-cyber-day-11/d11_06.jpg" /></p>
-
-<p>Run <code class="language-plaintext highlighter-rouge">xp_cmdshell 'type c:\users\grinch\Documents\flag.txt</code></p>
-
-<p><img src="/assets/images/2021-12-18-advent-of-cyber-day-11/d11_07.jpg" /></p>
+<p><img src="/assets/images/2021-12-18-advent-of-cyber-day-12/d12_05.jpg" /></p>
 
 <blockquote>
-  <p>Answer: <strong>THM{YjtKeUy2qT3v5dDH}</strong></p>
+  <p>Answer: <strong>confidential</strong></p>
+</blockquote>
+
+<h3 id="we-can-calculate-the-md5-sum-of-a-file-using-md5sum-filename-what-is-the-md5-sum-of-id_rsa">We can calculate the MD5 sum of a file using md5sum FILENAME. What is the MD5 sum of id_rsa?</h3>
+
+<p>Run <code class="language-plaintext highlighter-rouge">md5sum id_rsa</code></p>
+
+<p><img src="/assets/images/2021-12-18-advent-of-cyber-day-12/d12_06.jpg" /></p>
+
+<blockquote>
+  <p>Answer: <strong>3e2d315a38f377f304f5598dc2f044de</strong></p>
 </blockquote>
 
 <h3 id="recap">Recap</h3>
 
 <p>In this task we learnt:</p>
 <ul>
-  <li>How to conduct port scans</li>
-  <li>Using sqsh to interact with a MS SQL Server</li>
-  <li>Executing commands with xp_cmdshell to read outputs using sqsh</li>
+  <li>More about nmap</li>
+  <li>Investigating NFS</li>
 </ul>
 
 
@@ -399,7 +404,7 @@
 
 
         
-  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2021-12-18T13:30:00+11:00">December 18, 2021</time></p>
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2021-12-18T14:00:00+11:00">December 18, 2021</time></p>
 
 
       </footer>
@@ -409,11 +414,11 @@
       
   <nav class="pagination">
     
-      <a href="/blog/advent-of-cyber-day-10/" class="pagination--pager" title="TryHackMe: Advent of Cyber - Day 10 - Offensive Is The Best Defence
+      <a href="/blog/advent-of-cyber-day-11/" class="pagination--pager" title="TryHackMe: Advent of Cyber - Day 11 - Where Are The Reindeers?
 ">Previous</a>
     
     
-      <a href="/blog/advent-of-cyber-day-12/" class="pagination--pager" title="TryHackMe: Advent of Cyber - Day 12 - Sharing Without Caring
+      <a href="/blog/advent-of-cyber-day-13/" class="pagination--pager" title="TryHackMe: Advent of Cyber - Day 13 - They Lost The Plan!
 ">Next</a>
     
   </nav>

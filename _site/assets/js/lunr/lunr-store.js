@@ -184,4 +184,16 @@ var store = [{
         "tags": [],
         "url": "/blog/advent-of-cyber-day-11/",
         "teaser": null
+      },{
+        "title": "TryHackMe: Advent of Cyber - Day 12 - Sharing Without Caring",
+        "excerpt":"This is a write up for the Day 12 - Sharing Without Caring challenge in the Advent of Cyber room on TryHackMe. Some tasks may have been omitted as they do not require an answer. Scan the target server with the IP 10.10.152.229. Remember that MS Windows hosts block pings...","categories": [],
+        "tags": [],
+        "url": "/blog/advent-of-cyber-day-12/",
+        "teaser": null
+      },{
+        "title": "TryHackMe: Advent of Cyber - Day 13 - They Lost The Plan!",
+        "excerpt":"This is a write up for the Day 13 - They Lost The Plan! challenge in the Advent of Cyber room on TryHackMe. Some tasks may have been omitted as they do not require an answer. Complete the username: p….. Open the Command Prompt and type net users Answer: pepper...","categories": [],
+        "tags": [],
+        "url": "/blog/advent-of-cyber-day-13/",
+        "teaser": null
       }]
