@@ -1,7 +1,7 @@
 ---
 title:  "TryHackMe: Advent of Cyber - Day 14 - Dev(Insecure)Ops"
 date:   2021-12-19 13:30:00 +1000
-excerpt: Learning about Windows Privilege Escalation.
+excerpt: Learning about Exploiting CI/CD.
 ---
 
 This is a write up for the Day 14 - Dev(Insecure)Ops challenge in the [**Advent of Cyber**](https://tryhackme.com/room/adventofcyber3) room on [TryHackMe](https://tryhackme.com). Some tasks may have been omitted as they do not require an answer.
