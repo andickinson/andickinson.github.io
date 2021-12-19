@@ -196,4 +196,10 @@ var store = [{
         "tags": [],
         "url": "/blog/advent-of-cyber-day-13/",
         "teaser": null
+      },{
+        "title": "TryHackMe: Advent of Cyber - Day 14 - Dev Insecure Ops",
+        "excerpt":"This is a write up for the Day 14 - Dev(Insecure)Ops challenge in the Advent of Cyber room on TryHackMe. Some tasks may have been omitted as they do not require an answer. How many pages did the dirb scan find with its default wordlist? Answer: 4 How many scripts...","categories": [],
+        "tags": [],
+        "url": "/blog/advent-of-cyber-day-14a/",
+        "teaser": null
       }]

@@ -1,6 +1,6 @@
 ---
-title:  "TryHackMe: Advent of Cyber - Day 14 - Dev(Insecure)Ops"
-date:   2021-12-19 13:30:00 +1000
+title:  "TryHackMe: Advent of Cyber - Day 14 - Dev Insecure Ops"
+date:   2021-12-19 08:00:00 +1000
 excerpt: Learning about Exploiting CI/CD.
 ---
 
