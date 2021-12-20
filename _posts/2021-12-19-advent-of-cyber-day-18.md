@@ -37,6 +37,3 @@ This is a write up for the Day 18 - Playing With Containers challenge in the [**
 In this task we learnt:
  * How to exploit AWS implementations
  * How to interrogate Docker containers
- 
-
- api_key=a90eac086fd049ab9a08374f65d1e977
