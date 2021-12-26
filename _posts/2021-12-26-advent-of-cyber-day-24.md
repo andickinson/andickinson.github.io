@@ -22,7 +22,7 @@ This is a write up for the Day 24 - Learning From The Grinch challenge in the [*
 
 ### What is the password for this user?
 
-<img src="{{ site.baseurl }}/assets/images/2021-12-26-advent-of-cyber-day-24/d24_02.jpg">
+<img src="{{ site.baseurl }}/assets/images/2021-12-26-advent-of-cyber-day-24/d24_03.jpg">
 
 > Answer: **1234567890**
 
